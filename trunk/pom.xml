@@ -10,7 +10,7 @@
   
 	<groupId>org.rwshop</groupId>
 	<artifactId>org.rwshop.project.root</artifactId>
-	<version>0.8.6</version>
+	<version>0.8.7-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>${project.artifactId} - Root pom</name>
 	<url>http://www.rwshop.org</url>
