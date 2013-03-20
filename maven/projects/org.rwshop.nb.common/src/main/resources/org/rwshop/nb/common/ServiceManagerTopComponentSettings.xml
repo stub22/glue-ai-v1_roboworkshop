@@ -16,7 +16,7 @@
 -->
 <!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
 <settings version="1.0">
-    <module name="org.rwshop.org.rwshop.nb.common" spec="0.8.6"/>
+    <module name="org.rwshop.org.rwshop.nb.common" spec="0.8.7"/>
     <instanceof class="org.openide.windows.TopComponent"/>
     <instanceof class="org.rwshop.nb.common.ServiceManagerTopComponent"/>
     <instance class="org.rwshop.nb.common.ServiceManagerTopComponent" method="getDefault"/>
