@@ -69,6 +69,8 @@ public class SpectrogramPlayerPanel extends javax.swing.JPanel {
         wavPlayControlPanel1 = new org.rwshop.swing.audio.wav.WavPlayControlPanel();
         wavPlayerPositionPanel1 = new org.rwshop.swing.audio.wav.WavPlayerPositionPanel();
 
+        myWavSpectrogramPanel.setPreferredSize(new java.awt.Dimension(620, 120));
+
         javax.swing.GroupLayout myWavSpectrogramPanelLayout = new javax.swing.GroupLayout(myWavSpectrogramPanel);
         myWavSpectrogramPanel.setLayout(myWavSpectrogramPanelLayout);
         myWavSpectrogramPanelLayout.setHorizontalGroup(
@@ -77,12 +79,10 @@ public class SpectrogramPlayerPanel extends javax.swing.JPanel {
         );
         myWavSpectrogramPanelLayout.setVerticalGroup(
             myWavSpectrogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
+            .addGap(0, 145, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(myWavSpectrogramPanel);
-
-        wavPlayerPositionPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -91,14 +91,14 @@ public class SpectrogramPlayerPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(wavPlayControlPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(wavPlayerPositionPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addComponent(wavPlayerPositionPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)

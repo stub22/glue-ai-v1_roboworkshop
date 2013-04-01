@@ -25,7 +25,7 @@ public class WavPlayerPositionPanel extends javax.swing.JPanel {
     /** Creates new form WavPlayerPositionPanel */
     public WavPlayerPositionPanel() {
         initComponents();
-        myPositionSlider.setPaintLabels(false);
+//        myPositionSlider.setPaintLabels(false);
     }
     
     public void init(WavPlayer player){                               
@@ -51,7 +51,6 @@ public class WavPlayerPositionPanel extends javax.swing.JPanel {
 
         myPositionSlider.setMaximum(10000);
         myPositionSlider.setValue(0);
-        myPositionSlider.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
