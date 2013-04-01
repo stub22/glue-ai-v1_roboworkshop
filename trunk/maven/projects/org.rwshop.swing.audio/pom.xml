@@ -26,8 +26,7 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.1</version>
 			<scope>runtime</scope>
-		    <exclusions>
-				<!-- This embedded Log4J version is not OSGi friendly -->				
+		    <exclusions>			
 		        <exclusion>
 		            <artifactId>log4j</artifactId>
 		            <groupId>log4j</groupId>
