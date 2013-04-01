@@ -66,7 +66,7 @@ public class WavLoaderPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        jTextField1.setText("P:\\\\_prj\\\\robo\\\\_global\\\\test.anim");
+        jTextField1.setText("/home/matt/Desktop/back/test.anim");
 
         jButton1.setText("Browse");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
