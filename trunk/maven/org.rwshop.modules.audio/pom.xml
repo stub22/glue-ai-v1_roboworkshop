@@ -12,5 +12,6 @@
 	<name>${project.artifactId} - Audio Module</name>
 	<modules>
 		<module>../projects/org.rwshop.swing.audio</module>
+		<module>../projects/org.rwshop.nb.audio</module>
 	</modules>
 </project>
