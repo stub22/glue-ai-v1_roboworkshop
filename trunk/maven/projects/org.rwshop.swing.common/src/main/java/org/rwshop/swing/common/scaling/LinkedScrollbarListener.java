@@ -34,6 +34,9 @@ public class LinkedScrollbarListener implements AdjustmentListener{
     
     @Override
     public void adjustmentValueChanged(AdjustmentEvent e) {
+        if(myScalingManager == null){
+            return;
+        }
         int val = e.getValue();
         if(Adjustable.HORIZONTAL == myOrientation){
             myScalingManager.setFocusPosition(val, null);
