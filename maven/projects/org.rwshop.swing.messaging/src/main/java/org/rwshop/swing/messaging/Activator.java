@@ -31,23 +31,23 @@ public class Activator implements BundleActivator {
     private final static Logger theLogger = LoggerFactory.getLogger(Activator.class);
     
     public void start(final BundleContext context) throws Exception {
-        theLogger.info("AQServiceSwingUI Activation Begin.");
-        
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(AvroTableDemoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                AvroTableDemoFrame frame = new AvroTableDemoFrame();
-                frame.start(context);
-                frame.setVisible(true);
-            }
-        });
-        theLogger.info("AQServiceSwingUI Activation Complete.");
+//        theLogger.info("AQServiceSwingUI Activation Begin.");
+//        
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (Exception ex) {
+//            java.util.logging.Logger.getLogger(AvroTableDemoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//
+//            public void run() {
+//                AvroTableDemoFrame frame = new AvroTableDemoFrame();
+//                frame.start(context);
+//                frame.setVisible(true);
+//            }
+//        });
+//        theLogger.info("AQServiceSwingUI Activation Complete.");
     }
     
     public void stop(BundleContext context) throws Exception {
