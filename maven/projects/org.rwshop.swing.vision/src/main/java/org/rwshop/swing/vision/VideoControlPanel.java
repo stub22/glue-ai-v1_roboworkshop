@@ -30,6 +30,7 @@ import javax.jms.Session;
 import org.apache.qpid.client.AMQConnectionFactory;
 import org.apache.qpid.client.AMQQueue;
 import org.apache.qpid.client.AMQTopic;
+import org.jflux.api.core.util.EmptyAdapter;
 import org.robokind.api.messaging.services.ServiceCommand;
 import org.robokind.api.messaging.services.ServiceCommandFactory;
 import org.robokind.api.messaging.services.ServiceError;
@@ -50,8 +51,6 @@ import org.robokind.impl.messaging.JMSAvroMessageSender;
 import org.robokind.impl.messaging.JMSAvroServiceFacade;
 import org.robokind.impl.messaging.services.PortableServiceCommand;
 import org.robokind.impl.messaging.services.PortableServiceError;
-import org.robokind.impl.vision.PortableImageEvent;
-import org.robokind.impl.vision.PortableImageRegionList;
 
 /**
  *
@@ -253,7 +252,7 @@ public class VideoControlPanel extends javax.swing.JPanel {
         errorReceiver.setAdapter(new PortableServiceError.RecordMessageAdapter());
         errorReceiver.start();
         
-        imageReceiver.setAdapter(new PortableImageEvent.RecordMessageAdapter());
+        imageReceiver.setAdapter(new EmptyAdapter());
         imageReceiver.start();
         
         return service;
@@ -308,7 +307,7 @@ public class VideoControlPanel extends javax.swing.JPanel {
         errorReceiver.setAdapter(new PortableServiceError.RecordMessageAdapter());
         errorReceiver.start();
         
-        imageRgnReceiver.setAdapter(new PortableImageRegionList.RecordMessageAdapter());
+        imageRgnReceiver.setAdapter(new EmptyAdapter());
         imageRgnReceiver.start();        
         
         return service;

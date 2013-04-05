@@ -24,12 +24,12 @@ package org.rwshop.swing.vision;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.beans.Beans;
 import javax.swing.SwingUtilities;
 import org.jflux.api.core.Listener;
 import org.robokind.api.vision.ImageEvent;
 import org.robokind.api.vision.ImageRegion;
 import org.robokind.api.vision.ImageRegionList;
+import org.robokind.impl.vision.PortableImageUtils;
 
 /**
  *
@@ -40,7 +40,7 @@ public class VideoPanel extends javax.swing.JPanel{
     private final static double IMAGE_HEIGHT = 240.0;
     
     private Image myImage;
-    private ImageRegionList myImageRegions;
+    private ImageRegionList<ImageRegion> myImageRegions;
     private Runnable myRepaint;
     private ImageCache myImageCache;
     private ImageRegionListCache myImageRegionListCache;
@@ -70,13 +70,13 @@ public class VideoPanel extends javax.swing.JPanel{
         if(myImage != null){
             g.drawImage(myImage, 0, 0, getWidth(), getHeight(), null);
         }
-        if(myImageRegions != null && myImageRegions.getImageRegions() != null){
+        if(myImageRegions != null && myImageRegions.getRegions() != null){
             g.setColor(Color.red);
             double width = getWidth();
             double height = getHeight();
             double wRatio = width/IMAGE_WIDTH;
             double hRatio = height/IMAGE_HEIGHT;
-            for(ImageRegion r : myImageRegions.getImageRegions()){
+            for(ImageRegion r: myImageRegions.getRegions()){
                 int x = (int)(r.getX() * wRatio);
                 int y = (int)(r.getY() * hRatio);
                 int w = (int)(r.getWidth() * wRatio);
@@ -116,7 +116,7 @@ public class VideoPanel extends javax.swing.JPanel{
             if(event == null){
                 return;
             }
-            Image img = event.getImage();
+            Image img = PortableImageUtils.unpackImage(event);
             if(img == null){
                 return;
             }
