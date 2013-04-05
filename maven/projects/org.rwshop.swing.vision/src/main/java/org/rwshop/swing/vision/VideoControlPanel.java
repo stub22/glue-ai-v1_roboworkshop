@@ -50,7 +50,6 @@ import org.robokind.impl.messaging.JMSAvroMessageAsyncReceiver;
 import org.robokind.impl.messaging.JMSAvroMessageSender;
 import org.robokind.impl.messaging.JMSAvroServiceFacade;
 import org.robokind.impl.messaging.services.PortableServiceCommand;
-import org.robokind.impl.messaging.services.PortableServiceError;
 
 /**
  *
@@ -241,7 +240,7 @@ public class VideoControlPanel extends javax.swing.JPanel {
                         cmdSender, configSender, errorReceiver, 
                         cmdFactory, imageReceiver);
         
-        cmdSender.setAdapter(new PortableServiceCommand.MessageRecordAdapter());
+        cmdSender.setAdapter(new EmptyAdapter());
         cmdSender.setDefaultContentType(JMSAvroServiceFacade.COMMAND_MIME_TYPE);
         cmdSender.start();
         
@@ -249,7 +248,7 @@ public class VideoControlPanel extends javax.swing.JPanel {
 //        configSender.setDefaultContentType(JMSAvroServiceFacade.CONFIG_MIME_TYPE);
 //        configSender.start();
         
-        errorReceiver.setAdapter(new PortableServiceError.RecordMessageAdapter());
+        errorReceiver.setAdapter(new EmptyAdapter());
         errorReceiver.start();
         
         imageReceiver.setAdapter(new EmptyAdapter());
@@ -296,7 +295,7 @@ public class VideoControlPanel extends javax.swing.JPanel {
                         cmdSender, configSender, errorReceiver, 
                         cmdFactory, imageRgnReceiver);
         
-        cmdSender.setAdapter(new PortableServiceCommand.MessageRecordAdapter());
+        cmdSender.setAdapter(new EmptyAdapter());
         cmdSender.setDefaultContentType(JMSAvroServiceFacade.COMMAND_MIME_TYPE);
         cmdSender.start();
         
@@ -304,7 +303,7 @@ public class VideoControlPanel extends javax.swing.JPanel {
 //        configSender.setDefaultContentType(JMSAvroServiceFacade.CONFIG_MIME_TYPE);
 //        configSender.start();
         
-        errorReceiver.setAdapter(new PortableServiceError.RecordMessageAdapter());
+        errorReceiver.setAdapter(new EmptyAdapter());
         errorReceiver.start();
         
         imageRgnReceiver.setAdapter(new EmptyAdapter());
