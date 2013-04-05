@@ -83,7 +83,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package>org.rwshop.swing.messaging</Export-Package>
+                        <Export-Package>org.rwshop.swing.messaging.*</Export-Package>
                         <Bundle-Activator>org.rwshop.swing.messaging.Activator</Bundle-Activator>
                     </instructions>
                 </configuration>
