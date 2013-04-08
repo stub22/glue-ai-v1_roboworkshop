@@ -18,7 +18,6 @@ package org.rwshop.swing.messaging.monitor;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.IndexedRecord;

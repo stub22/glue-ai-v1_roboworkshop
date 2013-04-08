@@ -27,21 +27,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.IndexedRecord;
-import org.robokind.avrogen.messaging.ServiceCommandRecord;
-import org.apache.avro.util.Utf8;
 import org.jflux.api.core.Listener;
-import org.robokind.avrogen.messaging.ServiceErrorRecord;
 
 /**
  *
