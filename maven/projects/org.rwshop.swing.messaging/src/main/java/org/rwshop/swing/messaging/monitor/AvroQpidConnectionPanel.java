@@ -23,6 +23,7 @@ package org.rwshop.swing.messaging.monitor;
 
 import javax.swing.JOptionPane;
 import org.apache.avro.Schema;
+import org.rwshop.swing.common.HistoricalComboBoxModel;
 
 /**
  *
@@ -32,10 +33,22 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
     private OSGiSchemaSelector mySchemaSelector;
     private AvroQpidConnector myConnector;
     private AvroTablePanel myAvroTable;
+    private HistoricalComboBoxModel myIPModel;
+    private HistoricalComboBoxModel myDestModel;
     
     /** Creates new form AvroQpidConnectionPanel */
     public AvroQpidConnectionPanel() {
         initComponents();
+        
+        myIPModel = new HistoricalComboBoxModel(
+                "org.rwshop.swing.messaging.monitor", "ip_history", "127.0.0.1");
+        jComboBox2.setModel(myIPModel);
+        jComboBox2.setEditable(true);
+        
+        myDestModel = new HistoricalComboBoxModel(
+                "org.rwshop.swing.messaging.monitor", "dest_history", "");
+        jComboBox3.setModel(myDestModel);
+        jComboBox3.setEditable(true);
     }
     
     public void setSchemaSelector(OSGiSchemaSelector selector){
@@ -63,23 +76,17 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jComboBox2 = new javax.swing.JComboBox();
+        jComboBox3 = new javax.swing.JComboBox();
 
         jLabel1.setText("IP Address:");
 
         jLabel2.setText("Destination:");
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -100,6 +107,10 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
             }
         });
 
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,9 +125,9 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, 280, Short.MAX_VALUE)))
+                            .addComponent(jComboBox1, 0, 280, Short.MAX_VALUE)
+                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -129,11 +140,11 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,17 +159,18 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            myConnector.setIPAddress(jTextField1.getText());
+            myConnector.setIPAddress(myIPModel.getSelectedItem().toString());
         } catch(IllegalArgumentException e) {
             JOptionPane.showMessageDialog(
                     this,
-                    "Invalid IP address" + jTextField1.getText(),
+                    "Invalid IP address" + myIPModel.getSelectedItem().toString(),
                     "Invalid IP address", JOptionPane.ERROR_MESSAGE);
             
             return;
         }
         
-        myConnector.setDestinationString(jTextField2.getText());
+        myConnector.setDestinationString(
+                myDestModel.getSelectedItem().toString());
         
         pushSchema();
         
@@ -196,10 +208,6 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
         }
     }
     
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         myConnector.disconnect();
         
@@ -215,10 +223,10 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
