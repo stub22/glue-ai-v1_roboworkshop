@@ -69,7 +69,7 @@ public class ManagedServiceListPanel extends JPanel{
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
     
-    public void addService(ManagedService service){
+    public synchronized void addService(ManagedService service){
         if(service == null || myPanelMap.containsKey(service)){
            return;
         }
@@ -91,7 +91,7 @@ public class ManagedServiceListPanel extends JPanel{
         //setPreferredSize(newSize);
     }
 
-    public void removeService(ManagedService service){
+    public synchronized void removeService(ManagedService service){
         if(service == null){
             return;
         }
@@ -108,12 +108,12 @@ public class ManagedServiceListPanel extends JPanel{
         refresh();
     }
     
-    public void clearDependencies(){
+    public synchronized void clearDependencies(){
         myPanelMap.clear();
         removeAll();
     }
     
-    public void setFilters(
+    public synchronized void setFilters(
             String filterStr, boolean classNames, boolean propertyKeys,
             boolean propertyValues, boolean dependencies){
         myFilters = new ArrayList<String>();
