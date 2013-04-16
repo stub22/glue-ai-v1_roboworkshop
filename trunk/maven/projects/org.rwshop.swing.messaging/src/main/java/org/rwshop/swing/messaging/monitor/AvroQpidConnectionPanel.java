@@ -35,6 +35,7 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
     private AvroTablePanel myAvroTable;
     private HistoricalComboBoxModel myIPModel;
     private HistoricalComboBoxModel myDestModel;
+    private SaveLoadPanel mySaveLoadPanel;
     
     /** Creates new form AvroQpidConnectionPanel */
     public AvroQpidConnectionPanel() {
@@ -64,6 +65,10 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
         myAvroTable = avroTable;
         
         pushSchema();
+    }
+    
+    public void setSaveLoadPanel(SaveLoadPanel saveLoadPanel) {
+        mySaveLoadPanel = saveLoadPanel;
     }
 
     /** This method is called from within the constructor to
@@ -187,7 +192,20 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
             
             jButton1.setEnabled(false);
             jButton2.setEnabled(true);
+            
+            return;
         }
+        
+        mySaveLoadPanel.setSession(myConnector.getSession());
+        mySaveLoadPanel.setDestination(myConnector.getDestination());
+        for(Schema schema: mySchemaSelector.getSchemas()) {
+            if(schema.getName() == jComboBox1.getSelectedItem()) {
+                mySaveLoadPanel.setSchema(schema);
+                break;
+            }
+        }
+        mySaveLoadPanel.setAvroTable(myAvroTable);
+        mySaveLoadPanel.activate();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void pushSchema() {
@@ -217,6 +235,8 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
         
         jButton1.setEnabled(false);
         jButton2.setEnabled(true);
+        
+        mySaveLoadPanel.deactivate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
