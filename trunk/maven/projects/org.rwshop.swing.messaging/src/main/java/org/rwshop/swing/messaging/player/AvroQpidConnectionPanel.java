@@ -19,11 +19,13 @@
  *
  * Created on Mar 12, 2013, 12:26:38 PM
  */
-package org.rwshop.swing.messaging.monitor;
+package org.rwshop.swing.messaging.player;
 
 import javax.swing.JOptionPane;
 import org.apache.avro.Schema;
 import org.rwshop.swing.common.HistoricalComboBoxModel;
+import org.rwshop.swing.messaging.monitor.AvroComboBoxModel;
+import org.rwshop.swing.messaging.monitor.OSGiSchemaSelector;
 
 /**
  *
@@ -32,10 +34,9 @@ import org.rwshop.swing.common.HistoricalComboBoxModel;
 public class AvroQpidConnectionPanel extends javax.swing.JPanel {
     private OSGiSchemaSelector mySchemaSelector;
     private AvroQpidConnector myConnector;
-    private AvroTablePanel myAvroTable;
     private HistoricalComboBoxModel myIPModel;
     private HistoricalComboBoxModel myDestModel;
-    private SavePanel mySavePanel;
+    private PlayerPanel myPlayerPanel;
     
     /** Creates new form AvroQpidConnectionPanel */
     public AvroQpidConnectionPanel() {
@@ -61,14 +62,8 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
         myConnector = connector;
     }
     
-    public void setAvroTable(AvroTablePanel avroTable) {
-        myAvroTable = avroTable;
-        
-        pushSchema();
-    }
-    
-    public void setSavePanel(SavePanel savePanel) {
-        mySavePanel = savePanel;
+    public void setPlayerPanel(PlayerPanel saveLoadPanel) {
+        myPlayerPanel = saveLoadPanel;
     }
 
     /** This method is called from within the constructor to
@@ -177,8 +172,6 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
         myConnector.setDestinationString(
                 myDestModel.getSelectedItem().toString());
         
-        pushSchema();
-        
         try {
             myConnector.connect();
             
@@ -196,45 +189,25 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
             return;
         }
         
+        myPlayerPanel.setSession(myConnector.getSession());
+        myPlayerPanel.setDestination(myConnector.getDestination());
         for(Schema schema: mySchemaSelector.getSchemas()) {
             if(schema.getName() == jComboBox1.getSelectedItem()) {
-                mySavePanel.setSchema(schema);
+                myPlayerPanel.setSchema(schema);
                 break;
             }
-        }
-        mySavePanel.setAvroTable(myAvroTable);
-        mySavePanel.activate();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void pushSchema() {
-        if(myConnector == null || mySchemaSelector == null) {
-            return;
         }
         
-        for(Schema schema: mySchemaSelector.getSchemas()) {
-            if(schema.getName() == jComboBox1.getSelectedItem()) {
-                myConnector.setSchema(schema);
-                
-                if(myAvroTable != null) {
-                    myAvroTable.setSchema(schema);
-                }
-                
-                break;
-            }
-        }
-    }
+        myPlayerPanel.activate();
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         myConnector.disconnect();
         
-        if(myAvroTable != null) {
-            myAvroTable.setSchema(null);
-        }
-        
         jButton1.setEnabled(false);
         jButton2.setEnabled(true);
         
-        mySavePanel.deactivate();
+        myPlayerPanel.deactivate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
