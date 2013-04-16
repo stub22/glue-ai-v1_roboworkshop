@@ -45,6 +45,7 @@ public class AvroTableDemoFrame extends javax.swing.JFrame {
         avroQpidConnectionPanel1.setConnector(myConnector);
         avroQpidConnectionPanel1.setSchemaSelector(mySelector);
         avroQpidConnectionPanel1.setAvroTable(avroTablePanel1);
+        avroQpidConnectionPanel1.setSaveLoadPanel(saveLoadPanel1);
     }
 
     /** This method is called from within the constructor to
@@ -58,6 +59,7 @@ public class AvroTableDemoFrame extends javax.swing.JFrame {
 
         avroTablePanel1 = new org.rwshop.swing.messaging.monitor.AvroTablePanel();
         avroQpidConnectionPanel1 = new org.rwshop.swing.messaging.monitor.AvroQpidConnectionPanel();
+        saveLoadPanel1 = new org.rwshop.swing.messaging.monitor.SaveLoadPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,13 +69,16 @@ public class AvroTableDemoFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(avroQpidConnectionPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
             .addComponent(avroTablePanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+            .addComponent(saveLoadPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(avroQpidConnectionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(avroTablePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
+                .addComponent(avroTablePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(saveLoadPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -118,5 +123,6 @@ public class AvroTableDemoFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.rwshop.swing.messaging.monitor.AvroQpidConnectionPanel avroQpidConnectionPanel1;
     private org.rwshop.swing.messaging.monitor.AvroTablePanel avroTablePanel1;
+    private org.rwshop.swing.messaging.monitor.SaveLoadPanel saveLoadPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 public class Activator implements BundleActivator {
     private final static Logger theLogger = LoggerFactory.getLogger(Activator.class);
     
+    @Override
     public void start(final BundleContext context) throws Exception {
 //        theLogger.info("AQServiceSwingUI Activation Begin.");
 //        
@@ -50,6 +51,7 @@ public class Activator implements BundleActivator {
 //        theLogger.info("AQServiceSwingUI Activation Complete.");
     }
     
+    @Override
     public void stop(BundleContext context) throws Exception {
     }
 }

@@ -147,6 +147,14 @@ public class AvroQpidConnector extends DefaultNotifier<IndexedRecord> {
         mySchema = schema;
     }
     
+    public Session getSession() {
+        return mySession;
+    }
+    
+    public Destination getDestination() {
+        return myDestination;
+    }
+    
     class RecordNotifier implements RecordHandler<IndexedRecord>{
         @Override
         public void handleRecord(IndexedRecord t) {

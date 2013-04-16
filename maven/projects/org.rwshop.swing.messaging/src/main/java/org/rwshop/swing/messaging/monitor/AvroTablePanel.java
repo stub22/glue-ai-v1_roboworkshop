@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -131,6 +132,11 @@ public class AvroTablePanel extends javax.swing.JPanel implements Listener<Index
         jTable1 = new JTable(myModel);
         jScrollPane1 = new JScrollPane(jTable1);
         add(jScrollPane1, myConstraints);
+        
+        myConstraints.gridy += 6;
+        myConstraints.gridheight = 1;
+        myConstraints.gridwidth = 1;
+        myConstraints.fill = GridBagConstraints.NONE;
         
         setFilters("");
         revalidate();
@@ -249,5 +255,9 @@ public class AvroTablePanel extends javax.swing.JPanel implements Listener<Index
     public void handleEvent(IndexedRecord t) {
         myRecords.add(t);
         filterCache();
+    }
+    
+    public List<IndexedRecord> getFilteredRecords() {
+        return myFilteredRecords;
     }
 }
