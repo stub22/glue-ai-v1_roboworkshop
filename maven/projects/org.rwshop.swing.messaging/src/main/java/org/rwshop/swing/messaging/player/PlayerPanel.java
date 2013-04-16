@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rwshop.swing.messaging.monitor;
+package org.rwshop.swing.messaging.player;
 
+import org.rwshop.swing.messaging.monitor.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,30 +28,26 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileReader;
-import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.generic.IndexedRecord;
 import org.apache.avro.io.DatumReader;
-import org.apache.avro.io.DatumWriter;
 import org.apache.avro.specific.SpecificDatumReader;
-import org.apache.avro.specific.SpecificDatumWriter;
 import org.robokind.api.common.utils.TimeUtils;
 import org.robokind.impl.messaging.JMSAvroRecordSender;
 import org.robokind.impl.messaging.JMSBytesMessageSender;
 
 /**
  *
- * @author jgpallack
+ * @author Jason G. Pallack <jgpallack@gmail.com>
  */
-public class SaveLoadPanel extends javax.swing.JPanel {
+public class PlayerPanel extends javax.swing.JPanel {
     private Session mySession;
     private Destination myDestination;
     private Schema mySchema;
-    private AvroTablePanel myAvroTable;
     
     /**
      * Creates new form SaveLoadPanel
      */
-    public SaveLoadPanel() {
+    public PlayerPanel() {
         initComponents();
     }
     
@@ -66,65 +63,14 @@ public class SaveLoadPanel extends javax.swing.JPanel {
         mySchema = schema;
     }
     
-    public void setAvroTable(AvroTablePanel avroTable) {
-        myAvroTable = avroTable;
-    }
-    
     public void activate() {
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
-        jButton3.setEnabled(true);
     }
     
     public void deactivate() {
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
-        jButton3.setEnabled(false);
-    }
-    
-    private void saveMessages() {
-        List<IndexedRecord> records = myAvroTable.getFilteredRecords();
-        
-        if(records == null || records.isEmpty()) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Nothing to save!",
-                    "Nothing to save!", JOptionPane.ERROR_MESSAGE);
-            
-            return;
-        }
-        
-        JFileChooser fc = new JFileChooser();
-        int retVal = fc.showSaveDialog(this);
-        
-        if(retVal == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            
-            DatumWriter<IndexedRecord> writer =
-                    new SpecificDatumWriter<IndexedRecord>(mySchema);
-            DataFileWriter<IndexedRecord> fileWriter =
-                    new DataFileWriter<IndexedRecord>(writer);
-            
-            try {
-                fileWriter.create(mySchema, file);
-                
-                for(IndexedRecord record: records) {
-                    fileWriter.append(record);
-                }
-                
-                fileWriter.close();
-                
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Records saved.",
-                        "Success", JOptionPane.INFORMATION_MESSAGE);
-            } catch(IOException ex) {
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Error: " + ex.getMessage(),
-                        "Failure", JOptionPane.ERROR_MESSAGE);
-            }
-        }
     }
     
     private void loadMessages(boolean replay) {
@@ -226,9 +172,8 @@ public class SaveLoadPanel extends javax.swing.JPanel {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
 
-        jButton1.setText("Save");
+        jButton1.setText("Load");
         jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,19 +181,11 @@ public class SaveLoadPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Load");
+        jButton2.setText("Replay");
         jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Replay");
-        jButton3.setEnabled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
             }
         });
 
@@ -258,10 +195,8 @@ public class SaveLoadPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1)
-                .addGap(114, 114, 114)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,27 +204,21 @@ public class SaveLoadPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        saveMessages();
+        loadMessages(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        loadMessages(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         loadMessages(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     // End of variables declaration//GEN-END:variables
 }
