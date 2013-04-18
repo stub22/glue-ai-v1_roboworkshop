@@ -43,6 +43,7 @@ public class PlayerPanel extends javax.swing.JPanel {
     private Session mySession;
     private Destination myDestination;
     private Schema mySchema;
+    private EditorListPanel myEditorList;
     
     /**
      * Creates new form SaveLoadPanel
@@ -63,9 +64,16 @@ public class PlayerPanel extends javax.swing.JPanel {
         mySchema = schema;
     }
     
+    public void setEditorList(EditorListPanel editorList) {
+        myEditorList = editorList;
+    }
+    
     public void activate() {
         jButton1.setEnabled(true);
-        jButton2.setEnabled(true);
+        
+        if(myEditorList.getRecords().size() > 0) {
+            jButton2.setEnabled(true);
+        }
     }
     
     public void deactivate() {
@@ -73,7 +81,7 @@ public class PlayerPanel extends javax.swing.JPanel {
         jButton2.setEnabled(false);
     }
     
-    private void loadMessages(boolean replay) {
+    private void loadMessages() {
         JFileChooser fc = new JFileChooser();
         int retVal = fc.showOpenDialog(this);
         List<IndexedRecord> records = new ArrayList<IndexedRecord>();
@@ -100,65 +108,74 @@ public class PlayerPanel extends javax.swing.JPanel {
                         "Failure", JOptionPane.ERROR_MESSAGE);
             }
             
-            JMSBytesMessageSender msgSender = new JMSBytesMessageSender();
-            msgSender.setSession(mySession);
-            msgSender.setDestination(myDestination);
-            msgSender.openProducer();
-            JMSAvroRecordSender<IndexedRecord> sender =
-                    new JMSAvroRecordSender<IndexedRecord>(msgSender);
-
-            if(!replay) {
-                for(IndexedRecord record: records) {
-                    sender.sendRecord(record);
-                }
-            } else {
-                Comparator<IndexedRecord> cmp = new TimestampComparator();
-                int timestampIndex = -1;
-                long timeline = 0;
-                
-                for(int i = 0; i < mySchema.getFields().size(); i++) {
-                    if(mySchema.getFields().get(i).name().equals(
-                            "timestampMillisecUTC")) {
-                        timestampIndex = i;
-                        break;
-                    }
-                }
-                
-                if(timestampIndex < 0) {
-                    msgSender.closeProducer();
-                    
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Error: no timestamp information present.",
-                            "Failure", JOptionPane.ERROR_MESSAGE);
-                    
-                    return;
-                }
-                
-                Collections.sort(records, cmp);
-                Long firstTimestamp = (Long)records.get(0).get(timestampIndex);
-                
-                for(IndexedRecord record: records) {
-                    Long totalDelay =
-                            (Long)record.get(timestampIndex) - firstTimestamp;
-                    Long delay = totalDelay - timeline;
-                    
-                    if(delay > 0) {
-                        TimeUtils.sleep(delay);
-                    }
-                    
-                    timeline += delay;
-                    sender.sendRecord(record);
-                }
+            myEditorList.clear();
+            
+            for(IndexedRecord record: records) {
+                myEditorList.addRecord(record);
             }
-
-            msgSender.closeProducer();
 
             JOptionPane.showMessageDialog(
                     this,
                     "Records loaded.",
                     "Success", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+    
+    private void playMessages() {
+        List<IndexedRecord> records = myEditorList.getRecords();
+        
+        JMSBytesMessageSender msgSender = new JMSBytesMessageSender();
+        msgSender.setSession(mySession);
+        msgSender.setDestination(myDestination);
+        msgSender.openProducer();
+        JMSAvroRecordSender<IndexedRecord> sender =
+                new JMSAvroRecordSender<IndexedRecord>(msgSender);
+
+        Comparator<IndexedRecord> cmp = new TimestampComparator();
+        int timestampIndex = -1;
+        long timeline = 0;
+
+        for(int i = 0; i < mySchema.getFields().size(); i++) {
+            if(mySchema.getFields().get(i).name().equals(
+                    "timestampMillisecUTC")) {
+                timestampIndex = i;
+                break;
+            }
+        }
+
+        if(timestampIndex < 0) {
+            msgSender.closeProducer();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Error: no timestamp information present.",
+                    "Failure", JOptionPane.ERROR_MESSAGE);
+
+            return;
+        }
+
+        Collections.sort(records, cmp);
+        Long firstTimestamp = (Long)records.get(0).get(timestampIndex);
+
+        for(IndexedRecord record: records) {
+            Long totalDelay =
+                    (Long)record.get(timestampIndex) - firstTimestamp;
+            Long delay = totalDelay - timeline;
+
+            if(delay > 0) {
+                TimeUtils.sleep(delay);
+            }
+
+            timeline += delay;
+            sender.sendRecord(record);
+        }
+
+        msgSender.closeProducer();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Records loaded.",
+                "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -181,7 +198,7 @@ public class PlayerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Replay");
+        jButton2.setText("Play");
         jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +212,7 @@ public class PlayerPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
                 .addComponent(jButton2))
         );
         layout.setVerticalGroup(
@@ -210,11 +227,12 @@ public class PlayerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        loadMessages(false);
+        loadMessages();
+        jButton2.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        loadMessages(true);
+        playMessages();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
