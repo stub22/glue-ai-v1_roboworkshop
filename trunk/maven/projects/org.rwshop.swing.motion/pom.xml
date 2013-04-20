@@ -12,17 +12,6 @@
     <name>${project.artifactId} OSGi Bundle</name>
     <packaging>bundle</packaging>
 
-    <repositories>
-        <repository>
-            <id>netbeans</id>
-            <name>NetBeans</name>
-            <url>http://bits.netbeans.org/maven2/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.felix</groupId>

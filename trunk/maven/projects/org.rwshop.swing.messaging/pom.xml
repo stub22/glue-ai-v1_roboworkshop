@@ -11,34 +11,7 @@
     <name>${project.artifactId} OSGi Bundle</name>
     <packaging>bundle</packaging>
 
-
-    <repositories>
-		<repository>
-			<id>com.springsource.repository.bundles.external</id>
-			<name>Spring EBR External Release Repository</name>
-			<url>http://repository.springsource.com/maven/bundles/external</url>
-		</repository>
-    </repositories>
-
     <dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.6.1</version>
-			<scope>runtime</scope>
-		    <exclusions>
-		        <exclusion>
-		            <artifactId>log4j</artifactId>
-		            <groupId>log4j</groupId>
-		        </exclusion>
-		    </exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.log4j</groupId>
-			<artifactId>com.springsource.org.apache.log4j</artifactId>
-			<version>1.2.16</version>
-			<scope>runtime</scope>			
-		</dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.core</artifactId>
@@ -54,24 +27,6 @@
             <artifactId>org.rwshop.swing.common</artifactId>
             <version>${project.version}</version>
         </dependency>
-<!--        <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.animation</artifactId>
-            <version>${robokind.core.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.motion</artifactId>
-            <version>${robokind.core.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.speech</artifactId>
-            <version>${robokind.core.version}</version>
-            <scope>runtime</scope>
-        </dependency>-->
     </dependencies>
 
     <build>

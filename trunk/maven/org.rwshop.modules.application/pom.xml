@@ -14,7 +14,6 @@
     <modules>
 		<module>../projects/org.rwshop.nb.branding</module>
 		<module>../projects/org.rwshop.nb.application</module>
-<!--		<module>../projects/com.hrkind.ui.nb.workshop</module>-->
 	</modules>
     
 </project>
