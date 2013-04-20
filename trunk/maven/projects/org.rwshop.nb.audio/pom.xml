@@ -5,7 +5,7 @@
 	<parent>
         <groupId>org.rwshop</groupId>
         <artifactId>org.rwshop.modules.audio</artifactId>
-        <version>0.8.9-SNAPSHOT</version>
+        <version>0.8.9</version>
 		<relativePath>../../org.rwshop.modules.audio/pom.xml</relativePath>
     </parent>
     <artifactId>org.rwshop.nb.audio</artifactId>
@@ -163,7 +163,7 @@
                 <artifactId>nbm-maven-plugin</artifactId>
                 <version>3.4</version>
                 <extensions>true</extensions>
-                <configuration>ces>
+                <configuration>ces&gt;
                     <publicPackages>
                         <publicPackage>org.rwshop.nb.audio.*</publicPackage>
                     </publicPackages>
