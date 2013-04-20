@@ -16,10 +16,8 @@
 
 package org.rwshop.swing.messaging;
 
-import javax.swing.UIManager;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.rwshop.swing.messaging.monitor.AvroTableDemoFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
