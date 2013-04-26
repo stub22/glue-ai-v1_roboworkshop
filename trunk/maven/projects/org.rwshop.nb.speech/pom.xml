@@ -60,9 +60,9 @@
             <version>${robokind.core.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.osgi</groupId>
+            <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.compendium</artifactId>
-            <version>4.3.1</version>
+            <version>1.4.0</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -75,9 +75,9 @@
             <version>${robokind.core.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.osgi</groupId>
+            <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.core</artifactId>
-            <version>4.3.1</version>
+            <version>1.4.0</version>
         </dependency>
         <dependency>
             <artifactId>org.robokind.api.common</artifactId>

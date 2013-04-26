@@ -13,9 +13,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.osgi</groupId>
+            <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.core</artifactId>
-            <version>4.3.1</version>
+            <version>1.4.0</version>
         </dependency>
         <dependency>
             <groupId>${robokind.core.groupId}</groupId>

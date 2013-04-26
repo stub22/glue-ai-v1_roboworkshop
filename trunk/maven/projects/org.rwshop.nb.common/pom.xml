@@ -65,15 +65,15 @@
         </dependency>
         <dependency>
             <artifactId>org.osgi.core</artifactId>
-            <groupId>org.osgi</groupId>
+            <groupId>org.apache.felix</groupId>
             <type>jar</type>
-            <version>4.3.1</version>
+            <version>1.4.0</version>
         </dependency>
         <dependency>
             <artifactId>org.osgi.compendium</artifactId>
-            <groupId>org.osgi</groupId>
+            <groupId>org.apache.felix</groupId>
             <type>jar</type>
-            <version>4.3.1</version>
+            <version>1.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
