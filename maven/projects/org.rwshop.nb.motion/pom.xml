@@ -65,13 +65,13 @@
         </dependency>
         <dependency>
             <artifactId>org.osgi.compendium</artifactId>
-            <groupId>org.apache.felix</groupId>
-            <version>1.4.0</version>
+            <groupId>org.osgi</groupId>
+            <version>4.3.1</version>
         </dependency>
         <dependency>
             <artifactId>org.osgi.core</artifactId>
-            <groupId>org.apache.felix</groupId>
-            <version>1.4.0</version>
+            <groupId>org.osgi</groupId>
+            <version>4.3.1</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
