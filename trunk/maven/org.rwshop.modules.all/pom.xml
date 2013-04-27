@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.rwshop</groupId>
 		<artifactId>org.rwshop.project.root</artifactId>
-		<version>0.9.0-SNAPSHOT</version>
+		<version>0.8.9.1-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
@@ -37,17 +37,17 @@
 		<encoding>UTF-8</encoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<netbeans.hint.license>robokind-apache20</netbeans.hint.license>
-        <netbeans.version>RELEASE73</netbeans.version>
+        <netbeans.version>RELEASE701</netbeans.version>
 
 		<appdapter.msg.version>1.0.5</appdapter.msg.version>
 
         <brandingToken>robokindcontroller</brandingToken>
         <cluster>robokind</cluster>
         <robokind.core.groupId>org.robokind</robokind.core.groupId>
-        <robokind.core.version>0.9.0-SNAPSHOT</robokind.core.version>
+        <robokind.core.version>0.8.9.1-SNAPSHOT</robokind.core.version>
         <netbeans.run.params.ide>-J-Xmx1024m</netbeans.run.params.ide>
         <netbeans.run.params>${netbeans.run.params.ide}</netbeans.run.params>
-        <jflux.version>0.1.5-SNAPSHOT</jflux.version>
+        <jflux.version>0.1.4</jflux.version>
 	</properties>
 	<build>
 		<pluginManagement>
