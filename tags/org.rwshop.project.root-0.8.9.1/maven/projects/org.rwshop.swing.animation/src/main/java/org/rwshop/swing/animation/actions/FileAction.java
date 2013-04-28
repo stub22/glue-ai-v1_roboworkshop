@@ -1,0 +1,163 @@
+/*
+ * Copyright 2011 Hanson Robokind LLC.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.rwshop.swing.animation.actions;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import javax.swing.JFileChooser;
+import org.apache.commons.configuration.ConfigurationException;
+import org.jflux.api.core.Source;
+import org.robokind.api.animation.Animation;
+import org.robokind.api.animation.editor.AnimationEditor;
+import org.robokind.api.animation.editor.history.HistoryStack;
+import org.robokind.api.animation.utils.AnimationUtils;
+import org.robokind.api.animation.xml.AnimationXML;
+import org.robokind.api.common.utils.RKSource;
+import org.rwshop.swing.common.utils.MessageAlerter;
+
+/**
+ *
+ * @author Matthew Stevenson <www.robokind.org>
+ */
+public class FileAction {
+
+    /**
+     *
+     */
+    public static class New implements ActionListener{
+        private RKSource<AnimationEditor> mySource;
+        private Source<? extends HistoryStack> myHistoryFactory;
+
+        /**
+         *
+         * @param label
+         * @param source
+         * @param histFact
+         */
+        public New(RKSource<AnimationEditor> source, Source<? extends HistoryStack> histFact){
+            mySource = source;
+            myHistoryFactory = histFact;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Animation anim = new Animation();
+        AnimationEditor controller = new AnimationEditor(anim, null,
+            myHistoryFactory.getValue());
+            mySource.set(controller);
+        }
+    }
+    
+    /**
+     *
+     */
+    public static class Open implements ActionListener{
+        private RKSource<AnimationEditor> mySource;
+        private Source<? extends HistoryStack> myHistoryFactory;
+        private String myPath;
+
+        /**
+         *
+         * @param label
+         * @param source
+         * @param histFact
+         * @param path
+         */
+        public Open(RKSource<AnimationEditor> source, Source<? extends HistoryStack> histFact, String path){
+            mySource = source;
+            myPath = path;
+            myHistoryFactory = histFact;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String path = myPath;
+            if(path == null || path.isEmpty()){
+                JFileChooser fileChooser = new JFileChooser();
+                int i = fileChooser.showOpenDialog(null);
+                if(i == JFileChooser.CANCEL_OPTION){
+                    mySource.set(null);
+                    return;
+                }
+                path = fileChooser.getSelectedFile().getPath();
+            }
+            AnimationEditor temp = mySource.getValue();
+            mySource.set(null);
+            try{
+                Animation anim = AnimationXML.loadAnimation(path);
+                    anim.setVersion(new File(path).getName(), anim.getVersion().getNumber());
+                AnimationEditor editor = new AnimationEditor(anim, path,
+                        myHistoryFactory.getValue());
+                mySource.set(editor);
+            }catch(Throwable t){
+                mySource.set(temp);
+                MessageAlerter.Error("Unable to load Animation", null, t);
+                return;
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    public static class Save implements ActionListener{
+        private RKSource<AnimationEditor> mySource;
+        private boolean myOpenDialog;
+        /**
+         *
+         * @param label
+         * @param source
+         * @param dialog
+         */
+        public Save(RKSource<AnimationEditor> source, boolean dialog){
+            mySource = source;
+            myOpenDialog = dialog;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            AnimationEditor editor = mySource.getValue();
+            String path = editor.getFilePath();
+            if(myOpenDialog || path == null || path.isEmpty()){
+                JFileChooser fileChooser = new JFileChooser();
+                int i = fileChooser.showSaveDialog(null);
+                if(i == JFileChooser.CANCEL_OPTION){
+                    return;
+                }
+                path = fileChooser.getSelectedFile().getPath();
+            }
+            boolean error = true;
+            String innerError = "";
+            Throwable innerException = null;
+            try{
+                AnimationXML.saveAnimation(path, editor.getAnimation(),
+                        AnimationUtils.getChannelsParameterSource(),
+                        editor.collectSynchronizedPointGroups());
+                error = false;
+                editor.setFilePath(path);
+            }catch(ConfigurationException ex){
+                innerError = "There was an error writing the Animation to XML";
+                innerException = ex;
+            }catch(Throwable ex){
+                innerException = ex;
+            }
+            if(error){
+                MessageAlerter.Error("Unable to save Animation", innerError, innerException);
+            }else{
+                MessageAlerter.Ok("File Saved", "The Animation was successfully saved.");
+            }
+        }
+    }
+}
