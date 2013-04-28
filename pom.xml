@@ -10,7 +10,7 @@
   
 	<groupId>org.rwshop</groupId>
 	<artifactId>org.rwshop.project.root</artifactId>
-	<version>0.8.9.1-SNAPSHOT</version>
+	<version>0.8.9.1</version>
 	<packaging>pom</packaging>
 	<name>${project.artifactId} - Root pom</name>
 	<url>http://www.rwshop.org</url>
@@ -28,9 +28,9 @@
 	</modules>
     
 	<scm>
-		<connection>scm:svn:https://subversion.assembla.com/svn/roboworkshop/trunk</connection>
-		<developerConnection>scm:svn:https://subversion.assembla.com/svn/roboworkshop/trunk</developerConnection>
-		<url>https://www.assembla.com/code/roboworkshop/subversion/nodes/trunk/</url>
+		<connection>scm:svn:https://subversion.assembla.com/svn/roboworkshop/tags/org.rwshop.project.root-0.8.9.1</connection>
+		<developerConnection>scm:svn:https://subversion.assembla.com/svn/roboworkshop/tags/org.rwshop.project.root-0.8.9.1</developerConnection>
+		<url>https://www.assembla.com/code/roboworkshop/subversion/nodes/tags/org.rwshop.project.root-0.8.9.1</url>
 	</scm>
 	
 	<build>
