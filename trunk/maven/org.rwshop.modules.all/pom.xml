@@ -36,7 +36,7 @@
         <brandingToken>robokindcontroller</brandingToken>
         <cluster>robokind</cluster>
         <robokind.core.groupId>org.robokind</robokind.core.groupId>
-        <robokind.core.version>0.8.9.2</robokind.core.version>
+        <robokind.core.version>0.9.0</robokind.core.version>
         <netbeans.run.params.ide>-J-Xmx1024m</netbeans.run.params.ide>
         <netbeans.run.params>${netbeans.run.params.ide}</netbeans.run.params>
         <jflux.version>0.1.4</jflux.version>
