@@ -175,7 +175,8 @@ public class DemoPanel extends javax.swing.JPanel {
         mySenderService.start();
         myLifecycle = 
                 new AnimationPlayerClientLifecycle(
-                        "remotePlayer", "remotePlayer", "remoteAnimSender");
+                "remotePlayer", "remotePlayer", "remoteAnimSender",
+                "remoteSignalReceiver");
         myPlayerService = new OSGiComponent(context, myLifecycle);
         myPlayerService.start();
         myStartFlag = true;
