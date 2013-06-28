@@ -39,7 +39,7 @@
         <robokind.core.version>0.9.1-SNAPSHOT</robokind.core.version>
         <netbeans.run.params.ide>-J-Xmx1024m</netbeans.run.params.ide>
         <netbeans.run.params>${netbeans.run.params.ide}</netbeans.run.params>
-        <jflux.version>0.1.4</jflux.version>
+        <jflux.version>0.1.5-SNAPSHOT</jflux.version>
 	</properties>
 	<build>
 		<pluginManagement>
