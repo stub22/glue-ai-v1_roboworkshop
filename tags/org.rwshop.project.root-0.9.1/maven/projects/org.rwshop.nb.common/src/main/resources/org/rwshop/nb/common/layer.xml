@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Window">
+            <file name="org-rwshop-nb-common-ServiceManagerAction.instance">
+                <attr name="component" methodvalue="org.rwshop.nb.common.ServiceManagerTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.common.Bundle#CTL_ServiceManagerAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="Window">
+            <file name="ServiceManagerAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/org-rwshop-nb-common-ServiceManagerAction.instance"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="ServiceManagerTopComponent.settings" url="ServiceManagerTopComponentSettings.xml"/>
+        </folder>
+        <folder name="Modes">
+            <folder name="editor">
+                <file name="ServiceManagerTopComponent.wstcref" url="ServiceManagerTopComponentWstcref.xml"/>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>
