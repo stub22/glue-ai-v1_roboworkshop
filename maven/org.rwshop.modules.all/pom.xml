@@ -29,15 +29,15 @@
 		<encoding>UTF-8</encoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<netbeans.hint.license>robokind-apache20</netbeans.hint.license>
-        <netbeans.version>RELEASE701</netbeans.version>
+        <netbeans.version>RELEASE721</netbeans.version>
 
 		<appdapter.msg.version>1.0.5</appdapter.msg.version>
 
         <brandingToken>robokindcontroller</brandingToken>
         <cluster>robokind</cluster>
         <robokind.core.groupId>org.robokind</robokind.core.groupId>
-        <robokind.core.version>0.9.1</robokind.core.version>
-        <jflux.version>0.1.5</jflux.version>
+        <robokind.core.version>0.9.2-SNAPSHOT</robokind.core.version>
+        <jflux.version>0.1.6-SNAPSHOT</jflux.version>
         <netbeans.run.params.ide>-J-Xmx1024m</netbeans.run.params.ide>
         <netbeans.run.params>${netbeans.run.params.ide}</netbeans.run.params>
 	</properties>
@@ -47,7 +47,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>nbm-maven-plugin</artifactId>
-                    <version>3.4</version>
+                    <version>3.8.1</version>
                     <extensions>true</extensions>
                     <configuration>
                         <brandingToken>${brandingToken}</brandingToken>
