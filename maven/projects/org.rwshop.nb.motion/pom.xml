@@ -119,11 +119,6 @@
             <version>${robokind.core.version}</version>
         </dependency>
         <dependency>
-            <artifactId>org.robokind.avrogen.motion</artifactId>
-            <groupId>org.robokind</groupId>
-            <version>${robokind.core.version}</version>
-        </dependency>
-        <dependency>
             <artifactId>ext.bundle.apache_qpid_010</artifactId>
             <groupId>org.appdapter</groupId>
             <type>jar</type>

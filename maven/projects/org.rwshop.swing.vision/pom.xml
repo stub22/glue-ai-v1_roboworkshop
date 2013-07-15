@@ -20,11 +20,6 @@
         </dependency>
         <dependency>
             <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.avrogen.vision</artifactId>
-            <version>${robokind.core.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
             <artifactId>org.robokind.api.messaging</artifactId>
             <version>${robokind.core.version}</version>
         </dependency>

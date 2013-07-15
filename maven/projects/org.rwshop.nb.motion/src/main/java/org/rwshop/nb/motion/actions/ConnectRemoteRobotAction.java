@@ -38,15 +38,15 @@ import org.robokind.api.motion.protocol.MotionFrameEvent;
 import org.robokind.api.motion.protocol.RobotRequest;
 import org.robokind.api.motion.protocol.RobotResponse;
 import org.robokind.api.motion.utils.RobotUtils;
-import org.robokind.avrogen.motion.MotionFrameEventRecord;
-import org.robokind.avrogen.motion.RobotRequestRecord;
 import org.robokind.impl.messaging.lifecycle.BytesMessageBlockingReceiverLifecycle;
 import org.robokind.impl.messaging.lifecycle.JMSAvroMessageSenderLifecycle;
 import org.robokind.impl.messaging.utils.ConnectionManager;
 import org.robokind.impl.messaging.utils.ConnectionUtils;
+import org.robokind.impl.motion.messaging.MotionFrameEventRecord;
 import org.robokind.impl.motion.messaging.PortableRobotResponse;
 import org.robokind.impl.motion.messaging.PortableMotionFrameEvent;
 import org.robokind.impl.motion.messaging.PortableRobotRequest;
+import org.robokind.impl.motion.messaging.RobotRequestRecord;
 import static org.robokind.impl.messaging.utils.ConnectionUtils.TOPIC;
 
 public final class ConnectRemoteRobotAction implements ActionListener {
