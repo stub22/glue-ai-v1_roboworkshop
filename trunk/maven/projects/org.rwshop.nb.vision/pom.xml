@@ -87,11 +87,6 @@
         </dependency>
         <dependency>
             <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.avrogen.messaging</artifactId>
-            <version>${robokind.core.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
             <artifactId>org.robokind.impl.messaging</artifactId>
             <version>${robokind.core.version}</version>
         </dependency>
@@ -99,11 +94,6 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>org.rwshop.swing.common</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.avrogen.vision</artifactId>
-            <version>${robokind.core.version}</version>
         </dependency>
         <dependency>
             <artifactId>org.jflux.api.core</artifactId>

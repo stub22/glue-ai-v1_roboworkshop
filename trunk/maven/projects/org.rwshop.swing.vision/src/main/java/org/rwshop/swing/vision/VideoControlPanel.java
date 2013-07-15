@@ -39,17 +39,17 @@ import org.robokind.api.vision.ImageRegionList;
 import org.robokind.api.vision.config.CameraServiceConfig;
 import org.robokind.api.vision.config.FaceDetectServiceConfig;
 import org.robokind.api.vision.messaging.RemoteImageRegionServiceClient;
-import org.robokind.avrogen.vision.CameraConfig;
-import org.robokind.avrogen.vision.FaceDetectConfig;
-import org.robokind.avrogen.vision.ImageRecord;
 import org.robokind.api.vision.messaging.RemoteImageServiceClient;
-import org.robokind.avrogen.messaging.ServiceCommandRecord;
-import org.robokind.avrogen.messaging.ServiceErrorRecord;
-import org.robokind.avrogen.vision.ImageRegionListRecord;
 import org.robokind.impl.messaging.JMSAvroMessageAsyncReceiver;
 import org.robokind.impl.messaging.JMSAvroMessageSender;
 import org.robokind.impl.messaging.JMSAvroServiceFacade;
+import org.robokind.impl.messaging.ServiceCommandRecord;
+import org.robokind.impl.messaging.ServiceErrorRecord;
 import org.robokind.impl.messaging.services.PortableServiceCommand;
+import org.robokind.impl.vision.CameraConfig;
+import org.robokind.impl.vision.FaceDetectConfig;
+import org.robokind.impl.vision.ImageRecord;
+import org.robokind.impl.vision.ImageRegionListRecord;
 
 /**
  *
