@@ -182,7 +182,7 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblDependencyCountMouseClicked"/>
               </Events>
             </Component>
-            <Container class="org.rwshop.swing.common.lifecycle.DependencyListPanel" name="pnlDependencyList">
+            <Container class="org.rwshop.swing.common.lifecycle.ManagerDependencyListPanel" name="pnlDependencyList">
               <Properties>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[175, 600]"/>
