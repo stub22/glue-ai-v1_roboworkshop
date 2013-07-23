@@ -27,6 +27,11 @@
             <artifactId>org.robokind.extern.utils.apache_commons_configuration</artifactId>
             <version>${robokind.core.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.api.services</artifactId>
+            <version>${jflux.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

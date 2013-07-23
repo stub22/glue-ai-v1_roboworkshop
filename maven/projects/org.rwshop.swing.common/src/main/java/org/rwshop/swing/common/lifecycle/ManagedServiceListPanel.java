@@ -28,6 +28,8 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import org.jflux.api.service.Manager;
+import org.jflux.api.service.ServiceManager;
 import org.osgi.framework.BundleContext;
 import org.robokind.api.common.lifecycle.DependencyDescriptor;
 import org.robokind.api.common.lifecycle.ManagedService;
@@ -39,11 +41,11 @@ import org.robokind.api.common.osgi.ServiceClassListener;
  */
 public class ManagedServiceListPanel extends JPanel{
     private final static Logger theLogger = Logger.getLogger(ManagedServiceListPanel.class.getName());
-    private Map<ManagedService,ManagedServicePanel> myPanelMap;
+    private Map<Manager,AbstractServicePanel> myPanelMap;
     private ManagedServiceListener myServiceChangeListener;
     private ServiceClassListener<ManagedService> myServiceTracker;
     private List<String> myFilters;
-    private Map<ManagedService,ManagedServicePanel> myFilteredCache;
+    private Map<Manager,AbstractServicePanel> myFilteredCache;
     private boolean myClassNames;
     private boolean myPropertyKeys;
     private boolean myPropertyValues;
@@ -51,7 +53,7 @@ public class ManagedServiceListPanel extends JPanel{
     
     public ManagedServiceListPanel(){
         myServiceChangeListener = new ManagedServiceListener(this);
-        myPanelMap = new HashMap<ManagedService, ManagedServicePanel>();
+        myPanelMap = new HashMap<Manager, AbstractServicePanel>();
         
         setFilters("", true, true, true, true);
     }
@@ -73,9 +75,24 @@ public class ManagedServiceListPanel extends JPanel{
         if(service == null || myPanelMap.containsKey(service)){
            return;
         }
-        ManagedServicePanel panel = new ManagedServicePanel();
+        AbstractServicePanel panel = new ManagedServicePanel();
         panel.setVisible(false);
-        panel.setManagedService(service);
+        panel.setService(service);
+        myPanelMap.put(service, panel);
+        add(panel);
+        resize(panel.getPreferredSize().height);
+        panel.setVisible(true);
+        
+        filterCache();
+    }
+    
+    public synchronized void addService(ServiceManager service){
+        if(service == null || myPanelMap.containsKey(service)){
+           return;
+        }
+        AbstractServicePanel panel = new ServiceManagerPanel();
+        panel.setVisible(false);
+        panel.setService(service);
         myPanelMap.put(service, panel);
         add(panel);
         resize(panel.getPreferredSize().height);
@@ -91,11 +108,11 @@ public class ManagedServiceListPanel extends JPanel{
         //setPreferredSize(newSize);
     }
 
-    public synchronized void removeService(ManagedService service){
+    public synchronized void removeService(Manager service){
         if(service == null){
             return;
         }
-        ManagedServicePanel panel = myPanelMap.remove(service);
+        AbstractServicePanel panel = myPanelMap.remove(service);
         if(panel == null){
             return;
         }
@@ -142,10 +159,13 @@ public class ManagedServiceListPanel extends JPanel{
             
             return;
         }
-        myFilteredCache = new HashMap<ManagedService,ManagedServicePanel>();
-        for(ManagedService thals : myPanelMap.keySet()){
-            if(filterList(thals)){
-                myFilteredCache.put(thals, myPanelMap.get(thals));
+        myFilteredCache = new HashMap<Manager,AbstractServicePanel>();
+        for(Manager thals : myPanelMap.keySet()){
+            if(thals instanceof ManagedService){
+                ManagedService msthals = (ManagedService)thals;
+                if(filterList(msthals)){
+                    myFilteredCache.put(thals, myPanelMap.get(thals));
+                }
             }
         }
         
@@ -153,7 +173,7 @@ public class ManagedServiceListPanel extends JPanel{
     }
     
     private void refresh(){
-        for(ManagedService ms : myPanelMap.keySet()){
+        for(Manager ms : myPanelMap.keySet()){
             if(myFilteredCache.containsKey(ms)){
                 myPanelMap.get(ms).setVisible(true);
             }else{
@@ -248,6 +268,34 @@ public class ManagedServiceListPanel extends JPanel{
                 removeService((ManagedService)evt.getNewValue());
             }
         }
+    }
         
+    class ServiceManagerListener implements PropertyChangeListener{
+        private Component myComp;
+
+        public ServiceManagerListener(Component comp) {
+            myComp = comp;
+        }
+        
+        @Override
+        public void propertyChange(PropertyChangeEvent evt) {
+            if(evt == null){
+                theLogger.warning("Received null property change event.");
+                return;
+            }else if(evt.getNewValue() == null ||
+                    !(evt.getNewValue() instanceof ServiceManager)){
+                theLogger.log(Level.WARNING, 
+                        "Received property change with bad value: {0}", 
+                        evt.getPropertyName());
+                return;
+            }
+            if(ServiceClassListener.PROP_SERVICE_ADDED.equals(
+                    evt.getPropertyName())){
+                addService((ServiceManager)evt.getNewValue());
+            }else if(ServiceClassListener.PROP_SERVICE_REMOVED.equals(
+                    evt.getPropertyName())){
+                removeService((ServiceManager)evt.getNewValue());
+            }
+        }
     }
 }

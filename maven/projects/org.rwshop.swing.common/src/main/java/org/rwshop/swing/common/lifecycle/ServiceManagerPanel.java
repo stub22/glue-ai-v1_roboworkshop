@@ -15,22 +15,27 @@
  */
 
 /*
- * ManagedServicePanel.java
+ * ServiceManagerPanel.java
  *
- * Created on Feb 13, 2012, 10:51:13 PM
  */
 package org.rwshop.swing.common.lifecycle;
 
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.RepaintManager;
 import javax.swing.table.DefaultTableModel;
-import org.robokind.api.common.lifecycle.DependencyDescriptor;
+import org.jflux.api.service.ServiceDependency;
+import org.jflux.api.service.ServiceDependency.Cardinality;
+import org.jflux.api.service.ServiceLifecycle;
+import org.jflux.api.service.ServiceManager;
+import org.jflux.api.service.binding.DependencyTracker;
+import org.jflux.api.service.binding.ServiceBinding;
 import org.robokind.api.common.lifecycle.ManagedService;
 import org.rwshop.swing.common.InnerScrollPaneWheelListener;
 
@@ -38,16 +43,16 @@ import org.rwshop.swing.common.InnerScrollPaneWheelListener;
  *
  * @author Matthew Stevenson <www.robokind.org>
  */
-public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
+public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
     private final static Logger theLogger = 
-            Logger.getLogger(ManagedServicePanel.class.getName());
-    private ManagedService<?> myService;
+            Logger.getLogger(ServiceManagerPanel.class.getName());
+    private ServiceManager<?> myService;
     private ServiceChangeListener myServiceChangeListener;
     private boolean myPropertiesVisible;
     private boolean myDependenciesVisible;
     
-    /** Creates new form ManagedServicePanel */
-    public ManagedServicePanel() {
+    /** Creates new form ServiceManagerPanel */
+    public ServiceManagerPanel() {
         initComponents();
         pnlDependencyList.setLayout(
                 new BoxLayout(pnlDependencyList, BoxLayout.Y_AXIS));
@@ -61,19 +66,28 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
     }
     
     @Override
-    public void setService(ManagedService service){
+    public void setService(ServiceManager service){
+        Map<ServiceBinding, DependencyTracker> deps = null;
+        
         if(myService == service){
             updateServiceInfo();
             return;
         }
         if(myService != null){
-            myService.removePropertyChangeListener(myServiceChangeListener);
+            deps = myService.getDependencies();
+            for(DependencyTracker tracker: deps.values()) {
+                tracker.removePropertyChangeListener(myServiceChangeListener);
+            }
         }
         myService = service;
         updateServiceInfo();
         setVals();
         setDependencies();
-        myService.addPropertyChangeListener(myServiceChangeListener);
+        if(deps != null){
+            for(DependencyTracker tracker: deps.values()) {
+                tracker.removePropertyChangeListener(myServiceChangeListener);
+            }
+        }
         markRepaint();
     }
     
@@ -85,7 +99,7 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
             return;
         }
         String names = "";
-        for(String name : myService.getServiceClassNames()){
+        for(String name : myService.getLifecycle().getServiceClassNames()){
             if(!names.isEmpty()){
                 names += "\n";
             }
@@ -95,7 +109,9 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
     }
     
     private void setVals(){
-        Properties props = myService.getRegistrationProperties();
+        Map<String, String> props =
+                myService.getRegistrationStrategy().getRegistrationProperties(
+                null);
         Object[][] objs = new Object[props.size()][2];
         int i = 0;
         for(Entry e : props.entrySet()){
@@ -118,14 +134,26 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
     private void setDependencies(){
         pnlDependencyList.clearDependencies();
         if(myService != null){
-            for(DependencyDescriptor dep : myService.getDependencies()){
-                Boolean status = 
-                        myService.getDependencyStatus(dep.getDependencyName());
-                pnlDependencyList.addDependency(dep, status);
+            for(Entry<ServiceBinding,DependencyTracker> dep:
+                    myService.getDependencies().entrySet()){
+                Boolean status = isAvailable(dep.getKey(), dep.getValue());
+                pnlDependencyList.addDependency(dep.getKey(), status);
             }
         }
         updateDependencyCount();
         //resizeDependencies();
+    }
+    
+    private boolean isAvailable(
+            ServiceBinding binding, DependencyTracker tracker){
+        ServiceDependency.Cardinality c =
+                binding.getDependencySpec().getCardinality();
+        
+        if(c.isRequired() && tracker.getTrackedDependency() == null){
+            return false;
+        }
+        
+        return true;
     }
     
     private void resizeDependencies(){
@@ -137,11 +165,27 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
         if(dependencyId == null){
             return;
         }
-        Boolean status;
-        if(myService == null){
-            status = null;
-        }else{
-            status = myService.getDependencyStatus(dependencyId);
+        Boolean status = null;
+        if(myService != null){
+            Map<ServiceBinding, DependencyTracker> depMap =
+                    myService.getDependencies();
+            for(Entry<ServiceBinding, DependencyTracker> e: depMap.entrySet()){
+                ServiceBinding spec = e.getKey();
+                
+                if(!spec.getDependencyName().equals(dependencyId)){
+                    continue;
+                }
+                
+                DependencyTracker tracker = e.getValue();
+                Cardinality c = spec.getDependencySpec().getCardinality();
+                if(c.isRequired() && tracker.getTrackedDependency() == null){
+                    status = true;
+                } else {
+                    status = false;
+                }
+                
+                break;
+            }
         }
         
         pnlDependencyList.updateDependnecyStatus(dependencyId, status);
@@ -153,8 +197,20 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
             lblDependencyCount.setText("(--/--)");
             return;
         }
-        int total = myService.getDependencyCount();
-        int available = myService.getAvailableDependencyCount();
+        Map<ServiceBinding, DependencyTracker> depMap =
+                    myService.getDependencies();
+        Set<ServiceBinding> deps = depMap.keySet();
+        
+        int total = deps.size();
+        int available = 0;
+        
+        for(ServiceBinding dep: deps){
+            DependencyTracker tracker = depMap.get(dep);
+            if(tracker.getTrackedDependency() != null){
+                available++;
+            }
+        }
+        
         lblDependencyCount.setText("(" + available + "/" + total + ")");
     }
     
@@ -165,7 +221,7 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
             lblStatus.setText("--");
             return;
         }
-        boolean registered = myService.isRegistered();
+        boolean registered = myService.getRegistrationStrategy().isRegistered();
         boolean available = myService.isAvailable();
         if(registered){
             btnRegister.setEnabled(false);
@@ -194,16 +250,16 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
                 return;
             }
             String name = evt.getPropertyName();
-            if(ManagedService.PROP_SERVICE_CHANGED.equals(name)){
-                setService((ManagedService)evt.getNewValue());
-            }else if(ManagedService.PROP_DEPENDENCY_CHANGED.equals(name)){
-                Object obj = evt.getNewValue();
-                if(!(obj instanceof String)){
-                    return;
-                }
-                updateServiceInfo();
-                updateDependencyStatus((String)obj);
+//            if(ManagedService.PROP_SERVICE_CHANGED.equals(name)){
+//                setService((ServiceManager)evt.getNewValue());
+//            }else if(ServiceLifecycle.PROP_DEPENDENCY_CHANGED.equals(name)){
+            Object obj = evt.getNewValue();
+            if(!(obj instanceof String)){
+                return;
             }
+            updateServiceInfo();
+            updateDependencyStatus((String)obj);
+//            }
         }
     }
     private void markRepaint(){
@@ -228,7 +284,7 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
         pnlDepsCollapse = new javax.swing.JPanel();
         lblDependencies = new javax.swing.JLabel();
         lblDependencyCount = new javax.swing.JLabel();
-        pnlDependencyList = new org.rwshop.swing.common.lifecycle.DependencyListPanel();
+        pnlDependencyList = new org.rwshop.swing.common.lifecycle.ManagerDependencyListPanel();
         pnlPropsCollapse = new javax.swing.JPanel();
         lblRegistrationProperties = new javax.swing.JLabel();
         pnlProperties = new javax.swing.JPanel();
@@ -478,7 +534,7 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
             btnRegister.setEnabled(false);
             return;
         }
-        myService.setRegistrationEnabled(false);
+//        myService.setRegistrationEnabled(false);
     }//GEN-LAST:event_btnUnregisterActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
@@ -487,7 +543,7 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
             btnRegister.setEnabled(false);
             return;
         }
-        myService.setRegistrationEnabled(true);
+//        myService.setRegistrationEnabled(true);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void lblRegistrationPropertiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrationPropertiesMouseClicked
@@ -543,7 +599,7 @@ public class ManagedServicePanel extends AbstractServicePanel<ManagedService> {
     private javax.swing.JTextArea lblType;
     private javax.swing.JPanel pnlButtons;
     private javax.swing.JPanel pnlCollapsable;
-    private org.rwshop.swing.common.lifecycle.DependencyListPanel pnlDependencyList;
+    private org.rwshop.swing.common.lifecycle.ManagerDependencyListPanel pnlDependencyList;
     private javax.swing.JPanel pnlDepsCollapse;
     private javax.swing.JPanel pnlProperties;
     private javax.swing.JPanel pnlPropsCollapse;
