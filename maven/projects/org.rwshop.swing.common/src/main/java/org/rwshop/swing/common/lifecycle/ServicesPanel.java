@@ -60,6 +60,8 @@ public class ServicesPanel extends javax.swing.JPanel {
         jCheckBox3 = new javax.swing.JCheckBox();
         jCheckBox4 = new javax.swing.JCheckBox();
 
+        managedServiceListPanel1.setPreferredSize(null);
+
         javax.swing.GroupLayout managedServiceListPanel1Layout = new javax.swing.GroupLayout(managedServiceListPanel1);
         managedServiceListPanel1.setLayout(managedServiceListPanel1Layout);
         managedServiceListPanel1Layout.setHorizontalGroup(
@@ -115,8 +117,8 @@ public class ServicesPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-            .addComponent(scrlPane, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+            .addComponent(jTextField1)
+            .addComponent(scrlPane)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
