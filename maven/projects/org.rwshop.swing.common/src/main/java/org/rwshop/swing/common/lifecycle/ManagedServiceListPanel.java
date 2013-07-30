@@ -262,11 +262,11 @@ public class ManagedServiceListPanel extends JPanel{
     
     private boolean filterList(ServiceManager<?> thals){
         if(myClassNames){
-            for(ServiceBinding sb: thals.getDependencies().keySet()){
-                String s = sb.getDescriptor().getClassName();
+            for(String s: thals.getLifecycle().getServiceClassNames()){
                 for(String f : myFilters){
                     Pattern p = Pattern.compile(
-                            ".*" + f + ".*", Pattern.MULTILINE | Pattern.DOTALL);
+                            ".*" + f + ".*",
+                            Pattern.MULTILINE | Pattern.DOTALL);
                     if(s != null && p.matcher(s).matches()){
                         return true;
                     }
