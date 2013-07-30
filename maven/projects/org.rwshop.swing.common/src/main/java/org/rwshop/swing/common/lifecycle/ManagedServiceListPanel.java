@@ -23,16 +23,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import org.jflux.api.registry.Descriptor;
 import org.jflux.api.service.Manager;
 import org.jflux.api.service.ServiceManager;
+import org.jflux.api.service.binding.ServiceBinding;
 import org.osgi.framework.BundleContext;
 import org.robokind.api.common.lifecycle.DependencyDescriptor;
 import org.robokind.api.common.lifecycle.ManagedService;
+import org.robokind.api.common.osgi.OSGiUtils;
 import org.robokind.api.common.osgi.ServiceClassListener;
 
 /**
@@ -176,14 +180,12 @@ public class ManagedServiceListPanel extends JPanel{
                 if(filterList(msthals)){
                     myFilteredCache.put(thals, myPanelMap.get(thals));
                 }
+            } else if(thals instanceof ServiceManager){
+                ServiceManager smthals = (ServiceManager)thals;
+                if(filterList(smthals)){
+                    myFilteredCache.put(thals, myPanelMap.get(thals));
+                }
             }
-//            TODO: FIX ME!!!
-//            else if(thals instanceof ServiceManager){
-//                ServiceManager smthals = (ServiceManager)thals;
-//                if(filterList(smthals)){
-//                    myFilteredCache.put(thals, myPanelMap.get(thals));
-//                }
-//            }
         }
         
         refresh();
@@ -249,6 +251,77 @@ public class ManagedServiceListPanel extends JPanel{
                         return true;
                     } else if(d.getServiceFilter() != null &&
                             p.matcher(d.getServiceFilter()).matches()){
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean filterList(ServiceManager<?> thals){
+        if(myClassNames){
+            for(ServiceBinding sb: thals.getDependencies().keySet()){
+                String s = sb.getDescriptor().getClassName();
+                for(String f : myFilters){
+                    Pattern p = Pattern.compile(
+                            ".*" + f + ".*", Pattern.MULTILINE | Pattern.DOTALL);
+                    if(s != null && p.matcher(s).matches()){
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        if(myPropertyKeys){
+            for(ServiceBinding sb: thals.getDependencies().keySet()){
+                for(String s : sb.getDescriptor().getPropertyKeys()){
+                    for(String f : myFilters){
+                        Pattern p = Pattern.compile(
+                                ".*" + f + ".*",
+                                Pattern.MULTILINE | Pattern.DOTALL);
+                        if(s != null && p.matcher(s).matches()){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        
+        if(myPropertyValues){
+            for(ServiceBinding sb: thals.getDependencies().keySet()){
+                Descriptor desc = sb.getDescriptor();
+                for(String key : desc.getPropertyKeys()){
+                    for(String f : myFilters){
+                        String s = desc.getProperty(key);
+                        Pattern p = Pattern.compile(
+                                ".*" + f + ".*",
+                                Pattern.MULTILINE | Pattern.DOTALL);
+                        if(s != null && p.matcher(s).matches()){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        
+        if(myDependencies){
+            for(ServiceBinding sb: thals.getDependencies().keySet()){
+                for(String f : myFilters){
+                    Pattern p = Pattern.compile(
+                            ".*" + f + ".*",
+                            Pattern.MULTILINE | Pattern.DOTALL);
+                    Properties props = new Properties();
+                    Descriptor desc = sb.getDescriptor();
+                    for(String key: desc.getPropertyKeys()){
+                        props.put(key, desc.getProperty(key));
+                    }
+                    String filter = OSGiUtils.createServiceFilter(props);
+                    if(sb.getDependencyName() != null &&
+                            p.matcher(sb.getDependencyName()).matches()){
+                        return true;
+                    } else if(filter != null && p.matcher(filter).matches()){
                         return true;
                     }
                 }

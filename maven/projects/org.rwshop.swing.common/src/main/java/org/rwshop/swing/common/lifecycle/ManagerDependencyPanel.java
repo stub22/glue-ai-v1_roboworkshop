@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import org.jflux.api.registry.Descriptor;
 import org.jflux.api.service.binding.ServiceBinding;
 import org.robokind.api.common.osgi.OSGiUtils;
 import org.rwshop.swing.common.InnerScrollPaneWheelListener;
@@ -72,13 +73,12 @@ public class ManagerDependencyPanel extends javax.swing.JPanel {
             return;
         }
         String name = myDependency.getDependencyName();
-        String type = myDependency.getDescriptor().getClassName();
-        Map<String, String> propMap =
-                myDependency.getDependencySpec().getProperties();
+        Descriptor desc = myDependency.getDescriptor();
+        String type = desc.getClassName();
         Properties props = new Properties();
         
-        for(Entry<String, String> e: propMap.entrySet()) {
-            props.put(e.getKey(), e.getValue());
+        for(String key: desc.getPropertyKeys()){
+            props.put(key, desc.getProperty(key));
         }
         
         String filter = OSGiUtils.createServiceFilter(props);
