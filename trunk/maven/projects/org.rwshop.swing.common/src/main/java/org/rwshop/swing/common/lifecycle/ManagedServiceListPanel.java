@@ -44,6 +44,8 @@ public class ManagedServiceListPanel extends JPanel{
     private Map<Manager,AbstractServicePanel> myPanelMap;
     private ManagedServiceListener myServiceChangeListener;
     private ServiceClassListener<ManagedService> myServiceTracker;
+    private ServiceManagerListener myServiceChangeListener2;
+    private ServiceClassListener<ServiceManager> myServiceTracker2;
     private List<String> myFilters;
     private Map<Manager,AbstractServicePanel> myFilteredCache;
     private boolean myClassNames;
@@ -53,6 +55,7 @@ public class ManagedServiceListPanel extends JPanel{
     
     public ManagedServiceListPanel(){
         myServiceChangeListener = new ManagedServiceListener(this);
+        myServiceChangeListener2 = new ServiceManagerListener(this);
         myPanelMap = new HashMap<Manager, AbstractServicePanel>();
         
         setFilters("", true, true, true, true);
@@ -65,6 +68,13 @@ public class ManagedServiceListPanel extends JPanel{
         myServiceTracker.addPropertyChangeListener(
                 myServiceChangeListener);
         myServiceTracker.start();
+        
+        
+        myServiceTracker2 = new ServiceClassListener<ServiceManager>(
+                ServiceManager.class, context, null);
+        myServiceTracker2.addPropertyChangeListener(
+                myServiceChangeListener2);
+        myServiceTracker2.start();
     }
     
     public void initLayout(){
@@ -167,6 +177,13 @@ public class ManagedServiceListPanel extends JPanel{
                     myFilteredCache.put(thals, myPanelMap.get(thals));
                 }
             }
+//            TODO: FIX ME!!!
+//            else if(thals instanceof ServiceManager){
+//                ServiceManager smthals = (ServiceManager)thals;
+//                if(filterList(smthals)){
+//                    myFilteredCache.put(thals, myPanelMap.get(thals));
+//                }
+//            }
         }
         
         refresh();
