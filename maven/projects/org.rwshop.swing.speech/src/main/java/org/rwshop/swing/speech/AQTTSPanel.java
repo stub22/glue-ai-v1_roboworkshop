@@ -32,6 +32,7 @@ import org.robokind.api.common.osgi.OSGiUtils;
 import org.robokind.api.common.osgi.lifecycle.OSGiComponent;
 import org.robokind.api.common.lifecycle.DependencyDescriptor;
 import org.robokind.api.common.lifecycle.config.GenericLifecycle;
+import org.robokind.api.common.lifecycle.utils.ManagedServiceFactory;
 import org.robokind.api.common.osgi.lifecycle.OSGiComponentFactory;
 import org.robokind.api.common.utils.RKConstants;
 import org.robokind.api.speech.messaging.RemoteSpeechServiceClient;
@@ -48,6 +49,7 @@ public class AQTTSPanel extends javax.swing.JPanel {
             Logger.getLogger(AQTTSPanel.class.getName());
     public final static String CONNECTION_CONFIG_ID = "speechServiceConnectionConfig";
     private final static String SPEECH_SERVICE_ID = RKConstants.DEFAULT_SPEECH_ID;
+    private final static String SPEECH_DEFAULT_PREFIX = "speech";
 
     /** Creates new form AQTTSPanel */
     public AQTTSPanel() {
@@ -135,11 +137,12 @@ public class AQTTSPanel extends javax.swing.JPanel {
             return;
         }
         bindSpeechPanel(context);
+        ManagedServiceFactory fact = new OSGiComponentFactory(context);
         RKMessagingConfigUtils.registerConnectionConfig(
-                CONNECTION_CONFIG_ID, broker, null, 
-                new OSGiComponentFactory(context));
+                CONNECTION_CONFIG_ID, broker, null, fact);
         RemoteSpeechUtils.connect(
-                context, SPEECH_SERVICE_ID, CONNECTION_CONFIG_ID);
+                fact, SPEECH_SERVICE_ID, 
+                SPEECH_DEFAULT_PREFIX, CONNECTION_CONFIG_ID);
     }
     
     private final static String theSpeechService = "speechService";
