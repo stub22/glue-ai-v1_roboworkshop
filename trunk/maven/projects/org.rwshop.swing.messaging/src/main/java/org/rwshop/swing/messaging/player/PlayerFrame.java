@@ -15,6 +15,7 @@
  */
 package org.rwshop.swing.messaging.player;
 
+import javax.swing.BoxLayout;
 import org.osgi.framework.BundleContext;
 import org.rwshop.swing.messaging.monitor.OSGiSchemaSelector;
 
@@ -31,6 +32,7 @@ public class PlayerFrame extends javax.swing.JFrame {
      */
     public PlayerFrame() {
         initComponents();
+        editorListPanel1.setLayout(new BoxLayout(editorListPanel1, BoxLayout.Y_AXIS));
         pack();
         myConnector = new AvroQpidConnector();
     }
@@ -55,9 +57,13 @@ public class PlayerFrame extends javax.swing.JFrame {
 
         playerPanel1 = new org.rwshop.swing.messaging.player.PlayerPanel();
         avroQpidConnectionPanel1 = new org.rwshop.swing.messaging.player.AvroQpidConnectionPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         editorListPanel1 = new org.rwshop.swing.messaging.player.EditorListPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        editorListPanel1.setLayout(new javax.swing.BoxLayout(editorListPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        jScrollPane1.setViewportView(editorListPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,14 +73,14 @@ public class PlayerFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(avroQpidConnectionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(editorListPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(avroQpidConnectionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editorListPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(playerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -119,6 +125,7 @@ public class PlayerFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.rwshop.swing.messaging.player.AvroQpidConnectionPanel avroQpidConnectionPanel1;
     private org.rwshop.swing.messaging.player.EditorListPanel editorListPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private org.rwshop.swing.messaging.player.PlayerPanel playerPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -144,12 +144,16 @@ public class PlayerPanel extends javax.swing.JPanel {
         }
 
         if(timestampIndex < 0) {
+            for(IndexedRecord record: records) {
+                sender.sendRecord(record);
+                TimeUtils.sleep(100);
+            }
             msgSender.closeProducer();
 
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Error: no timestamp information present.",
-                    "Failure", JOptionPane.ERROR_MESSAGE);
+//            JOptionPane.showMessageDialog(
+//                    this,
+//                    "Error: no timestamp information present.",
+//                    "Failure", JOptionPane.ERROR_MESSAGE);
 
             return;
         }

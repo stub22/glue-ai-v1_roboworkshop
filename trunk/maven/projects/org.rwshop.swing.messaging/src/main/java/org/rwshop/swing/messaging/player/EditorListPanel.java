@@ -33,7 +33,7 @@ public class EditorListPanel extends javax.swing.JPanel {
      */
     public EditorListPanel() {
         initComponents();
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         editors = new ArrayList<EditorPanel>();
     }
     
