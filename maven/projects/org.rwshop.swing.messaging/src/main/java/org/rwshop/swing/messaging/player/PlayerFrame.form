@@ -28,7 +28,7 @@
               <Component id="avroQpidConnectionPanel1" min="-2" pref="560" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
-          <Component id="editorListPanel1" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -36,7 +36,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="avroQpidConnectionPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="editorListPanel1" pref="125" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="125" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="playerPanel1" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -48,9 +48,15 @@
     </Component>
     <Component class="org.rwshop.swing.messaging.player.AvroQpidConnectionPanel" name="avroQpidConnectionPanel1">
     </Component>
-    <Container class="org.rwshop.swing.messaging.player.EditorListPanel" name="editorListPanel1">
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Container class="org.rwshop.swing.messaging.player.EditorListPanel" name="editorListPanel1">
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+        </Container>
+      </SubComponents>
     </Container>
   </SubComponents>
 </Form>
