@@ -56,13 +56,15 @@ public class ManagedServiceListPanel extends JPanel{
     private boolean myPropertyKeys;
     private boolean myPropertyValues;
     private boolean myDependencies;
+    private String myAvailability;
     
     public ManagedServiceListPanel(){
         myServiceChangeListener = new ManagedServiceListener(this);
         myServiceChangeListener2 = new ServiceManagerListener(this);
         myPanelMap = new HashMap<Manager, AbstractServicePanel>();
+        myAvailability = "Both";
         
-        setFilters("", true, true, true, true);
+        setFilters("", true, true, true, true, "Both");
     }
 
     public void setBundleContext(BundleContext context){
@@ -146,12 +148,13 @@ public class ManagedServiceListPanel extends JPanel{
     
     public synchronized void setFilters(
             String filterStr, boolean classNames, boolean propertyKeys,
-            boolean propertyValues, boolean dependencies){
+            boolean propertyValues, boolean dependencies, String availability){
         myFilters = new ArrayList<String>();
         myClassNames = classNames;
         myPropertyKeys = propertyKeys;
         myPropertyValues = propertyValues;
         myDependencies = dependencies;
+        myAvailability = availability;
         
         String[] filters = filterStr.split(",");
         for(String s : filters){
@@ -168,10 +171,16 @@ public class ManagedServiceListPanel extends JPanel{
             return;
         }
         if(myFilters == null || myFilters.isEmpty()){
-            myFilteredCache = myPanelMap;
-            refresh();
-            
-            return;
+            if(myAvailability.equals("Both")) {
+                myFilteredCache = myPanelMap;
+                refresh();
+                return;
+            } else if(myFilters == null) {
+                myFilters = new ArrayList<String>(1);
+                myFilters.add("");
+            } else if(myFilters.isEmpty()) {
+                myFilters.add("");
+            }
         }
         myFilteredCache = new HashMap<Manager,AbstractServicePanel>();
         for(Manager thals : myPanelMap.keySet()){
@@ -208,50 +217,79 @@ public class ManagedServiceListPanel extends JPanel{
             for(String s : thals.getServiceClassNames()){
                 for(String f : myFilters){
                     Pattern p = Pattern.compile(
-                            ".*" + f + ".*", Pattern.MULTILINE | Pattern.DOTALL);
+                            ".*" + f + ".*",
+                            Pattern.MULTILINE | Pattern.DOTALL);
                     if(s != null && p.matcher(s).matches()){
-                        return true;
+                        return (myAvailability.equals("Available") &&
+                                thals.isAvailable()) ||
+                                (myAvailability.equals("Unavailable") &&
+                                !thals.isAvailable()) ||
+                                myAvailability.equals("Both");
                     }
                 }
             }
         }
         
         if(myPropertyKeys){
-            for(String s : thals.getRegistrationProperties().stringPropertyNames()){
+            for(String s :
+                    thals.getRegistrationProperties().stringPropertyNames()){
                 for(String f : myFilters){
                     Pattern p = Pattern.compile(
-                            ".*" + f + ".*", Pattern.MULTILINE | Pattern.DOTALL);
+                            ".*" + f + ".*",
+                            Pattern.MULTILINE | Pattern.DOTALL);
                     if(s != null && p.matcher(s).matches()){
-                        return true;
+                        return (myAvailability.equals("Available") &&
+                                thals.isAvailable()) ||
+                                (myAvailability.equals("Unavailable") &&
+                                !thals.isAvailable()) ||
+                                myAvailability.equals("Both");
                     }
                 }
             }
         }
         
         if(myPropertyValues){
-            for(String s : thals.getRegistrationProperties().stringPropertyNames()){
+            for(String s :
+                    thals.getRegistrationProperties().stringPropertyNames()){
                 for(String f : myFilters){
                     Pattern p = Pattern.compile(
-                            ".*" + f + ".*", Pattern.MULTILINE | Pattern.DOTALL);
+                            ".*" + f + ".*",
+                            Pattern.MULTILINE | Pattern.DOTALL);
                     if(thals.getRegistrationProperties().getProperty(s) != null
-                            && p.matcher(thals.getRegistrationProperties().getProperty(s)).matches()){
-                        return true;
+                            && p.matcher(
+                            thals.getRegistrationProperties().getProperty(
+                            s)).matches()){
+                        return (myAvailability.equals("Available") &&
+                                thals.isAvailable()) ||
+                                (myAvailability.equals("Unavailable") &&
+                                !thals.isAvailable()) ||
+                                myAvailability.equals("Both");
                     }
                 }
             }
         }
         
         if(myDependencies){
-            for(DependencyDescriptor d : (List<DependencyDescriptor>)thals.getDependencies()){
+            for(DependencyDescriptor d :
+                    (List<DependencyDescriptor>)thals.getDependencies()){
                 for(String f : myFilters){
                     Pattern p = Pattern.compile(
-                            ".*" + f + ".*", Pattern.MULTILINE | Pattern.DOTALL);
+                            ".*" + f + ".*",
+                            Pattern.MULTILINE | Pattern.DOTALL);
                     if(d.getDependencyName() != null &&
                             p.matcher(d.getDependencyName()).matches()){
-                        return true;
+                        return (myAvailability.equals("Available") &&
+                                thals.isAvailable()) ||
+                                (myAvailability.equals("Unavailable") &&
+                                !thals.isAvailable()) ||
+                                myAvailability.equals("Both");
                     } else if(d.getServiceFilter() != null &&
                             p.matcher(d.getServiceFilter()).matches()){
-                        return true;
+                        return (myAvailability.equals("Available") &&
+                                thals.isAvailable()) ||
+                                (myAvailability.equals("Unavailable") &&
+                                !thals.isAvailable()) ||
+                                myAvailability.equals("Both");
                     }
                 }
             }
@@ -268,7 +306,11 @@ public class ManagedServiceListPanel extends JPanel{
                             ".*" + f + ".*",
                             Pattern.MULTILINE | Pattern.DOTALL);
                     if(s != null && p.matcher(s).matches()){
-                        return true;
+                        return (myAvailability.equals("Available") &&
+                                thals.isAvailable()) ||
+                                (myAvailability.equals("Unavailable") &&
+                                !thals.isAvailable()) ||
+                                myAvailability.equals("Both");
                     }
                 }
             }
@@ -282,7 +324,11 @@ public class ManagedServiceListPanel extends JPanel{
                                 ".*" + f + ".*",
                                 Pattern.MULTILINE | Pattern.DOTALL);
                         if(s != null && p.matcher(s).matches()){
-                            return true;
+                            return (myAvailability.equals("Available") &&
+                                    thals.isAvailable()) ||
+                                    (myAvailability.equals("Unavailable") &&
+                                    !thals.isAvailable()) ||
+                                    myAvailability.equals("Both");
                         }
                     }
                 }
@@ -299,7 +345,11 @@ public class ManagedServiceListPanel extends JPanel{
                                 ".*" + f + ".*",
                                 Pattern.MULTILINE | Pattern.DOTALL);
                         if(s != null && p.matcher(s).matches()){
-                            return true;
+                            return (myAvailability.equals("Available") &&
+                                    thals.isAvailable()) ||
+                                    (myAvailability.equals("Unavailable") &&
+                                    !thals.isAvailable()) ||
+                                    myAvailability.equals("Both");
                         }
                     }
                 }
@@ -320,9 +370,17 @@ public class ManagedServiceListPanel extends JPanel{
                     String filter = OSGiUtils.createServiceFilter(props);
                     if(sb.getDependencyName() != null &&
                             p.matcher(sb.getDependencyName()).matches()){
-                        return true;
+                        return (myAvailability.equals("Available") &&
+                                thals.isAvailable()) ||
+                                (myAvailability.equals("Unavailable") &&
+                                !thals.isAvailable()) ||
+                                myAvailability.equals("Both");
                     } else if(filter != null && p.matcher(filter).matches()){
-                        return true;
+                        return (myAvailability.equals("Available") &&
+                                thals.isAvailable()) ||
+                                (myAvailability.equals("Unavailable") &&
+                                !thals.isAvailable()) ||
+                                myAvailability.equals("Both");
                     }
                 }
             }
