@@ -15,6 +15,7 @@
  */
 package org.rwshop.swing.common.lifecycle;
 
+import javax.swing.JRadioButton;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -51,7 +52,9 @@ public class ServicesPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -59,6 +62,9 @@ public class ServicesPanel extends javax.swing.JPanel {
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         jCheckBox4 = new javax.swing.JCheckBox();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
         scrlPane = new javax.swing.JScrollPane();
         managedServiceListPanel1 = new org.rwshop.swing.common.lifecycle.ManagedServiceListPanel();
 
@@ -73,6 +79,8 @@ public class ServicesPanel extends javax.swing.JPanel {
         });
         jPanel1.add(jTextField1, java.awt.BorderLayout.NORTH);
 
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
         jCheckBox1.setSelected(true);
         jCheckBox1.setLabel("Class names");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +88,7 @@ public class ServicesPanel extends javax.swing.JPanel {
                 jCheckBox1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jCheckBox1);
+        jPanel2.add(jCheckBox1, new java.awt.GridBagConstraints());
 
         jCheckBox2.setSelected(true);
         jCheckBox2.setLabel("Property keys");
@@ -89,7 +97,7 @@ public class ServicesPanel extends javax.swing.JPanel {
                 jCheckBox2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jCheckBox2);
+        jPanel2.add(jCheckBox2, new java.awt.GridBagConstraints());
 
         jCheckBox3.setSelected(true);
         jCheckBox3.setLabel("Property values");
@@ -98,7 +106,7 @@ public class ServicesPanel extends javax.swing.JPanel {
                 jCheckBox3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jCheckBox3);
+        jPanel2.add(jCheckBox3, new java.awt.GridBagConstraints());
 
         jCheckBox4.setSelected(true);
         jCheckBox4.setLabel("Dependencies");
@@ -107,7 +115,44 @@ public class ServicesPanel extends javax.swing.JPanel {
                 jCheckBox4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jCheckBox4);
+        jPanel2.add(jCheckBox4, new java.awt.GridBagConstraints());
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Available");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(jRadioButton1, gridBagConstraints);
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Unavailable");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(jRadioButton2, gridBagConstraints);
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setSelected(true);
+        jRadioButton3.setText("Both");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(jRadioButton3, gridBagConstraints);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -117,7 +162,7 @@ public class ServicesPanel extends javax.swing.JPanel {
         managedServiceListPanel1.setLayout(managedServiceListPanel1Layout);
         managedServiceListPanel1Layout.setHorizontalGroup(
             managedServiceListPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 521, Short.MAX_VALUE)
+            .addGap(0, 557, Short.MAX_VALUE)
         );
         managedServiceListPanel1Layout.setVerticalGroup(
             managedServiceListPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,44 +182,81 @@ public class ServicesPanel extends javax.swing.JPanel {
         managedServiceListPanel1.setFilters(
                 jTextField1.getText(), jCheckBox1.isSelected(),
                 jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected());
+                jCheckBox4.isSelected(), findSelected().getText());
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         managedServiceListPanel1.setFilters(
                 jTextField1.getText(), jCheckBox1.isSelected(),
                 jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected());
+                jCheckBox4.isSelected(), findSelected().getText());
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
         managedServiceListPanel1.setFilters(
                 jTextField1.getText(), jCheckBox1.isSelected(),
                 jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected());
+                jCheckBox4.isSelected(), findSelected().getText());
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
         managedServiceListPanel1.setFilters(
                 jTextField1.getText(), jCheckBox1.isSelected(),
                 jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected());
+                jCheckBox4.isSelected(), findSelected().getText());
     }//GEN-LAST:event_jCheckBox4ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        managedServiceListPanel1.setFilters(
+                jTextField1.getText(), jCheckBox1.isSelected(),
+                jCheckBox2.isSelected(), jCheckBox3.isSelected(),
+                jCheckBox4.isSelected(), findSelected().getText());
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        managedServiceListPanel1.setFilters(
+                jTextField1.getText(), jCheckBox1.isSelected(),
+                jCheckBox2.isSelected(), jCheckBox3.isSelected(),
+                jCheckBox4.isSelected(), findSelected().getText());
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        managedServiceListPanel1.setFilters(
+                jTextField1.getText(), jCheckBox1.isSelected(),
+                jCheckBox2.isSelected(), jCheckBox3.isSelected(),
+                jCheckBox4.isSelected(), findSelected().getText());
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {
         managedServiceListPanel1.setFilters(
                 jTextField1.getText(), jCheckBox1.isSelected(),
                 jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected());
+                jCheckBox4.isSelected(), findSelected().getText());
+    }
+    
+    private JRadioButton findSelected() {
+        if(jRadioButton1.isSelected()) {
+            return jRadioButton1;
+        } else if(jRadioButton2.isSelected()) {
+            return jRadioButton2;
+        } else if(jRadioButton3.isSelected()) {
+            return jRadioButton3;
+        } else {
+            return null;
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JTextField jTextField1;
     private org.rwshop.swing.common.lifecycle.ManagedServiceListPanel managedServiceListPanel1;
     private javax.swing.JScrollPane scrlPane;
