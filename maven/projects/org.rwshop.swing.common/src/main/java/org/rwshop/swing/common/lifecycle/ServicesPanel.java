@@ -15,6 +15,10 @@
  */
 package org.rwshop.swing.common.lifecycle;
 
+import java.util.Enumeration;
+
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import org.osgi.framework.BundleContext;
 
@@ -29,21 +33,21 @@ public class ServicesPanel extends javax.swing.JPanel {
      */
     public ServicesPanel() {
         initComponents();
-        
+
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField1KeyReleased(evt);
             }
         });
-        
+
         scrlPane.getVerticalScrollBar().setUnitIncrement(16);
     }
 
     public void setBundleContext(BundleContext context){
         managedServiceListPanel1.setBundleContext(context);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,74 +182,56 @@ public class ServicesPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        managedServiceListPanel1.setFilters(
-                jTextField1.getText(), jCheckBox1.isSelected(),
-                jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected(), findSelected().getText());
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+	private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+		updateFilters();
+	}//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        managedServiceListPanel1.setFilters(
-                jTextField1.getText(), jCheckBox1.isSelected(),
-                jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected(), findSelected().getText());
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
+	private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+		updateFilters();
+	}//GEN-LAST:event_jCheckBox2ActionPerformed
 
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        managedServiceListPanel1.setFilters(
-                jTextField1.getText(), jCheckBox1.isSelected(),
-                jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected(), findSelected().getText());
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
+	private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+		updateFilters();
+	}//GEN-LAST:event_jCheckBox3ActionPerformed
 
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-        managedServiceListPanel1.setFilters(
-                jTextField1.getText(), jCheckBox1.isSelected(),
-                jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected(), findSelected().getText());
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
+	private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+		updateFilters();
+	}//GEN-LAST:event_jCheckBox4ActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        managedServiceListPanel1.setFilters(
-                jTextField1.getText(), jCheckBox1.isSelected(),
-                jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected(), findSelected().getText());
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+	private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+		updateFilters();
+	}//GEN-LAST:event_jRadioButton2ActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        managedServiceListPanel1.setFilters(
-                jTextField1.getText(), jCheckBox1.isSelected(),
-                jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected(), findSelected().getText());
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+	private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+		updateFilters();
+	}//GEN-LAST:event_jRadioButton1ActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        managedServiceListPanel1.setFilters(
-                jTextField1.getText(), jCheckBox1.isSelected(),
-                jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected(), findSelected().getText());
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+	private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+		updateFilters();
+	}//GEN-LAST:event_jRadioButton3ActionPerformed
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {
-        managedServiceListPanel1.setFilters(
+	private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {
+		updateFilters();
+	}
+
+	private void updateFilters() {
+		managedServiceListPanel1.setFilters(
                 jTextField1.getText(), jCheckBox1.isSelected(),
                 jCheckBox2.isSelected(), jCheckBox3.isSelected(),
-                jCheckBox4.isSelected(), findSelected().getText());
-    }
-    
-    private JRadioButton findSelected() {
-        if(jRadioButton1.isSelected()) {
-            return jRadioButton1;
-        } else if(jRadioButton2.isSelected()) {
-            return jRadioButton2;
-        } else if(jRadioButton3.isSelected()) {
-            return jRadioButton3;
-        } else {
-            return null;
-        }
-    }
-    
+                jCheckBox4.isSelected(), findSelectedText(buttonGroup1, "Both"));
+	}
+
+	private String findSelectedText(ButtonGroup buttonGroup12, String orElse) {
+		Enumeration<AbstractButton> eles = buttonGroup1.getElements();
+		while (eles.hasMoreElements()) {
+			AbstractButton b = eles.nextElement();
+			if (b.isSelected()) {
+				return b.getText();
+			}
+		}
+		return orElse;
+	}
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox jCheckBox1;
