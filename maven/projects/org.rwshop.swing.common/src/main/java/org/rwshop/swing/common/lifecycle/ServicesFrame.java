@@ -15,6 +15,8 @@
  */
 package org.rwshop.swing.common.lifecycle;
 
+import java.awt.Container;
+
 import org.osgi.framework.BundleContext;
 
 /**
@@ -28,7 +30,7 @@ public class ServicesFrame extends javax.swing.JFrame {
      */
     public ServicesFrame() {
         initComponents();
-		recenterServicesPanel();
+        recenterServicesPanel();
     }
 
     /**
