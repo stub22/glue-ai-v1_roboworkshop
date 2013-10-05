@@ -46,7 +46,7 @@ public class ServicesFrame extends javax.swing.JFrame {
         servicesPanel1 = new org.rwshop.swing.common.lifecycle.ServicesPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().add(servicesPanel1, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(servicesPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
