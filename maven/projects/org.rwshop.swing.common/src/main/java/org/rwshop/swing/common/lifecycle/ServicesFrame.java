@@ -39,7 +39,6 @@ public class ServicesFrame extends javax.swing.JFrame {
      */
     private void recenterServicesPanel() {
         Container conts = getContentPane();
-        recenterServicesPanel();
 		conts.remove(servicesPanel1);
 		conts.add(servicesPanel1, java.awt.BorderLayout.CENTER);
     }
