@@ -5,7 +5,7 @@
 	<parent>
         <groupId>org.rwshop</groupId>
         <artifactId>org.rwshop.modules.speech</artifactId>
-        <version>0.9.2-SNAPSHOT</version>
+        <version>0.9.2</version>
 		<relativePath>../../org.rwshop.modules.speech/pom.xml</relativePath>
     </parent>
     <artifactId>org.rwshop.nb.speech</artifactId>
