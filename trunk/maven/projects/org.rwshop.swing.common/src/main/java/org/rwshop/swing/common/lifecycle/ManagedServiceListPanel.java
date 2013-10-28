@@ -33,11 +33,11 @@ import org.jflux.api.registry.Descriptor;
 import org.jflux.api.service.Manager;
 import org.jflux.api.service.ServiceManager;
 import org.jflux.api.service.binding.ServiceBinding;
+import org.jflux.impl.services.rk.lifecycle.DependencyDescriptor;
+import org.jflux.impl.services.rk.lifecycle.ManagedService;
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
+import org.jflux.impl.services.rk.osgi.ServiceClassListener;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.lifecycle.DependencyDescriptor;
-import org.robokind.api.common.lifecycle.ManagedService;
-import org.robokind.api.common.osgi.OSGiUtils;
-import org.robokind.api.common.osgi.ServiceClassListener;
 
 /**
  *

@@ -20,8 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.RepaintManager;
-import javax.swing.SwingUtilities;
-import org.robokind.api.common.lifecycle.DependencyDescriptor;
+import org.jflux.impl.services.rk.lifecycle.DependencyDescriptor;
 
 /**
  *

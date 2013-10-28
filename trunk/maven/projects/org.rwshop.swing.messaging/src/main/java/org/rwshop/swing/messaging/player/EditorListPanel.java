@@ -17,7 +17,6 @@ package org.rwshop.swing.messaging.player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import org.apache.avro.generic.IndexedRecord;

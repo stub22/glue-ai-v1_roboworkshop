@@ -21,15 +21,6 @@
  */
 package org.rwshop.swing.motion.robot.treetable;
 
-import java.io.File;
-import org.osgi.framework.BundleContext;
-import org.robokind.api.motion.Robot;
-import org.robokind.api.motion.servos.config.ServoRobotConfig;
-import org.robokind.api.motion.servos.utils.ServoRobotConnector;
-import org.robokind.api.motion.utils.RobotUtils;
-import org.robokind.impl.motion.config.RobotConfigXMLFileLoader;
-import org.robokind.api.common.osgi.OSGiUtils;
-
 /**
  *
  * @author Matthew Stevenson <www.robokind.org>

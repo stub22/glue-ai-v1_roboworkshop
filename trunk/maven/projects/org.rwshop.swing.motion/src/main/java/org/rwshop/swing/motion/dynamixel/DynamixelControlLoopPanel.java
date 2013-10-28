@@ -23,9 +23,9 @@ package org.rwshop.swing.motion.dynamixel;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
+import org.jflux.impl.services.rk.osgi.ServiceClassListener;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.osgi.OSGiUtils;
-import org.robokind.api.common.osgi.ServiceClassListener;
 import org.robokind.api.motion.servos.ServoController;
 import org.robokind.impl.motion.dynamixel.DynamixelController;
 import org.robokind.impl.motion.dynamixel.feedback.DynamixelControlLoop;

@@ -15,16 +15,15 @@
  */
 package org.rwshop.nb.motion.dynamixel;
 
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
+import org.jflux.impl.services.rk.osgi.SingleServiceListener;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.osgi.OSGiUtils;
-import org.robokind.api.common.osgi.SingleServiceListener;
 import org.robokind.api.motion.servos.ServoController;
-import org.robokind.impl.motion.dynamixel.DynamixelController;
 
 /**
  * Top component which displays something.

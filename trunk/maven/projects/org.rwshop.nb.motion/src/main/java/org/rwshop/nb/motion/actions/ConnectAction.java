@@ -16,25 +16,25 @@
 
 package org.rwshop.nb.motion.actions;
 
-import org.robokind.api.common.lifecycle.ManagedService;
-import org.robokind.api.common.lifecycle.utils.SimpleLifecycle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Properties;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import org.jflux.impl.services.rk.lifecycle.ManagedService;
+import org.jflux.impl.services.rk.lifecycle.ServiceLifecycleProvider;
+import org.jflux.impl.services.rk.lifecycle.utils.SimpleLifecycle;
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
+import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponent;
+import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponentFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
-import org.robokind.api.common.lifecycle.ServiceLifecycleProvider;
 import org.robokind.api.motion.Robot;
 import org.robokind.api.motion.servos.ServoRobot;
 import org.robokind.impl.motion.config.RobotConfigXMLReader;
-import org.robokind.api.common.osgi.OSGiUtils;
 import org.robokind.api.common.osgi.lifecycle.ConfiguredServiceLifecycle;
 import org.robokind.api.common.osgi.lifecycle.ConfiguredServiceParams;
-import org.robokind.api.common.osgi.lifecycle.OSGiComponent;
-import org.robokind.api.common.osgi.lifecycle.OSGiComponentFactory;
 import org.robokind.api.common.services.Constants;
 import org.robokind.api.motion.lifecycle.RobotJointGroupLifecycle;
 import org.robokind.api.motion.servos.config.ServoRobotConfig;

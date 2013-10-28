@@ -22,9 +22,7 @@
 package org.rwshop.swing.common.lifecycle;
 
 import java.awt.Color;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import org.robokind.api.common.lifecycle.DependencyDescriptor;
+import org.jflux.impl.services.rk.lifecycle.DependencyDescriptor;
 import org.rwshop.swing.common.InnerScrollPaneWheelListener;
 
 /**

@@ -32,11 +32,9 @@ import javax.swing.RepaintManager;
 import javax.swing.table.DefaultTableModel;
 import org.jflux.api.service.ServiceDependency;
 import org.jflux.api.service.ServiceDependency.Cardinality;
-import org.jflux.api.service.ServiceLifecycle;
 import org.jflux.api.service.ServiceManager;
 import org.jflux.api.service.binding.DependencyTracker;
 import org.jflux.api.service.binding.ServiceBinding;
-import org.robokind.api.common.lifecycle.ManagedService;
 import org.rwshop.swing.common.InnerScrollPaneWheelListener;
 
 /**

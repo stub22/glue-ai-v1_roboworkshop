@@ -18,11 +18,11 @@ package org.rwshop.swing.animation.timeline.position;
 
 import java.util.List;
 import java.util.Map;
+import org.jflux.impl.services.rk.osgi.ClassTracker;
 import org.osgi.framework.BundleContext;
 import org.robokind.api.animation.editor.AnimationEditor;
 import org.robokind.api.animation.utils.AnimationEditListener;
 import org.robokind.api.animation.utils.PositionAdder;
-import org.robokind.api.common.osgi.ClassTracker;
 
 /**
  *

@@ -16,13 +16,13 @@
 package org.rwshop.nb.motion;
 
 import java.util.logging.Logger;
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 //import org.openide.util.ImageUtilities;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.osgi.OSGiUtils;
 import org.robokind.api.motion.jointgroup.JointGroup;
 
 /**
