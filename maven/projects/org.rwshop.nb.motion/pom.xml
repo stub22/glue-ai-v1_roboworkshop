@@ -155,6 +155,11 @@
             <artifactId>org.robokind.demo.robot.replication</artifactId>
             <version>${robokind.core.version}</version>
         </dependency>
+        <dependency>
+            <artifactId>org.jflux.impl.services.rk</artifactId>
+            <groupId>org.jflux</groupId>
+            <version>${jflux.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

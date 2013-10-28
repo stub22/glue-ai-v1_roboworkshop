@@ -22,9 +22,9 @@ import org.jflux.api.core.Notifier;
 import org.jflux.api.core.config.Configuration;
 import org.jflux.api.core.util.DefaultNotifier;
 import org.jflux.impl.encode.avro.SerializationConfigUtils;
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
+import org.jflux.impl.services.rk.osgi.ServiceClassListener;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.osgi.OSGiUtils;
-import org.robokind.api.common.osgi.ServiceClassListener;
 import org.robokind.impl.messaging.config.RKMessagingConfigUtils;
 
 /**

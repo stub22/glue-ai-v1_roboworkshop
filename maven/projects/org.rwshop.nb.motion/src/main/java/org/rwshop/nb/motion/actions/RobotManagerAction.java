@@ -17,8 +17,8 @@ package org.rwshop.nb.motion.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.osgi.OSGiUtils;
 import org.robokind.api.motion.Robot;
 import org.robokind.api.motion.utils.RobotManager;
 import org.robokind.api.motion.utils.RobotUtils;

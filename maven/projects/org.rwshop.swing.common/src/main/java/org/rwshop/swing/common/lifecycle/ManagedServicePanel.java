@@ -30,8 +30,8 @@ import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.RepaintManager;
 import javax.swing.table.DefaultTableModel;
-import org.robokind.api.common.lifecycle.DependencyDescriptor;
-import org.robokind.api.common.lifecycle.ManagedService;
+import org.jflux.impl.services.rk.lifecycle.DependencyDescriptor;
+import org.jflux.impl.services.rk.lifecycle.ManagedService;
 import org.rwshop.swing.common.InnerScrollPaneWheelListener;
 
 /**

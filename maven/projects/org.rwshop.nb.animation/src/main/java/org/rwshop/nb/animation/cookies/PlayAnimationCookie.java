@@ -18,11 +18,11 @@ package org.rwshop.nb.animation.cookies;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.osgi.framework.BundleContext;
 import org.robokind.api.animation.editor.AnimationEditor;
 import org.robokind.api.animation.player.AnimationPlayer;
 import org.robokind.api.animation.utils.AnimationUtils;
-import org.robokind.api.common.osgi.OSGiUtils;
 import org.robokind.api.common.utils.RKSource.SourceImpl;
 import org.rwshop.nb.common.cookies.PlayCookie;
 

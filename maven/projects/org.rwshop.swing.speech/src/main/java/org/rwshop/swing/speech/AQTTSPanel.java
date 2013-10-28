@@ -22,18 +22,18 @@
 package org.rwshop.swing.speech;
 
 import java.util.Arrays;
-import org.robokind.api.common.lifecycle.config.GenericLifecycle.DependencyChange;
 import java.util.Map;
 import java.util.logging.Logger;
 import org.jflux.api.core.Adapter;
 import org.jflux.api.core.Listener;
+import org.jflux.impl.services.rk.lifecycle.DependencyDescriptor;
+import org.jflux.impl.services.rk.lifecycle.config.GenericLifecycle;
+import org.jflux.impl.services.rk.lifecycle.config.GenericLifecycle.DependencyChange;
+import org.jflux.impl.services.rk.lifecycle.utils.ManagedServiceFactory;
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
+import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponent;
+import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponentFactory;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.osgi.OSGiUtils;
-import org.robokind.api.common.osgi.lifecycle.OSGiComponent;
-import org.robokind.api.common.lifecycle.DependencyDescriptor;
-import org.robokind.api.common.lifecycle.config.GenericLifecycle;
-import org.robokind.api.common.lifecycle.utils.ManagedServiceFactory;
-import org.robokind.api.common.osgi.lifecycle.OSGiComponentFactory;
 import org.robokind.api.common.utils.RKConstants;
 import org.robokind.api.speech.messaging.RemoteSpeechServiceClient;
 import org.robokind.api.speech.SpeechService;

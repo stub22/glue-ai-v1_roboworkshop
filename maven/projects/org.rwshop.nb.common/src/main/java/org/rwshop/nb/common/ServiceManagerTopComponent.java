@@ -16,14 +16,14 @@
 package org.rwshop.nb.common;
 
 import java.util.logging.Logger;
+import org.jflux.impl.services.rk.lifecycle.ManagedService;
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
+import org.jflux.impl.services.rk.osgi.ServiceClassListener;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.lifecycle.ManagedService;
-import org.robokind.api.common.osgi.OSGiUtils;
-import org.robokind.api.common.osgi.ServiceClassListener;
 
 /**
  * Top component which displays something.

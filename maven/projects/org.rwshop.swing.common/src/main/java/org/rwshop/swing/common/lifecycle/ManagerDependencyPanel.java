@@ -22,12 +22,10 @@
 package org.rwshop.swing.common.lifecycle;
 
 import java.awt.Color;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 import org.jflux.api.registry.Descriptor;
 import org.jflux.api.service.binding.ServiceBinding;
-import org.robokind.api.common.osgi.OSGiUtils;
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.rwshop.swing.common.InnerScrollPaneWheelListener;
 
 /**

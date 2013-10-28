@@ -5,8 +5,8 @@
 package org.rwshop.swing.common.config;
 
 import org.jflux.api.core.config.Configuration;
+import org.jflux.impl.services.rk.osgi.ServiceClassListener;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.osgi.ServiceClassListener;
 
 /**
  *

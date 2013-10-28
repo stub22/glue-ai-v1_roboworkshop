@@ -21,15 +21,13 @@
  */
 package org.rwshop.swing.motion.robot.treetable;
 
-import java.beans.Beans;
+import org.jflux.impl.services.rk.osgi.OSGiUtils;
+import org.jflux.impl.services.rk.osgi.ServiceClassListener;
 import org.netbeans.swing.outline.DefaultOutlineModel;
 import org.netbeans.swing.outline.OutlineModel;
 import org.osgi.framework.BundleContext;
 import org.robokind.api.motion.Robot;
-import org.robokind.api.motion.jointgroup.JointGroup;
 import org.rwshop.swing.motion.jointgroup.JointTreeRenderer;
-import org.robokind.api.common.osgi.ServiceClassListener;
-import org.robokind.api.common.osgi.OSGiUtils;
 
 /**
  *
