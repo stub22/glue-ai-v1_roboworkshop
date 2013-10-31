@@ -32,6 +32,11 @@
             <artifactId>org.jflux.api.services</artifactId>
             <version>${jflux.version}</version>
         </dependency>
+         <dependency>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.impl.registry.osgi</artifactId>
+            <version>${jflux.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

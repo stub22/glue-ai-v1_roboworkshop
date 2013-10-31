@@ -30,12 +30,16 @@ import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.RepaintManager;
 import javax.swing.table.DefaultTableModel;
+import org.jflux.impl.registry.OSGiRegistry;
+import org.jflux.api.registry.Registry;
 import org.jflux.api.service.ServiceDependency;
 import org.jflux.api.service.ServiceDependency.Cardinality;
 import org.jflux.api.service.ServiceManager;
 import org.jflux.api.service.binding.DependencyTracker;
 import org.jflux.api.service.binding.ServiceBinding;
 import org.rwshop.swing.common.InnerScrollPaneWheelListener;
+import org.osgi.framework.BundleContext;
+
 
 /**
  *
@@ -48,6 +52,7 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
     private ServiceChangeListener myServiceChangeListener;
     private boolean myPropertiesVisible;
     private boolean myDependenciesVisible;
+    private BundleContext context;
     
     /** Creates new form ServiceManagerPanel */
     public ServiceManagerPanel() {
@@ -61,6 +66,11 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
         jScrollPane2.setOpaque(false);
         jScrollPane2.getViewport().setOpaque(false);
         jScrollPane2.addMouseWheelListener(new InnerScrollPaneWheelListener());
+    }
+    
+    public void setBundleContext(BundleContext context)
+    {
+       this.context=context;
     }
     
     @Override
@@ -81,9 +91,12 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
         updateServiceInfo();
         setVals();
         setDependencies();
+        deps=null;
+        deps=myService.getDependencies();
+
         if(deps != null){
             for(DependencyTracker tracker: deps.values()) {
-                tracker.removePropertyChangeListener(myServiceChangeListener);
+                tracker.addPropertyChangeListener(new ServiceChangeListener(tracker.getDependencyName()));
             }
         }
         markRepaint();
@@ -242,22 +255,21 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
     }    
     
     class ServiceChangeListener implements PropertyChangeListener{
+        private String propName;
+        
+        public ServiceChangeListener(String name)
+        {
+            propName=name;
+        }
+        public ServiceChangeListener(){}
+        
         @Override
         public synchronized void propertyChange(PropertyChangeEvent evt) {
-            if(evt == null){
-                return;
-            }
-            String name = evt.getPropertyName();
-//            if(ManagedService.PROP_SERVICE_CHANGED.equals(name)){
-//                setService((ServiceManager)evt.getNewValue());
-//            }else if(ServiceLifecycle.PROP_DEPENDENCY_CHANGED.equals(name)){
-            Object obj = evt.getNewValue();
-            if(!(obj instanceof String)){
-                return;
-            }
+
             updateServiceInfo();
-            updateDependencyStatus((String)obj);
-//            }
+         
+            if(!(propName.isEmpty()) || !(propName==null))
+                updateDependencyStatus(propName);
         }
     }
     private void markRepaint(){
@@ -527,11 +539,18 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUnregisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnregisterActionPerformed
+        
         if(myService == null){
             btnUnregister.setEnabled(false);
             btnRegister.setEnabled(false);
             return;
         }
+       
+        myService.stop();
+        updateServiceInfo();
+        btnUnregister.setEnabled(false);
+        btnRegister.setEnabled(true);
+        
 //        myService.setRegistrationEnabled(false);
     }//GEN-LAST:event_btnUnregisterActionPerformed
 
@@ -542,6 +561,12 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
             return;
         }
 //        myService.setRegistrationEnabled(true);
+        Registry registry=new OSGiRegistry(context);
+        myService.start(registry);
+        updateServiceInfo();
+        btnUnregister.setEnabled(true);
+        btnRegister.setEnabled(false);
+        
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void lblRegistrationPropertiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegistrationPropertiesMouseClicked
@@ -582,6 +607,7 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
     
     private void disposeService(){
         myService.dispose();
+        updateServiceInfo();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
