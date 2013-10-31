@@ -57,6 +57,7 @@ public class ManagedServiceListPanel extends JPanel{
     private boolean myPropertyValues;
     private boolean myDependencies;
     private String myAvailability;
+    private BundleContext context;
     
     public ManagedServiceListPanel(){
         myServiceChangeListener = new ManagedServiceListener(this);
@@ -68,6 +69,7 @@ public class ManagedServiceListPanel extends JPanel{
     }
 
     public void setBundleContext(BundleContext context){
+        this.context=context;
         initLayout();
         myServiceTracker = new ServiceClassListener<ManagedService>(
                 ManagedService.class, context, null);
@@ -106,9 +108,10 @@ public class ManagedServiceListPanel extends JPanel{
         if(service == null || myPanelMap.containsKey(service)){
            return;
         }
-        AbstractServicePanel panel = new ServiceManagerPanel();
+        ServiceManagerPanel panel = new ServiceManagerPanel();
         panel.setVisible(false);
         panel.setService(service);
+        panel.setBundleContext(context);
         myPanelMap.put(service, panel);
         add(panel);
         resize(panel.getPreferredSize().height);
