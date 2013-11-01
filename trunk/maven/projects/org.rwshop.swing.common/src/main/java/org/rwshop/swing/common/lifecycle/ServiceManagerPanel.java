@@ -91,14 +91,15 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
         updateServiceInfo();
         setVals();
         setDependencies();
-        deps=null;
-        deps=myService.getDependencies();
+        if(myService != null){
+		    deps=myService.getDependencies();
 
-        if(deps != null){
-            for(DependencyTracker tracker: deps.values()) {
-                tracker.addPropertyChangeListener(new ServiceChangeListener(tracker.getDependencyName()));
-            }
-        }
+		    if(deps != null){
+		        for(DependencyTracker tracker: deps.values()) {
+		            tracker.addPropertyChangeListener(new ServiceChangeListener(tracker.getDependencyName()));
+		        }
+		    }
+		}
         markRepaint();
     }
     
