@@ -5,7 +5,7 @@
 	<parent>
         <artifactId>org.rwshop.modules.vision</artifactId>
         <groupId>org.rwshop</groupId>
-        <version>0.9.3</version>
+        <version>0.9.4-SNAPSHOT</version>
 		<relativePath>../../org.rwshop.modules.vision/pom.xml</relativePath>
     </parent>
     <artifactId>org.rwshop.nb.vision</artifactId>
