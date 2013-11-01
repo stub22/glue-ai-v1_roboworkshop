@@ -26,6 +26,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.RepaintManager;
@@ -50,6 +51,7 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
             Logger.getLogger(ServiceManagerPanel.class.getName());
     private ServiceManager<?> myService;
     private ServiceChangeListener myServiceChangeListener;
+    private ArrayList<ServiceChangeListener> myServiceChangeListeners;
     private boolean myPropertiesVisible;
     private boolean myDependenciesVisible;
     private BundleContext context;
@@ -60,6 +62,7 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
         pnlDependencyList.setLayout(
                 new BoxLayout(pnlDependencyList, BoxLayout.Y_AXIS));
         myServiceChangeListener = new ServiceChangeListener();
+        myServiceChangeListeners=new ArrayList<ServiceChangeListener>();
         myPropertiesVisible = true;
         tblProperties.setTableHeader(null);
         lblType.setOpaque(false);
@@ -76,6 +79,7 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
     @Override
     public void setService(ServiceManager service){
         Map<ServiceBinding, DependencyTracker> deps = null;
+        ServiceChangeListener tempService;
         
         if(myService == service){
             updateServiceInfo();
@@ -84,7 +88,10 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
         if(myService != null){
             deps = myService.getDependencies();
             for(DependencyTracker tracker: deps.values()) {
-                tracker.removePropertyChangeListener(myServiceChangeListener);
+                for(ServiceChangeListener listener : myServiceChangeListeners){
+                    tracker.removePropertyChangeListener(listener);
+                }
+                
             }
         }
         myService = service;
@@ -96,7 +103,9 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
 
 		    if(deps != null){
 		        for(DependencyTracker tracker: deps.values()) {
-		            tracker.addPropertyChangeListener(new ServiceChangeListener(tracker.getDependencyName()));
+                            tempService=new ServiceChangeListener(tracker.getDependencyName());
+                            myServiceChangeListeners.add(tempService);
+		            tracker.addPropertyChangeListener(tempService);
 		        }
 		    }
 		}
