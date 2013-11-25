@@ -15,7 +15,6 @@
  */
 package org.rwshop.nb.motion.actions;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
 import org.robokind.demo.robot.replication.RobotReplicator;
 import org.robokind.impl.messaging.config.RKMessagingConfigUtils;
 import org.robokind.api.motion.protocol.MotionFrameEvent.MotionFrameEventFactory;
@@ -54,24 +53,25 @@ import org.robokind.impl.motion.messaging.PortableRobotRequest;
 import org.robokind.impl.motion.messaging.RobotRequestRecord;
 import static org.robokind.impl.messaging.utils.ConnectionUtils.TOPIC;
 
-public final class ConnectRemoteRobotAction implements ActionListener {
+public final class ConnectRemoteAvatarAction implements ActionListener {
     private final static Logger theLogger = 
-            Logger.getLogger(ConnectRemoteRobotAction.class.getName());
+            Logger.getLogger(ConnectRemoteAvatarAction.class.getName());
     
     private final static String CONNECTION_ID = "motionConnection";
     private final static String REQUEST_DEST_ID = "robotRequest";
     private final static String RESPONSE_DEST_ID = "robotResponse";
     private final static String MOVE_DEST_ID = "robotMotionFrame";
-    private final static Robot.Id ROBOT_ID = new Robot.Id("myRobot");
+    private final static Robot.Id ROBOT_ID = new Robot.Id("Avatar_ZenoR50");
     private final static String REQUEST_SENDER_ID = "robotRequestSender";
     private final static String RESPONSE_RECEIVER_ID = "robotResponseReceiver";
     private final static String MOVE_SENDER_ID = "robotFrameSender"; 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String ip = JOptionPane.showInputDialog("Remote Robot IP ?","127.0.0.1"); 
+        String ip = JOptionPane.showInputDialog(
+                "Remote Avatar IP ?","127.0.0.1"); 
         if(ip == null){
-            theLogger.info("User cancelled ConnectRemoteRobot action.");
+            theLogger.info("User cancelled ConnectRemoteAvatar action.");
             return;
         }else if(ip.isEmpty()){
             ip = "127.0.0.1";
@@ -174,9 +174,9 @@ public final class ConnectRemoteRobotAction implements ActionListener {
         regs.add(ConnectionUtils.ensureSession(context, 
                 connectionId, con, null));
         regs.addAll(ConnectionUtils.ensureDestinations(context, 
-                requestDestId, "robotmyRobothostrobotRequest", TOPIC, null, 
-                responseDestId, "robotmyRobothostrobotResponse", TOPIC, null,
-                moveDestId, "robotmyRobothostmotionFrame", TOPIC, null));
+                requestDestId, "robotAvatarZenoR50hostrobotRequest", TOPIC, null, 
+                responseDestId, "robotAvatarZenoR50hostrobotResponse", TOPIC, null,
+                moveDestId, "robotAvatarZenoR50hostmotionFrame", TOPIC, null));
         theLogger.info("Motion Connection and Destinations Registered");
         
         return regs;

@@ -19,7 +19,9 @@ package org.rwshop.nb.motion.actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import org.jflux.impl.services.rk.lifecycle.ManagedService;
@@ -85,20 +87,22 @@ public final class ConnectAction implements ActionListener {
         return chooser.getSelectedFile();
     }
     
-    protected static ServiceRegistration loadJointGroup(
+    protected static Set<OSGiComponent> loadJointGroup(
             BundleContext context, Robot.Id robotId, String configPath){
+        Set comps = new HashSet<OSGiComponent>(2);
         File file = ConfigUtils.getFileSystemAdapter().openFile(configPath);
         if(file == null){
             return null;
         }
         String paramId = "robot/" + robotId + "/jointgroup/config/param/xml";
-        launchJointGroupConfig(context, file, paramId);
+        comps.add(launchJointGroupConfig(context, file, paramId));
         RobotJointGroupLifecycle<File> lifecycle =
                 new RobotJointGroupLifecycle<File>(robotId, File.class, 
                         paramId, RobotJointGroupConfigXMLReader.VERSION);
         OSGiComponent jointGroupComp = new OSGiComponent(context, lifecycle);
         jointGroupComp.start();
-        return null;
+        comps.add(jointGroupComp);
+        return comps;
     }
     
     private static OSGiComponent launchJointGroupConfig(
