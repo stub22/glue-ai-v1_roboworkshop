@@ -25,13 +25,42 @@ import org.osgi.framework.BundleContext;
  */
 public class ServicesFrame extends javax.swing.JFrame {
 
+	static int serviceFramesCount = 0;
+
+	public static void create(final BundleContext context) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+
+			@Override public void run() {
+				ServicesFrame sf = new ServicesFrame();
+				if (context != null) sf.setBundleContext(context);
+				sf.setVisible(true);
+			}
+		});
+	}
+	int serviceFrameNum = 0;
+
+
+	private boolean isOperational() {
+		return serviceFrameNum == 0;
+	}
+
+	@Override public void setVisible(boolean b) {
+		if (!isOperational())
+			return;
+		super.setVisible(b);
+	}
+
     /**
      * Creates new form ServicesFrame
      */
     public ServicesFrame() {
+		serviceFrameNum = serviceFramesCount;
+		serviceFramesCount++;
+		if (isOperational()) {
         initComponents();
         recenterServicesPanel();
     }
+	}
 
     /**
      * Matisse Forms Editor forgets about "Center" and uses "First"
@@ -44,6 +73,8 @@ public class ServicesFrame extends javax.swing.JFrame {
     }
 
     public void setBundleContext(BundleContext context){
+		if (!isOperational())
+			return;
         servicesPanel1.setBundleContext(context);
     }
 
