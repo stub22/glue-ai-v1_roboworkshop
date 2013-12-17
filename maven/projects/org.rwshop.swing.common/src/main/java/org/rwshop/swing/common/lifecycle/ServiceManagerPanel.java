@@ -94,6 +94,7 @@ public class ServiceManagerPanel extends AbstractServicePanel<ServiceManager> {
                 
             }
         }
+        myServiceChangeListeners.clear();
         myService = service;
         updateServiceInfo();
         setVals();
