@@ -41,7 +41,7 @@ public class OSGiSchemaSelector extends ServiceClassListener<Configuration> {
     }
 
     @Override
-    protected void addService(Configuration t) {
+    protected synchronized void addService(Configuration t) {
         try{
             if(!t.containsKey(Schema.class, SerializationConfigUtils.CONF_AVRO_RECORD_SCHEMA)){
                 return;
@@ -61,7 +61,7 @@ public class OSGiSchemaSelector extends ServiceClassListener<Configuration> {
     }
 
     @Override
-    protected void removeService(Configuration t) {
+    protected synchronized void removeService(Configuration t) {
         if(myConfigs == null) {
             return;
         }
@@ -72,7 +72,7 @@ public class OSGiSchemaSelector extends ServiceClassListener<Configuration> {
         myChangeNotifier.notifyListeners(t);
     }
     
-    public List<Schema> getSchemas(){
+    public synchronized List<Schema> getSchemas(){
         List<Schema> schemas = new ArrayList();
         for(Configuration c : myConfigs){
             Schema schema = (Schema)c.getPropertyValue(Schema.class, SerializationConfigUtils.CONF_AVRO_RECORD_SCHEMA);

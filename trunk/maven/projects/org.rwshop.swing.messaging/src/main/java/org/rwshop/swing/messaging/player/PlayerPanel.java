@@ -27,7 +27,9 @@ import javax.jms.Session;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.avro.Schema;
+import org.apache.avro.Schema.Field;
 import org.apache.avro.file.DataFileReader;
+import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.IndexedRecord;
 import org.apache.avro.io.DatumReader;
 import org.apache.avro.specific.SpecificDatumReader;
@@ -62,6 +64,10 @@ public class PlayerPanel extends javax.swing.JPanel {
     
     public void setSchema(Schema schema) {
         mySchema = schema;
+        
+        if(myEditorList != null) {
+            myEditorList.setSchema(schema);
+        }
     }
     
     public void setEditorList(EditorListPanel editorList) {
@@ -70,6 +76,7 @@ public class PlayerPanel extends javax.swing.JPanel {
     
     public void activate() {
         jButton1.setEnabled(true);
+        jButton3.setEnabled(true);
         
         if(myEditorList.getRecords().size() > 0) {
             jButton2.setEnabled(true);
@@ -79,6 +86,7 @@ public class PlayerPanel extends javax.swing.JPanel {
     public void deactivate() {
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
+        jButton3.setEnabled(false);
     }
     
     private void loadMessages() {
@@ -132,41 +140,79 @@ public class PlayerPanel extends javax.swing.JPanel {
                 new JMSAvroRecordSender<IndexedRecord>(msgSender);
 
         Comparator<IndexedRecord> cmp = new TimestampComparator();
+        boolean useHeader = false;
         int timestampIndex = -1;
+        int headerIndex = -1;
         long timeline = 0;
 
         for(int i = 0; i < mySchema.getFields().size(); i++) {
-            if(mySchema.getFields().get(i).name().equals(
-                    "timestampMillisecUTC")) {
+            String fieldName = mySchema.getFields().get(i).name();
+            if(fieldName.equals("header")) {
+                useHeader = true;
+                headerIndex = i;
+                
+                Field field = mySchema.getFields().get(i);
+                Schema schema = field.schema();
+                
+                for(int j = 0; j < schema.getFields().size(); j++) {
+                    String headerFieldName = schema.getFields().get(i).name();
+                    
+                    if(headerFieldName.equals("timestamp")) {
+                        timestampIndex = j;
+                        break;
+                    }
+                }
+                
+                break;
+            } else if(fieldName.equals("timestampMillisecUTC")) {
                 timestampIndex = i;
                 break;
             }
         }
 
         if(timestampIndex < 0) {
+            int delay = -1;
+
+            while(delay < 0) {
+                try {
+                    String delayInput =
+                            JOptionPane.showInputDialog(
+                            this,
+                            "Enter delay between records (in milliseconds):",
+                            "Delay", JOptionPane.QUESTION_MESSAGE);
+                    delay = Integer.parseInt(delayInput);
+                } catch(NumberFormatException ex) {
+                }
+            }
+            
             for(IndexedRecord record: records) {
                 sender.sendRecord(record);
-                TimeUtils.sleep(100);
+//                System.out.println("Sleeping " + delay + " msec.");
+                TimeUtils.sleep(delay);
             }
+            
             msgSender.closeProducer();
-
-//            JOptionPane.showMessageDialog(
-//                    this,
-//                    "Error: no timestamp information present.",
-//                    "Failure", JOptionPane.ERROR_MESSAGE);
+            
+            JOptionPane.showMessageDialog(
+                    this, "Playback complete.", "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
 
             return;
         }
 
         Collections.sort(records, cmp);
-        Long firstTimestamp = (Long)records.get(0).get(timestampIndex);
+        Long firstTimestamp =
+                getTimestamp(
+                records.get(0), useHeader, timestampIndex, headerIndex);
 
         for(IndexedRecord record: records) {
             Long totalDelay =
-                    (Long)record.get(timestampIndex) - firstTimestamp;
+                    getTimestamp(record, useHeader, timestampIndex, headerIndex)
+                    - firstTimestamp;
             Long delay = totalDelay - timeline;
 
             if(delay > 0) {
+//                System.out.println("Sleeping " + delay + " msec.");
                 TimeUtils.sleep(delay);
             }
 
@@ -177,9 +223,19 @@ public class PlayerPanel extends javax.swing.JPanel {
         msgSender.closeProducer();
 
         JOptionPane.showMessageDialog(
-                this,
-                "Records loaded.",
-                "Success", JOptionPane.INFORMATION_MESSAGE);
+                this, "Playback complete.", "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private Long getTimestamp(
+            IndexedRecord record, boolean useHeader, int timestampIndex,
+            int headerIndex) {
+        if(useHeader) {
+            IndexedRecord header = (IndexedRecord)record.get(headerIndex);
+            return (Long)header.get(timestampIndex);
+        } else {
+            return (Long)record.get(timestampIndex);
+        }
     }
 
     /**
@@ -193,6 +249,7 @@ public class PlayerPanel extends javax.swing.JPanel {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jButton1.setText("Load");
         jButton1.setEnabled(false);
@@ -210,13 +267,23 @@ public class PlayerPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton3.setText("Add");
+        jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
                 .addComponent(jButton2))
         );
         layout.setVerticalGroup(
@@ -225,7 +292,8 @@ public class PlayerPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -233,14 +301,25 @@ public class PlayerPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         loadMessages();
         jButton2.setEnabled(true);
+        jButton3.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         playMessages();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+//        IndexedRecord lastRecord = myEditorList.getLastRecord();
+//        IndexedRecord copy =
+//                (IndexedRecord)GenericData.get().deepCopy(mySchema, lastRecord);
+//        myEditorList.addRecord(copy);
+        myEditorList.newRecord();
+        jButton2.setEnabled(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     // End of variables declaration//GEN-END:variables
 }

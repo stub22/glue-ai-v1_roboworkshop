@@ -46,6 +46,7 @@ public class AvroTableDemoFrame extends javax.swing.JFrame {
         avroQpidConnectionPanel1.setSchemaSelector(mySelector);
         avroQpidConnectionPanel1.setAvroTable(avroTablePanel1);
         avroQpidConnectionPanel1.setSavePanel(savePanel1);
+        avroQpidConnectionPanel1.setContext(context);
     }
 
     /** This method is called from within the constructor to

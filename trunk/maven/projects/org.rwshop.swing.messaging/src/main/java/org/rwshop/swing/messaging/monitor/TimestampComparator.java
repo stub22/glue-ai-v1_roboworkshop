@@ -17,6 +17,7 @@ package org.rwshop.swing.messaging.monitor;
 
 import java.util.Comparator;
 import org.apache.avro.Schema;
+import org.apache.avro.Schema.Field;
 import org.apache.avro.generic.IndexedRecord;
 
 /**
@@ -24,25 +25,62 @@ import org.apache.avro.generic.IndexedRecord;
  * @author jgpallack
  */
 public class TimestampComparator implements Comparator<IndexedRecord> {
-
     @Override
     public int compare(IndexedRecord o1, IndexedRecord o2) {
         Schema o1Schema = o1.getSchema();
         Schema o2Schema = o2.getSchema();
         int index1 = -1;
         int index2 = -1;
+        boolean useHeader1 = false;
+        boolean useHeader2 = false;
+        int headerIndex1 = -1;
+        int headerIndex2 = -1;
         
         for(int i = 0; i < o1Schema.getFields().size(); i++) {
-            if(o1Schema.getFields().get(i).name().equals(
-                    "timestampMillisecUTC")) {
+            String fieldName = o1Schema.getFields().get(i).name();
+            if(fieldName.equals("header")) {
+                useHeader1 = true;
+                headerIndex1 = i;
+                
+                Field field = o1Schema.getFields().get(i);
+                Schema schema = field.schema();
+                
+                for(int j = 0; j < schema.getFields().size(); j++) {
+                    String headerFieldName = schema.getFields().get(i).name();
+                    
+                    if(headerFieldName.equals("timestamp")) {
+                        index1 = j;
+                        break;
+                    }
+                }
+                
+                break;
+            } else if(fieldName.equals("timestampMillisecUTC")) {
                 index1 = i;
                 break;
             }
         }
         
         for(int i = 0; i < o2Schema.getFields().size(); i++) {
-            if(o2Schema.getFields().get(i).name().equals(
-                    "timestampMillisecUTC")) {
+            String fieldName = o2Schema.getFields().get(i).name();
+            if(fieldName.equals("header")) {
+                useHeader2 = true;
+                headerIndex2 = i;
+                
+                Field field = o2Schema.getFields().get(i);
+                Schema schema = field.schema();
+                
+                for(int j = 0; j < schema.getFields().size(); j++) {
+                    String headerFieldName = schema.getFields().get(i).name();
+                    
+                    if(headerFieldName.equals("timestamp")) {
+                        index2 = j;
+                        break;
+                    }
+                }
+                
+                break;
+            } else if(fieldName.equals("timestampMillisecUTC")) {
                 index2 = i;
                 break;
             }
@@ -52,9 +90,20 @@ public class TimestampComparator implements Comparator<IndexedRecord> {
             return 0;
         }
         
-        Long o1Timestamp = (Long)o1.get(index1);
-        Long o2Timestamp = (Long)o2.get(index2);
+        Long o1Timestamp = getTimestamp(o1, useHeader1, index1, headerIndex1);
+        Long o2Timestamp = getTimestamp(o2, useHeader2, index2, headerIndex2);
         
         return o1Timestamp.compareTo(o2Timestamp);
+    }
+    
+    private Long getTimestamp(
+            IndexedRecord record, boolean useHeader, int timestampIndex,
+            int headerIndex) {
+        if(useHeader) {
+            IndexedRecord header = (IndexedRecord)record.get(headerIndex);
+            return (Long)header.get(timestampIndex);
+        } else {
+            return (Long)record.get(timestampIndex);
+        }
     }
 }

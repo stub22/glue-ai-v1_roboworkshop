@@ -43,6 +43,7 @@ public class PlayerFrame extends javax.swing.JFrame {
         avroQpidConnectionPanel1.setConnector(myConnector);
         avroQpidConnectionPanel1.setSchemaSelector(mySelector);
         avroQpidConnectionPanel1.setPlayerPanel(playerPanel1);
+        avroQpidConnectionPanel1.setContext(context);
         playerPanel1.setEditorList(editorListPanel1);
     }
 

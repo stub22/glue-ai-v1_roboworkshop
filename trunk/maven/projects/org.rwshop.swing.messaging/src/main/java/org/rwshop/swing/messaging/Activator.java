@@ -16,8 +16,11 @@
 
 package org.rwshop.swing.messaging;
 
+import javax.swing.UIManager;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.rwshop.swing.messaging.monitor.AvroTableDemoFrame;
+import org.rwshop.swing.messaging.player.PlayerFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +44,8 @@ public class Activator implements BundleActivator {
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //
 //            public void run() {
-//                AvroTableDemoFrame frame = new AvroTableDemoFrame();
+////                AvroTableDemoFrame frame = new AvroTableDemoFrame();
+//                PlayerFrame frame = new PlayerFrame();
 //                frame.start(context);
 //                frame.setVisible(true);
 //            }

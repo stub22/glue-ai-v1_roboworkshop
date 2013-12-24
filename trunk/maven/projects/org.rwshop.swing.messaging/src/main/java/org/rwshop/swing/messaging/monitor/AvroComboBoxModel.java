@@ -76,11 +76,11 @@ public class AvroComboBoxModel extends DefaultComboBoxModel implements Listener 
     }
 
     @Override
-    public void handleEvent(Object t) {
+    public synchronized void handleEvent(Object t) {
         updateSchemaList();
     }
     
-    private void updateSchemaList(){
+    private synchronized void updateSchemaList(){
         List<Schema> newList = mySelector.getSchemas();
         
         for(Schema schema: newList) {
