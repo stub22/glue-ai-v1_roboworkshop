@@ -21,11 +21,22 @@
  */
 package org.rwshop.swing.messaging.player;
 
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.avro.Schema;
+import org.apache.avro.generic.IndexedRecord;
+import org.jflux.api.core.util.EmptyAdapter;
+import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponentFactory;
+import org.osgi.framework.BundleContext;
+import org.robokind.impl.messaging.JMSAvroServiceFacade;
+import org.robokind.impl.messaging.config.RKMessagingConfigUtils;
 import org.rwshop.swing.common.HistoricalComboBoxModel;
 import org.rwshop.swing.messaging.monitor.AvroComboBoxModel;
 import org.rwshop.swing.messaging.monitor.OSGiSchemaSelector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -37,6 +48,9 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
     private HistoricalComboBoxModel myIPModel;
     private HistoricalComboBoxModel myDestModel;
     private PlayerPanel myPlayerPanel;
+    private BundleContext myContext;
+    private final static Logger theLogger =
+            LoggerFactory.getLogger(AvroQpidConnectionPanel.class);
     
     /** Creates new form AvroQpidConnectionPanel */
     public AvroQpidConnectionPanel() {
@@ -65,6 +79,10 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
     public void setPlayerPanel(PlayerPanel saveLoadPanel) {
         myPlayerPanel = saveLoadPanel;
     }
+    
+    public void setContext(BundleContext context) {
+        myContext = context;
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -83,6 +101,7 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox();
         jComboBox3 = new javax.swing.JComboBox();
+        jButton3 = new javax.swing.JButton();
 
         jLabel1.setText("IP Address:");
 
@@ -111,6 +130,13 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jButton3.setText("Get Schemas");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,6 +155,8 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
                             .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
@@ -152,7 +180,8 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -210,9 +239,41 @@ public class AvroQpidConnectionPanel extends javax.swing.JPanel {
         myPlayerPanel.deactivate();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        JFileChooser openFile = new JFileChooser();
+        int retVal = openFile.showOpenDialog(this);
+        if(retVal == JFileChooser.APPROVE_OPTION) {
+            File file = openFile.getSelectedFile();
+            Schema.Parser parser = new Schema.Parser();
+            
+            try {
+                Schema schema = parser.parse(file);
+                
+                if(schema.getName().equals("union")) {
+                    for(Schema type: schema.getTypes()) {
+                        RKMessagingConfigUtils.registerAvroSerializationConfig(
+                                Object.class, IndexedRecord.class, type,
+                                new EmptyAdapter(), new EmptyAdapter(),
+                                JMSAvroServiceFacade.AVRO_MIME_TYPE, null,
+                                new OSGiComponentFactory(myContext));
+                    }
+                } else {
+                    RKMessagingConfigUtils.registerAvroSerializationConfig(
+                            Object.class, IndexedRecord.class, schema,
+                            new EmptyAdapter(), new EmptyAdapter(),
+                            JMSAvroServiceFacade.AVRO_MIME_TYPE, null,
+                            new OSGiComponentFactory(myContext));
+                }
+            } catch(IOException ex) {
+                theLogger.error("Error parsing file " + file.getName());
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;

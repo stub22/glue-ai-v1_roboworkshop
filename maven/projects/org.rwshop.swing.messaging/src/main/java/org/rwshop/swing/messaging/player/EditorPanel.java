@@ -21,12 +21,15 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
+import org.apache.avro.Schema.Type;
+import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.IndexedRecord;
 
 /**
@@ -46,6 +49,30 @@ public class EditorPanel extends javax.swing.JPanel {
         myConstraints.fill = GridBagConstraints.HORIZONTAL;
     }
     
+    private Object marshal(Schema schema) {
+        Type type = schema.getType();
+        
+        if(type == Type.STRING) {
+            return "";
+        } else if(type == Type.BOOLEAN) {
+            return Boolean.FALSE;
+        } else if(type == Type.DOUBLE) {
+            return new Double(0.0);
+        } else if(type == Type.FLOAT) {
+            return new Float(0.0);
+        } else if(type == Type.INT) {
+            return new Integer(0);
+        } else if(type == Type.LONG) {
+            return new Long(0);
+        } else if(type == Type.RECORD) {
+            return new GenericData.Record(schema);
+        } else if(type == Type.ARRAY) {
+            return new GenericData.Array(schema, new ArrayList());
+        } else {
+            return new Object();
+        }
+    }
+    
     public void setRecord(IndexedRecord record) {
         myRecord = record;
         Schema schema = myRecord.getSchema();
@@ -61,6 +88,13 @@ public class EditorPanel extends javax.swing.JPanel {
         
         for(int i = 0; i < fields.size(); i++) {
             Field field = fields.get(i);
+            
+            Object item = myRecord.get(i);
+            
+            if(item == null) {
+                myRecord.put(i, marshal(field.schema()));
+            }
+            
             Class cls = myRecord.get(i).getClass();
             
             JLabel label = new JLabel(field.name());
