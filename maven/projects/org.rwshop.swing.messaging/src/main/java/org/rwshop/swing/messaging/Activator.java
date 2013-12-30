@@ -16,11 +16,8 @@
 
 package org.rwshop.swing.messaging;
 
-import javax.swing.UIManager;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.rwshop.swing.messaging.monitor.AvroTableDemoFrame;
-import org.rwshop.swing.messaging.player.PlayerFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,22 +31,6 @@ public class Activator implements BundleActivator {
     @Override
     public void start(final BundleContext context) throws Exception {
 //        theLogger.info("AQServiceSwingUI Activation Begin.");
-//        
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception ex) {
-//            java.util.logging.Logger.getLogger(AvroTableDemoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//
-//            public void run() {
-////                AvroTableDemoFrame frame = new AvroTableDemoFrame();
-//                PlayerFrame frame = new PlayerFrame();
-//                frame.start(context);
-//                frame.setVisible(true);
-//            }
-//        });
 //        theLogger.info("AQServiceSwingUI Activation Complete.");
     }
     
