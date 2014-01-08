@@ -15,13 +15,13 @@
  */
 package org.rwshop.nb.motion.actions;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
+import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 import org.jflux.impl.services.rk.lifecycle.ManagedService;
 import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponent;
 import org.osgi.framework.ServiceRegistration;
@@ -37,6 +37,8 @@ public class DisconnectAction implements ActionListener {
             new HashSet<OSGiComponent>();
     private static Set<ServiceRegistration> theRegs =
             new HashSet<ServiceRegistration>();
+    private static final Logger theLogger =
+            Logger.getLogger(ActionListener.class.getName());
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -45,10 +47,20 @@ public class DisconnectAction implements ActionListener {
     
     public static void disconnect() {
         for(ManagedService service: theServices) {
+//            try {
+//                service.stop();
+//            } catch(Exception ex) {
+//                theLogger.warning("Error stopping service.");
+//            }
             service.dispose();
         }
         
         for(OSGiComponent component: theComponents) {
+//            try {
+//                component.stop();
+//            } catch(Exception ex) {
+//                theLogger.warning("Error stopping service.");
+//            }
             component.dispose();
         }
         

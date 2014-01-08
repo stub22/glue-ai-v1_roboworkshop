@@ -25,9 +25,9 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import org.apache.avro.Schema;
 import org.robokind.api.messaging.services.RemoteServiceClient;
-import org.robokind.bind.apache_avro.AvroUtils;
 import org.apache.avro.generic.IndexedRecord;
 import org.jflux.api.core.Source;
+import org.jflux.impl.messaging.rk.common.AvroUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

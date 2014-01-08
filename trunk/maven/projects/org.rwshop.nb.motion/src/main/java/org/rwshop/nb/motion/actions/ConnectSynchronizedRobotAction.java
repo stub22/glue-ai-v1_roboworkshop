@@ -27,6 +27,7 @@ import javax.jms.JMSException;
 import javax.jms.Session;
 import javax.swing.JFileChooser;
 import org.apache.qpid.client.AMQQueue;
+import org.jflux.impl.messaging.rk.utils.ConnectionManager;
 import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
@@ -35,7 +36,6 @@ import org.robokind.api.motion.Robot;
 import org.robokind.api.motion.sync.SynchronizedRobot;
 import org.robokind.api.motion.utils.RobotUtils;
 import org.robokind.extern.utils.apache_commons_configuration.ConfigUtils;
-import org.robokind.impl.messaging.utils.ConnectionManager;
 import org.robokind.impl.motion.sync.SynchronizedRobotConfigLoader;
 
 public final class ConnectSynchronizedRobotAction implements ActionListener {
