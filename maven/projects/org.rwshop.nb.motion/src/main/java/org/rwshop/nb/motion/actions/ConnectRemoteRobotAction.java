@@ -15,9 +15,7 @@
  */
 package org.rwshop.nb.motion.actions;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
 import org.robokind.demo.robot.replication.RobotReplicator;
-import org.robokind.impl.messaging.config.RKMessagingConfigUtils;
 import org.robokind.api.motion.protocol.MotionFrameEvent.MotionFrameEventFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +25,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.Connection;
 import javax.jms.JMSException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.jflux.impl.messaging.rk.config.RKMessagingConfigUtils;
+import org.jflux.impl.messaging.rk.lifecycle.BytesMessageBlockingReceiverLifecycle;
+import org.jflux.impl.messaging.rk.lifecycle.JMSAvroMessageSenderLifecycle;
+import org.jflux.impl.messaging.rk.utils.ConnectionManager;
+import org.jflux.impl.messaging.rk.utils.ConnectionUtils;
 import org.jflux.impl.services.rk.lifecycle.ManagedService;
 import org.jflux.impl.services.rk.lifecycle.utils.SimpleLifecycle;
 import org.jflux.impl.services.rk.osgi.OSGiUtils;
@@ -43,16 +47,13 @@ import org.robokind.api.motion.protocol.MotionFrameEvent;
 import org.robokind.api.motion.protocol.RobotRequest;
 import org.robokind.api.motion.protocol.RobotResponse;
 import org.robokind.api.motion.utils.RobotUtils;
-import org.robokind.impl.messaging.lifecycle.BytesMessageBlockingReceiverLifecycle;
-import org.robokind.impl.messaging.lifecycle.JMSAvroMessageSenderLifecycle;
-import org.robokind.impl.messaging.utils.ConnectionManager;
-import org.robokind.impl.messaging.utils.ConnectionUtils;
 import org.robokind.impl.motion.messaging.MotionFrameEventRecord;
 import org.robokind.impl.motion.messaging.PortableRobotResponse;
 import org.robokind.impl.motion.messaging.PortableMotionFrameEvent;
 import org.robokind.impl.motion.messaging.PortableRobotRequest;
 import org.robokind.impl.motion.messaging.RobotRequestRecord;
-import static org.robokind.impl.messaging.utils.ConnectionUtils.TOPIC;
+
+import static org.jflux.impl.messaging.rk.utils.ConnectionUtils.TOPIC;
 
 public final class ConnectRemoteRobotAction implements ActionListener {
     private final static Logger theLogger = 
