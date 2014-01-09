@@ -39,6 +39,7 @@ import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponent;
 import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponentFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
+import org.robokind.api.common.utils.TimeUtils;
 import org.robokind.api.motion.Robot;
 import org.robokind.api.motion.lifecycle.RemoteRobotClientLifecycle;
 import org.robokind.api.motion.lifecycle.RemoteRobotLifecycle;
@@ -52,6 +53,7 @@ import org.robokind.impl.motion.messaging.PortableRobotResponse;
 import org.robokind.impl.motion.messaging.PortableMotionFrameEvent;
 import org.robokind.impl.motion.messaging.PortableRobotRequest;
 import org.robokind.impl.motion.messaging.RobotRequestRecord;
+import org.rwshop.swing.motion.connection.IPFrame;
 
 import static org.jflux.impl.messaging.rk.utils.ConnectionUtils.TOPIC;
 
@@ -70,65 +72,87 @@ public final class ConnectRemoteRobotAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String ip = JOptionPane.showInputDialog("Remote Robot IP ?","127.0.0.1"); 
-        if(ip == null){
-            theLogger.info("User cancelled ConnectRemoteRobot action.");
-            return;
-        }else if(ip.isEmpty()){
-            ip = "127.0.0.1";
-        }
-        String tcp = "tcp://" + ip + ":5672";
-        theLogger.info(tcp);
-        BundleContext context = OSGiUtils.getBundleContext(Robot.class);
-        if(context == null){
-            theLogger.warning(
-                    "Unable to load Robot.  Could not find BundleContext.");
-            return;
-        }
-        String connectionConfigId = RobotReplicator.RECEIVER_CONNECTION_CONFIG_ID;
+        Thread connectThread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                IPFrame ipFrame = IPFrame.getInstance();
+                ipFrame.setLocationRelativeTo(null);
+                ipFrame.setVisible(true);
+
+                String ip = null;
+
+                while(ip == null) {
+                    ip = ipFrame.consumeIPAddress();
+                    TimeUtils.sleep(1000);
+                }
+
+                if(ip.equals("CANCEL")) {
+                    theLogger.info("User cancelled ConnectRemoteRobot action.");
+                    return;
+                }
+
+                String tcp = "tcp://" + ip + ":5672";
+                theLogger.info(tcp);
+                BundleContext context = OSGiUtils.getBundleContext(Robot.class);
+                if(context == null){
+                    theLogger.warning(
+                            "Unable to load Robot.  Could not find BundleContext.");
+                    return;
+                }
+                String connectionConfigId =
+                        RobotReplicator.RECEIVER_CONNECTION_CONFIG_ID;
+
+                Set<ManagedService> services = new HashSet<ManagedService>();
+                Set<OSGiComponent> components = new HashSet<OSGiComponent>();
+                Set<ServiceRegistration> regs =
+                        new HashSet<ServiceRegistration>();
+
+                try {
+                    DisconnectAction.addService(
+                            RKMessagingConfigUtils.registerConnectionConfig(
+                            connectionConfigId, ip, null, 
+                            new OSGiComponentFactory(context)));
+                    DisconnectAction.addComponents(
+                            startRemoteRobotClientServices(
+                            context, CONNECTION_ID, 
+                            REQUEST_DEST_ID, RESPONSE_DEST_ID, 
+                            MOVE_DEST_ID, REQUEST_SENDER_ID, 
+                            RESPONSE_RECEIVER_ID, MOVE_SENDER_ID));
+                    DisconnectAction.addRegs(connectMotion(
+                            context, tcp, CONNECTION_ID, REQUEST_DEST_ID, 
+                            RESPONSE_DEST_ID, MOVE_DEST_ID));
+                    DisconnectAction.addComponents(ConnectAction.loadJointGroup(
+                            context, ROBOT_ID, "./resources/jointgroup.xml"));
+                    DisconnectAction.addComponent(startRobotClientLifecycle(
+                            context, "source", "dest", ROBOT_ID, 
+                            REQUEST_SENDER_ID, RESPONSE_RECEIVER_ID,
+                            MOVE_SENDER_ID));
+                    DisconnectAction.addComponent(
+                            startRemoteRobot(context, ROBOT_ID));
+                    DisconnectAction.addServices(RobotUtils.startDefaultBlender(
+                            context, ROBOT_ID, 40L));
+                    OSGiComponent mfe = new OSGiComponent(context,
+                            new SimpleLifecycle(
+                                    new PortableMotionFrameEvent.Factory(), 
+                                    MotionFrameEventFactory.class));
+                    mfe.start();
+                    DisconnectAction.addComponent(mfe);
+                } catch(Exception ex) {
+                    DisconnectAction.disconnect();
+                    theLogger.log(
+                            Level.SEVERE, "Can''t connect to robot at {0}: {1}",
+                            new Object[]{ip, ex.getMessage()});
+                    ex.printStackTrace();
+
+                    JOptionPane.showMessageDialog(
+                            null, "Cannot connect to robot at " + ip,
+                            "Connection Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
         
-        Set<ManagedService> services = new HashSet<ManagedService>();
-        Set<OSGiComponent> components = new HashSet<OSGiComponent>();
-        Set<ServiceRegistration> regs = new HashSet<ServiceRegistration>();
-        
-        try {
-            DisconnectAction.addService(
-                    RKMessagingConfigUtils.registerConnectionConfig(
-                    connectionConfigId, ip, null, 
-                    new OSGiComponentFactory(context)));
-            DisconnectAction.addComponents(startRemoteRobotClientServices(
-                    context, CONNECTION_ID, 
-                    REQUEST_DEST_ID, RESPONSE_DEST_ID, 
-                    MOVE_DEST_ID, REQUEST_SENDER_ID, 
-                    RESPONSE_RECEIVER_ID, MOVE_SENDER_ID));
-            DisconnectAction.addRegs(connectMotion(
-                    context, tcp, CONNECTION_ID, REQUEST_DEST_ID, 
-                    RESPONSE_DEST_ID, MOVE_DEST_ID));
-            DisconnectAction.addComponents(ConnectAction.loadJointGroup(
-                    context, ROBOT_ID, "./resources/jointgroup.xml"));
-            DisconnectAction.addComponent(startRobotClientLifecycle(
-                    context, "source", "dest", ROBOT_ID, 
-                    REQUEST_SENDER_ID, RESPONSE_RECEIVER_ID, MOVE_SENDER_ID));
-            DisconnectAction.addComponent(startRemoteRobot(context, ROBOT_ID));
-            DisconnectAction.addServices(RobotUtils.startDefaultBlender(
-                    context, ROBOT_ID, 40L));
-            OSGiComponent mfe = new OSGiComponent(context,
-                    new SimpleLifecycle(
-                            new PortableMotionFrameEvent.Factory(), 
-                            MotionFrameEventFactory.class));
-            mfe.start();
-            DisconnectAction.addComponent(mfe);
-        } catch(Exception ex) {
-            DisconnectAction.disconnect();
-            theLogger.log(
-                    Level.SEVERE, "Can''t connect to robot at {0}: {1}",
-                    new Object[]{ip, ex.getMessage()});
-            ex.printStackTrace();
-            
-            JOptionPane.showMessageDialog(
-                    null, "Cannot connect to robot at " + ip,
-                    "Connection Error", JOptionPane.ERROR_MESSAGE);
-        }
+        connectThread.start();
     }
     
     private static OSGiComponent startRobotClientLifecycle(BundleContext context,

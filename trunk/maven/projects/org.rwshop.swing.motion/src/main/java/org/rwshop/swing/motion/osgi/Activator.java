@@ -27,6 +27,7 @@ import org.robokind.api.motion.Robot;
 import org.robokind.impl.motion.sync.PortableSynchronizedJointConfig;
 import org.robokind.impl.motion.sync.PortableSynchronizedRobotConfig;
 import org.robokind.impl.motion.sync.SynchronizedRobotConfigWriter;
+import org.rwshop.swing.motion.connection.IPFrame;
 
 /**
  *
@@ -54,6 +55,13 @@ public class Activator implements BundleActivator {
             }
         });
         */
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                IPFrame.instantiate();
+            }
+        });
     }
     
     public void stop(BundleContext context) throws Exception {
