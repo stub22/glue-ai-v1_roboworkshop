@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <JointGroup name="robot">
-	<RobotId>Avatar_ZenoR50</RobotId>
+	<RobotId>myRobot</RobotId>
 	<JointGroups>
 		<JointGroup name="Head">
 			<JointIds>
