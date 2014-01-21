@@ -15,7 +15,6 @@
  */
 package org.rwshop.nb.motion.actions;
 
-import org.robokind.demo.robot.replication.RobotReplicator;
 import org.robokind.api.motion.protocol.MotionFrameEvent.MotionFrameEventFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.jflux.impl.messaging.rk.config.RKMessagingConfigUtils;
 import org.jflux.impl.messaging.rk.lifecycle.BytesMessageBlockingReceiverLifecycle;
+import org.jflux.impl.messaging.rk.lifecycle.JMSAvroAsyncReceiverLifecycle;
 import org.jflux.impl.messaging.rk.lifecycle.JMSAvroMessageSenderLifecycle;
 import org.jflux.impl.messaging.rk.utils.ConnectionManager;
 import org.jflux.impl.messaging.rk.utils.ConnectionUtils;
@@ -45,13 +45,16 @@ import org.robokind.api.motion.lifecycle.RemoteRobotClientLifecycle;
 import org.robokind.api.motion.lifecycle.RemoteRobotLifecycle;
 import org.robokind.api.motion.messaging.RobotRequestFactory;
 import org.robokind.api.motion.protocol.MotionFrameEvent;
+import org.robokind.api.motion.protocol.RobotDefinitionResponse;
 import org.robokind.api.motion.protocol.RobotRequest;
 import org.robokind.api.motion.protocol.RobotResponse;
 import org.robokind.api.motion.utils.RobotUtils;
 import org.robokind.impl.motion.messaging.MotionFrameEventRecord;
 import org.robokind.impl.motion.messaging.PortableRobotResponse;
 import org.robokind.impl.motion.messaging.PortableMotionFrameEvent;
+import org.robokind.impl.motion.messaging.PortableRobotDefinitionResponse;
 import org.robokind.impl.motion.messaging.PortableRobotRequest;
+import org.robokind.impl.motion.messaging.RobotDefinitionResponseRecord;
 import org.robokind.impl.motion.messaging.RobotRequestRecord;
 import org.rwshop.swing.motion.connection.IPFrame;
 
@@ -69,6 +72,8 @@ public final class ConnectRemoteRobotAction implements ActionListener {
     private final static String REQUEST_SENDER_ID = "robotRequestSender";
     private final static String RESPONSE_RECEIVER_ID = "robotResponseReceiver";
     private final static String MOVE_SENDER_ID = "robotFrameSender"; 
+    private final static String DEF_RECEIVER_ID = "robotDefinitionReceiver";
+    private final static String DEF_DEST_ID = "robotDefinition";
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -100,28 +105,22 @@ public final class ConnectRemoteRobotAction implements ActionListener {
                             "Unable to load Robot.  Could not find BundleContext.");
                     return;
                 }
-                String connectionConfigId =
-                        RobotReplicator.RECEIVER_CONNECTION_CONFIG_ID;
-
-                Set<ManagedService> services = new HashSet<ManagedService>();
-                Set<OSGiComponent> components = new HashSet<OSGiComponent>();
-                Set<ServiceRegistration> regs =
-                        new HashSet<ServiceRegistration>();
 
                 try {
                     DisconnectAction.addService(
                             RKMessagingConfigUtils.registerConnectionConfig(
-                            connectionConfigId, ip, null, 
-                            new OSGiComponentFactory(context)));
+                                    "robotReceiverConnectionConfig", ip, null, 
+                                    new OSGiComponentFactory(context)));
                     DisconnectAction.addComponents(
                             startRemoteRobotClientServices(
                             context, CONNECTION_ID, 
                             REQUEST_DEST_ID, RESPONSE_DEST_ID, 
                             MOVE_DEST_ID, REQUEST_SENDER_ID, 
-                            RESPONSE_RECEIVER_ID, MOVE_SENDER_ID));
+                            RESPONSE_RECEIVER_ID, MOVE_SENDER_ID,
+                            DEF_RECEIVER_ID, DEF_DEST_ID));
                     DisconnectAction.addRegs(connectMotion(
                             context, tcp, CONNECTION_ID, REQUEST_DEST_ID, 
-                            RESPONSE_DEST_ID, MOVE_DEST_ID));
+                            RESPONSE_DEST_ID, MOVE_DEST_ID, DEF_DEST_ID));
                     DisconnectAction.addComponents(ConnectAction.loadJointGroup(
                             context, ROBOT_ID, "./resources/jointgroup.xml"));
                     DisconnectAction.addComponent(startRobotClientLifecycle(
@@ -129,7 +128,8 @@ public final class ConnectRemoteRobotAction implements ActionListener {
                             REQUEST_SENDER_ID, RESPONSE_RECEIVER_ID,
                             MOVE_SENDER_ID));
                     DisconnectAction.addComponent(
-                            startRemoteRobot(context, ROBOT_ID));
+                            startRemoteRobot(
+                                    context, ROBOT_ID, DEF_RECEIVER_ID));
                     DisconnectAction.addServices(RobotUtils.startDefaultBlender(
                             context, ROBOT_ID, 40L));
                     OSGiComponent mfe = new OSGiComponent(context,
@@ -168,9 +168,9 @@ public final class ConnectRemoteRobotAction implements ActionListener {
     }
     
     private static OSGiComponent startRemoteRobot(
-            BundleContext context, Robot.Id robotId){
+            BundleContext context, Robot.Id robotId, String defReceiverId){
         RemoteRobotLifecycle lifecycle = 
-                new RemoteRobotLifecycle(robotId);
+                new RemoteRobotLifecycle(robotId, defReceiverId);
         OSGiComponent comp = new OSGiComponent(context, lifecycle);
         comp.start();
         
@@ -178,9 +178,9 @@ public final class ConnectRemoteRobotAction implements ActionListener {
     }
     
     private Set<ServiceRegistration> connectMotion(
-            BundleContext context, String connectionStr,
-            String connectionId, String requestDestId, 
-            String responseDestId, String moveDestId){
+            BundleContext context, String connectionStr, String connectionId,
+            String requestDestId, String responseDestId, String moveDestId,
+            String defDestId){
         Set<ServiceRegistration> regs = new HashSet<ServiceRegistration>(4);
         theLogger.info("Registering Motion Connection and Destinations");
         Connection con = ConnectionManager.createConnection(
@@ -201,7 +201,8 @@ public final class ConnectRemoteRobotAction implements ActionListener {
         regs.addAll(ConnectionUtils.ensureDestinations(context, 
                 requestDestId, "robotmyRobothostrobotRequest", TOPIC, null, 
                 responseDestId, "robotmyRobothostrobotResponse", TOPIC, null,
-                moveDestId, "robotmyRobothostmotionFrame", TOPIC, null));
+                moveDestId, "robotmyRobothostmotionFrame", TOPIC, null,
+                defDestId, "robotmyRobothostrobotDefinition", TOPIC, null));
         theLogger.info("Motion Connection and Destinations Registered");
         
         return regs;
@@ -211,7 +212,8 @@ public final class ConnectRemoteRobotAction implements ActionListener {
             BundleContext context, String connectionId, 
             String requestDestId, String responseDestId, 
             String moveDestId, String requestSenderId, 
-            String responseReceiverId, String moveSenderId){
+            String responseReceiverId, String moveSenderId,
+            String defReceiverId, String defDestId){
         Set<OSGiComponent> comps = new HashSet<OSGiComponent>(4);
         BytesMessageBlockingReceiverLifecycle<RobotResponse> respRecLifecycle = 
                 new BytesMessageBlockingReceiverLifecycle<RobotResponse>(
@@ -245,6 +247,19 @@ public final class ConnectRemoteRobotAction implements ActionListener {
                 new SimpleLifecycle(reqFact, RobotRequestFactory.class));
         reqFactComp.start();
         comps.add(reqFactComp);
+        
+        JMSAvroAsyncReceiverLifecycle<RobotDefinitionResponse,
+                RobotDefinitionResponseRecord> defRecLifecycle = 
+                new JMSAvroAsyncReceiverLifecycle<RobotDefinitionResponse,
+                        RobotDefinitionResponseRecord>(
+                                new PortableRobotDefinitionResponse.RecordMessageAdapter(), 
+                                RobotDefinitionResponse.class,
+                                RobotDefinitionResponseRecord.class,
+                                RobotDefinitionResponseRecord.SCHEMA$,
+                                defReceiverId, connectionId, defDestId);
+        OSGiComponent defReceiver = new OSGiComponent(context, defRecLifecycle);
+        defReceiver.start();
+        comps.add(defReceiver);
         
         return comps;
     }
