@@ -12,6 +12,7 @@
 	<name>${project.artifactId} - Animation Module</name>
 	<modules>
 		<module>../projects/org.rwshop.swing.animation</module>
+		<module>../projects/org.rwshop.headless.animation</module>
 		<module>../projects/org.rwshop.nb.animation</module>
 	</modules>
 </project>

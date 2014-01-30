@@ -45,8 +45,8 @@
 
         <brandingToken>robokindcontroller</brandingToken>
         <cluster>robokind</cluster>
-        <robokind.core.groupId>org.robokind</robokind.core.groupId>
-        <robokind.core.version>0.9.6-SNAPSHOT</robokind.core.version>
+        <mechio.groupId>org.mechio</mechio.groupId>
+        <mechio.version>1.0.0-SNAPSHOT</mechio.version>
         <jflux.version>0.1.9-SNAPSHOT</jflux.version>
         <netbeans.run.params.ide>-J-Xmx1024m</netbeans.run.params.ide>
         <netbeans.run.params>${netbeans.run.params.ide}</netbeans.run.params>
