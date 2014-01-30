@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,18 +31,19 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import org.robokind.api.interpolation.InterpolatorDirectory;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.editor.ChannelEditor;
-import org.robokind.api.animation.editor.MotionPathEditor;
+import org.mechio.api.interpolation.InterpolatorDirectory;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.ChannelEditor;
+import org.mechio.api.animation.editor.MotionPathEditor;
 import org.rwshop.swing.animation.InterpolatorRenderer;
 import org.rwshop.swing.common.TableHelper;
 import org.rwshop.swing.common.utils.SettingsRepository;
-import static org.robokind.api.common.localization.Localizer.*;
+
+import static org.jflux.api.common.rk.localization.Localizer.$;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class ChannelTable extends javax.swing.JPanel {
     private ChannelTableModel myTableModel;

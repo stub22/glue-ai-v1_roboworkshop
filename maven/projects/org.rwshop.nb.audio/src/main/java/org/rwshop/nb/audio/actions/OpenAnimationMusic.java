@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,13 @@ package org.rwshop.nb.audio.actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import org.jflux.api.common.rk.playable.Playable;
+import org.jflux.api.common.rk.services.addon.ServiceAddOn;
+import org.jflux.api.common.rk.utils.RKSource;
 import org.openide.windows.Mode;
 import org.openide.windows.WindowManager;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.audio.WavPlayer;
-import org.robokind.api.common.playable.Playable;
-import org.robokind.api.common.services.addon.ServiceAddOn;
-import org.robokind.api.common.utils.RKSource;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.audio.WavPlayer;
 import org.rwshop.nb.audio.AnimationMusicTopComponent;
 import org.rwshop.nb.animation.AnimationTimelineEditor;
 import org.rwshop.nb.animation.history.UndoRedoFactory;

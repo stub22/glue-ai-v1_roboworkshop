@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,12 +29,12 @@ import javax.swing.AbstractListModel;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import org.robokind.api.motion.utils.RobotController;
-import org.robokind.api.motion.utils.RobotManager;
+import org.mechio.api.motion.utils.RobotController;
+import org.mechio.api.motion.utils.RobotManager;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class RobotManagerPanel extends javax.swing.JPanel {
     private RobotManager myManager;

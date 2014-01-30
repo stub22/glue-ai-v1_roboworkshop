@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,12 @@ import org.netbeans.api.settings.ConvertAsProperties;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
-import org.robokind.api.animation.player.AnimationJob;
+import org.mechio.api.animation.player.AnimationJob;
 import org.rwshop.swing.animation.joblist.AnimationJobListPanel;
 
 /**
  * Top component which displays something.
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 @ConvertAsProperties(dtd = "-//org.rwshop.nb.animation//AnimationMonitor//EN",
 autostore = false)

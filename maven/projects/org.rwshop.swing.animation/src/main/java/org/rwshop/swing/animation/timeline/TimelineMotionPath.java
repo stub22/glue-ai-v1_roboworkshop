@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@ import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
-import org.robokind.api.animation.compiled.CompiledPath;
-import org.robokind.api.animation.editor.AbstractEditor;
-import org.robokind.api.animation.editor.EditState;
-import org.robokind.api.animation.editor.MotionPathEditor;
-import org.robokind.api.animation.editor.EditorListener;
-import org.robokind.api.animation.editor.ControlPointEditor;
+import org.mechio.api.animation.compiled.CompiledPath;
+import org.mechio.api.animation.editor.AbstractEditor;
+import org.mechio.api.animation.editor.EditState;
+import org.mechio.api.animation.editor.MotionPathEditor;
+import org.mechio.api.animation.editor.EditorListener;
+import org.mechio.api.animation.editor.ControlPointEditor;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import org.rwshop.swing.animation.ElementSettings;
 import org.rwshop.swing.animation.config.PathProperties.PathConfigRenderer;
@@ -34,7 +34,7 @@ import org.rwshop.swing.animation.config.PathProperties;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class TimelineMotionPath extends EditorListener implements EditorElement {
     private MotionPathEditor myController;

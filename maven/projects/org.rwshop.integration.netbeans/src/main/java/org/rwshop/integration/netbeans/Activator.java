@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,20 +19,20 @@ package org.rwshop.integration.netbeans;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jflux.api.common.rk.config.FileSystemAdapter;
+import org.jflux.api.common.rk.utils.RKConstants;
+import org.jflux.extern.utils.apache_commons_configuration.rk.ConfigUtils;
 import org.jflux.impl.services.rk.lifecycle.utils.ManagedServiceFactory;
 import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponentFactory;
-import org.robokind.api.common.config.FileSystemAdapter;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.utils.RKConstants;
-import org.robokind.api.motion.Robot;
-import org.robokind.extern.utils.apache_commons_configuration.ConfigUtils;
-import org.robokind.integration.motion_speech.VisemeMotionUtils;
+import org.mechio.api.motion.Robot;
+import org.mechio.integration.motion_speech.VisemeMotionUtils;
 import org.rwshop.swing.common.utils.SettingsRepository;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class Activator implements BundleActivator {
     private final static Logger theLogger = Logger.getLogger(Activator.class.getName());

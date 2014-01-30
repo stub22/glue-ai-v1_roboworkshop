@@ -12,10 +12,9 @@ package org.rwshop.swing.audio.visualization;
 
 import java.awt.Adjustable;
 import javax.swing.JScrollBar;
-import org.robokind.api.audio.WavBuffer;
-import org.robokind.api.audio.WavPlayer;
-import org.robokind.api.audio.processing.WavBufferProcessor;
-import org.robokind.api.audio.processing.WavProcessor;
+import org.mechio.api.audio.WavPlayer;
+import org.mechio.api.audio.processing.WavBufferProcessor;
+import org.mechio.api.audio.processing.WavProcessor;
 import org.rwshop.swing.common.scaling.LinkedScrollbarListener;
 import org.rwshop.swing.common.scaling.ScalingScrollWheelListener;
 import org.rwshop.swing.common.scaling.ScalingManager;

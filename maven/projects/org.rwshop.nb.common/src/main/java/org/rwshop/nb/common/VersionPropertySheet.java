@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,14 @@
 package org.rwshop.nb.common;
 
 import java.lang.reflect.InvocationTargetException;
+import org.jflux.api.common.rk.config.VersionProperty;
 import org.openide.nodes.Node.Property;
 import org.openide.nodes.PropertySupport;
 import org.openide.nodes.Sheet;
-import org.robokind.api.common.config.VersionProperty;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class VersionPropertySheet {
     public static Sheet.Set getVersionPropertySheetSet(String propName, String displayName, Object instance) throws NoSuchMethodException{

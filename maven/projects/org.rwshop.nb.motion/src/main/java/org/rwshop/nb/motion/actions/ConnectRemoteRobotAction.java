@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.rwshop.nb.motion.actions;
 
-import org.robokind.api.motion.protocol.MotionFrameEvent.MotionFrameEventFactory;
+import org.mechio.api.motion.protocol.MotionFrameEvent.MotionFrameEventFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
@@ -24,38 +24,36 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.Connection;
 import javax.jms.JMSException;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.jflux.api.common.rk.utils.TimeUtils;
 import org.jflux.impl.messaging.rk.config.RKMessagingConfigUtils;
 import org.jflux.impl.messaging.rk.lifecycle.BytesMessageBlockingReceiverLifecycle;
 import org.jflux.impl.messaging.rk.lifecycle.JMSAvroAsyncReceiverLifecycle;
 import org.jflux.impl.messaging.rk.lifecycle.JMSAvroMessageSenderLifecycle;
 import org.jflux.impl.messaging.rk.utils.ConnectionManager;
 import org.jflux.impl.messaging.rk.utils.ConnectionUtils;
-import org.jflux.impl.services.rk.lifecycle.ManagedService;
 import org.jflux.impl.services.rk.lifecycle.utils.SimpleLifecycle;
 import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponent;
 import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponentFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
-import org.robokind.api.common.utils.TimeUtils;
-import org.robokind.api.motion.Robot;
-import org.robokind.api.motion.lifecycle.RemoteRobotClientLifecycle;
-import org.robokind.api.motion.lifecycle.RemoteRobotLifecycle;
-import org.robokind.api.motion.messaging.RobotRequestFactory;
-import org.robokind.api.motion.protocol.MotionFrameEvent;
-import org.robokind.api.motion.protocol.RobotDefinitionResponse;
-import org.robokind.api.motion.protocol.RobotRequest;
-import org.robokind.api.motion.protocol.RobotResponse;
-import org.robokind.api.motion.utils.RobotUtils;
-import org.robokind.impl.motion.messaging.MotionFrameEventRecord;
-import org.robokind.impl.motion.messaging.PortableRobotResponse;
-import org.robokind.impl.motion.messaging.PortableMotionFrameEvent;
-import org.robokind.impl.motion.messaging.PortableRobotDefinitionResponse;
-import org.robokind.impl.motion.messaging.PortableRobotRequest;
-import org.robokind.impl.motion.messaging.RobotDefinitionResponseRecord;
-import org.robokind.impl.motion.messaging.RobotRequestRecord;
+import org.mechio.api.motion.Robot;
+import org.mechio.api.motion.lifecycle.RemoteRobotClientLifecycle;
+import org.mechio.api.motion.lifecycle.RemoteRobotLifecycle;
+import org.mechio.api.motion.messaging.RobotRequestFactory;
+import org.mechio.api.motion.protocol.MotionFrameEvent;
+import org.mechio.api.motion.protocol.RobotDefinitionResponse;
+import org.mechio.api.motion.protocol.RobotRequest;
+import org.mechio.api.motion.protocol.RobotResponse;
+import org.mechio.api.motion.utils.RobotUtils;
+import org.mechio.impl.motion.messaging.MotionFrameEventRecord;
+import org.mechio.impl.motion.messaging.PortableRobotResponse;
+import org.mechio.impl.motion.messaging.PortableMotionFrameEvent;
+import org.mechio.impl.motion.messaging.PortableRobotDefinitionResponse;
+import org.mechio.impl.motion.messaging.PortableRobotRequest;
+import org.mechio.impl.motion.messaging.RobotDefinitionResponseRecord;
+import org.mechio.impl.motion.messaging.RobotRequestRecord;
 import org.rwshop.swing.motion.connection.IPFrame;
 
 import static org.jflux.impl.messaging.rk.utils.ConnectionUtils.TOPIC;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,13 @@ package org.rwshop.swing.animation.timeline.range;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import org.robokind.api.animation.editor.features.AnimationTimeRange;
+import org.mechio.api.animation.editor.features.AnimationTimeRange;
 import org.rwshop.swing.common.DrawableLayer;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class TimeRangeLayer implements DrawableLayer{
     private AnimationTimeRange myTimeRange;

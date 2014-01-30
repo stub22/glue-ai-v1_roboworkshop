@@ -29,15 +29,15 @@ import java.beans.Beans;
 import javax.swing.JComponent;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
-import org.robokind.api.audio.processing.AmplitudeImage;
-import org.robokind.api.audio.processing.SampleProcessor.ProcessorListener;
-import org.robokind.api.audio.processing.WavProcessor;
-import org.robokind.impl.audio.visualization.SpectrogramImage;
+import org.mechio.api.audio.processing.AmplitudeImage;
+import org.mechio.api.audio.processing.SampleProcessor.ProcessorListener;
+import org.mechio.api.audio.processing.WavProcessor;
+import org.mechio.impl.audio.visualization.SpectrogramImage;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 
 /**
  *
- * @author Matthew Stevenson <matt@hansonrobokind.com>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class WavAmplitudePanel extends javax.swing.JPanel {
     private WavProcessor myWavProc;

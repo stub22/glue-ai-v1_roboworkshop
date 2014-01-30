@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,17 +31,17 @@ import org.jflux.impl.services.rk.osgi.ServiceClassListener;
 import org.netbeans.swing.outline.DefaultOutlineModel;
 import org.netbeans.swing.outline.OutlineModel;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.motion.Joint;
-import org.robokind.api.motion.jointgroup.JointGroup;
-import org.robokind.api.motion.JointProperty;
-import org.robokind.api.motion.joint_properties.ReadCurrentPosition;
-import org.robokind.api.motion.joint_properties.ReadLoad;
-import org.robokind.api.motion.joint_properties.ReadTemperature;
-import org.robokind.api.motion.joint_properties.ReadVoltage;
+import org.mechio.api.motion.Joint;
+import org.mechio.api.motion.jointgroup.JointGroup;
+import org.mechio.api.motion.JointProperty;
+import org.mechio.api.motion.joint_properties.ReadCurrentPosition;
+import org.mechio.api.motion.joint_properties.ReadLoad;
+import org.mechio.api.motion.joint_properties.ReadTemperature;
+import org.mechio.api.motion.joint_properties.ReadVoltage;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class JointTreePanel extends javax.swing.JPanel {
     private JointGroup myRootGroup;

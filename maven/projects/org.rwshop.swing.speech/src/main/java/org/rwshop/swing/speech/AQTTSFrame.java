@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,12 @@
  */
 package org.rwshop.swing.speech;
 
-import org.robokind.api.speech.messaging.RemoteSpeechServiceClient;
+import org.mechio.api.speech.messaging.RemoteSpeechServiceClient;
 
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AQTTSFrame extends javax.swing.JFrame {
 

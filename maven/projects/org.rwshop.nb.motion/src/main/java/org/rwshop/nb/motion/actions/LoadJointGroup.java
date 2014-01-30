@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,18 +22,18 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import org.jflux.api.common.rk.osgi.lifecycle.ConfiguredServiceLifecycle;
+import org.jflux.api.common.rk.osgi.lifecycle.ConfiguredServiceParams;
 import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponent;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.osgi.lifecycle.ConfiguredServiceLifecycle;
-import org.robokind.api.common.osgi.lifecycle.ConfiguredServiceParams;
-import org.robokind.api.motion.jointgroup.JointGroup;
-import org.robokind.impl.motion.jointgroup.RobotJointGroupConfigXMLReader;
-import org.robokind.api.motion.jointgroup.RobotJointGroup;
+import org.mechio.api.motion.jointgroup.JointGroup;
+import org.mechio.impl.motion.jointgroup.RobotJointGroupConfigXMLReader;
+import org.mechio.api.motion.jointgroup.RobotJointGroup;
 
 /**
  * 
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public final class LoadJointGroup implements ActionListener {
     private final static Logger theLogger = Logger.getLogger(LoadJointGroup.class.getName());

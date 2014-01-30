@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,14 +26,14 @@ import java.util.logging.Logger;
 import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.jflux.impl.services.rk.osgi.ServiceClassListener;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.motion.servos.ServoController;
-import org.robokind.impl.motion.dynamixel.DynamixelController;
-import org.robokind.impl.motion.dynamixel.feedback.DynamixelControlLoop;
-import org.robokind.impl.motion.dynamixel.feedback.DynamixelControlSettings;
+import org.mechio.api.motion.servos.ServoController;
+import org.mechio.impl.motion.dynamixel.DynamixelController;
+import org.mechio.impl.motion.dynamixel.feedback.DynamixelControlLoop;
+import org.mechio.impl.motion.dynamixel.feedback.DynamixelControlSettings;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class DynamixelControlLoopPanel extends javax.swing.JPanel {
     private final static Logger theLogger = Logger.getLogger(DynamixelControlLoopPanel.class.getName());

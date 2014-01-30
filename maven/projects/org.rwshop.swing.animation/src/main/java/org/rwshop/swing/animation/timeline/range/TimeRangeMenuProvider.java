@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,14 @@ package org.rwshop.swing.animation.timeline.range;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import javax.swing.JMenu;
-import org.robokind.api.animation.editor.features.AnimationTimeRange;
+import org.mechio.api.animation.editor.features.AnimationTimeRange;
 import org.rwshop.swing.animation.menus.UIMenuItem;
 import org.rwshop.swing.animation.menus.MenuProvider;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class TimeRangeMenuProvider implements MenuProvider{
     private AnimationTimeRange myTimeRange;

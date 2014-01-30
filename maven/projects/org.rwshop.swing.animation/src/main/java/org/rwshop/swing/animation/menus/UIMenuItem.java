@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
-import org.robokind.api.animation.editor.actions.EditorAction;
-import org.robokind.api.animation.editor.AbstractEditor;
-import org.robokind.api.animation.editor.EditState;
-import static org.robokind.api.common.localization.Localizer.*;
+import org.mechio.api.animation.editor.actions.EditorAction;
+import org.mechio.api.animation.editor.AbstractEditor;
+import org.mechio.api.animation.editor.EditState;
+
+import static org.jflux.api.common.rk.localization.Localizer.$;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class UIMenuItem extends JMenuItem{
     /**

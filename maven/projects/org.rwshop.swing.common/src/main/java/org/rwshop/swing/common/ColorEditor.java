@@ -47,7 +47,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.border.BevelBorder;
-import static org.robokind.api.common.localization.Localizer.*;
+
+import static org.jflux.api.common.rk.localization.Localizer.$;
 
 public class ColorEditor extends AbstractCellEditor
                          implements TableCellEditor,

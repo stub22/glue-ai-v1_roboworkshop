@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,12 @@ package org.rwshop.nb.animation;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import org.robokind.api.animation.editor.EditState;
-import org.robokind.api.animation.editor.EditorListener;
+import org.mechio.api.animation.editor.EditState;
+import org.mechio.api.animation.editor.EditorListener;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationChangeListener extends EditorListener implements PropertyChangeListener {
     public final static String PROP_ANIMATION_CHANGE = "AnimationChange";

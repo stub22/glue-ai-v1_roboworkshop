@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,15 +32,15 @@ import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
+import org.jflux.api.common.rk.utils.TimeUtils;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
-import org.robokind.api.animation.player.AnimationJob;
-import org.robokind.api.common.utils.TimeUtils;
+import org.mechio.api.animation.player.AnimationJob;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationJobListPanel extends javax.swing.JPanel {
     private final static Border theBorder = new MatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY);

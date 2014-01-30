@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,17 +28,18 @@ import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.editor.ChannelEditor;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.ChannelEditor;
 import org.rwshop.swing.common.ColorEditor;
 import org.rwshop.swing.common.ColorRenderer;
 import org.rwshop.swing.common.TableHelper;
 import org.rwshop.swing.common.utils.SettingsRepository;
-import static org.robokind.api.common.localization.Localizer.*;
+
+import static org.jflux.api.common.rk.localization.Localizer.$;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationTable extends javax.swing.JPanel {
     private AnimationTableModel myTableModel;

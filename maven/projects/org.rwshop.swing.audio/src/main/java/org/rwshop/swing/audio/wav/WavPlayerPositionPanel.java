@@ -12,8 +12,8 @@ package org.rwshop.swing.audio.wav;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.robokind.api.audio.AudioProgressListener;
-import org.robokind.api.audio.WavPlayer;
+import org.mechio.api.audio.AudioProgressListener;
+import org.mechio.api.audio.WavPlayer;
 
 /**
  *

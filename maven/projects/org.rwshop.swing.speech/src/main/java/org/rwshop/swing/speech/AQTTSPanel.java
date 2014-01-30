@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ package org.rwshop.swing.speech;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.logging.Logger;
+import org.jflux.api.common.rk.utils.RKConstants;
 import org.jflux.api.core.Adapter;
 import org.jflux.api.core.Listener;
 import org.jflux.impl.messaging.rk.config.RKMessagingConfigUtils;
@@ -35,14 +36,13 @@ import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponent;
 import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponentFactory;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.utils.RKConstants;
-import org.robokind.api.speech.messaging.RemoteSpeechServiceClient;
-import org.robokind.api.speech.SpeechService;
-import org.robokind.impl.speech.RemoteSpeechUtils;
+import org.mechio.api.speech.messaging.RemoteSpeechServiceClient;
+import org.mechio.api.speech.SpeechService;
+import org.mechio.impl.speech.RemoteSpeechUtils;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AQTTSPanel extends javax.swing.JPanel {
     private final static Logger theLogger = 

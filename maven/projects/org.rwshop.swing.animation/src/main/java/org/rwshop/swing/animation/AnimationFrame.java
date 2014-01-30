@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,11 @@
 package org.rwshop.swing.animation;
 
 import javax.swing.JFileChooser;
-import org.robokind.api.animation.xml.AnimationXML;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.editor.history.HistoryStack;
-import org.robokind.api.animation.Animation;
-import org.robokind.api.animation.editor.history.HistoryFactoryImpl;
+import org.mechio.api.animation.xml.AnimationXML;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.history.HistoryStack;
+import org.mechio.api.animation.Animation;
+import org.mechio.api.animation.editor.history.HistoryFactoryImpl;
 import org.rwshop.swing.animation.menus.MenuBarManager;
 import org.rwshop.swing.animation.osgi.Activator;
 import org.rwshop.swing.common.scaling.ScalingManager;
@@ -35,7 +35,7 @@ import org.rwshop.swing.common.utils.MessageAlerter;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationFrame extends javax.swing.JFrame {
     /** Creates new form AnimationFrame */

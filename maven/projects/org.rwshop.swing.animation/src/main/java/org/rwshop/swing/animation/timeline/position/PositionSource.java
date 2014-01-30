@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@ import java.util.List;
 import java.util.Map;
 import org.jflux.impl.services.rk.osgi.ClassTracker;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.utils.AnimationEditListener;
-import org.robokind.api.animation.utils.PositionAdder;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.utils.AnimationEditListener;
+import org.mechio.api.animation.utils.PositionAdder;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class PositionSource {
     private ClassTracker<PositionAdder> myPositionAdderTracker;

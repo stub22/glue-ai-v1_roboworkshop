@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,10 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import org.jflux.api.common.rk.osgi.lifecycle.ConfiguredServiceLifecycle;
+import org.jflux.api.common.rk.osgi.lifecycle.ConfiguredServiceParams;
+import org.jflux.api.common.rk.services.Constants;
+import org.jflux.extern.utils.apache_commons_configuration.rk.ConfigUtils;
 import org.jflux.impl.messaging.rk.config.RKMessagingConfigUtils;
 import org.jflux.impl.services.rk.lifecycle.ManagedService;
 import org.jflux.impl.services.rk.lifecycle.ServiceLifecycleProvider;
@@ -32,22 +36,18 @@ import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponent;
 import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponentFactory;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.motion.Robot;
-import org.robokind.api.motion.servos.ServoRobot;
-import org.robokind.impl.motion.config.RobotConfigXMLReader;
-import org.robokind.api.common.osgi.lifecycle.ConfiguredServiceLifecycle;
-import org.robokind.api.common.osgi.lifecycle.ConfiguredServiceParams;
-import org.robokind.api.common.services.Constants;
-import org.robokind.api.motion.lifecycle.RobotJointGroupLifecycle;
-import org.robokind.api.motion.servos.config.ServoRobotConfig;
-import org.robokind.api.motion.servos.utils.ServoRobotLifecycle;
-import org.robokind.api.motion.utils.RobotUtils;
-import org.robokind.extern.utils.apache_commons_configuration.ConfigUtils;
-import org.robokind.impl.motion.jointgroup.RobotJointGroupConfigXMLReader;
-import org.robokind.impl.motion.lifecycle.RemoteRobotHostServiceGroup;
+import org.mechio.api.motion.Robot;
+import org.mechio.api.motion.servos.ServoRobot;
+import org.mechio.impl.motion.config.RobotConfigXMLReader;
+import org.mechio.api.motion.lifecycle.RobotJointGroupLifecycle;
+import org.mechio.api.motion.servos.config.ServoRobotConfig;
+import org.mechio.api.motion.servos.utils.ServoRobotLifecycle;
+import org.mechio.api.motion.utils.RobotUtils;
+import org.mechio.impl.motion.jointgroup.RobotJointGroupConfigXMLReader;
+import org.mechio.impl.motion.lifecycle.RemoteRobotHostServiceGroup;
 /**
  * 
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public final class ConnectAction implements ActionListener {
     private final static Logger theLogger = 

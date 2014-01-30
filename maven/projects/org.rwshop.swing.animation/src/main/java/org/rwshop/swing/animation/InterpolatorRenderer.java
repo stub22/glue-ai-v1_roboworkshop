@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,15 +33,15 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListCellRenderer;
 import javax.swing.table.TableCellRenderer;
-import org.robokind.api.animation.MotionPath;
-import org.robokind.api.interpolation.InterpolatorFactory;
+import org.mechio.api.animation.MotionPath;
+import org.mechio.api.interpolation.InterpolatorFactory;
 import org.rwshop.swing.common.utils.UIHelpers;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import org.rwshop.swing.common.scaling.DefaultCoordinateScalar;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class InterpolatorRenderer extends JPanel implements ListCellRenderer, TableCellRenderer{
         private CoordinateScalar myScalar;

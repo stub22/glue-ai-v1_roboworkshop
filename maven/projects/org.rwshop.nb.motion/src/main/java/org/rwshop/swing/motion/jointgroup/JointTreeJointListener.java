@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,12 +22,12 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 import javax.swing.SwingUtilities;
 import org.netbeans.swing.outline.Outline;
-import org.robokind.api.motion.Joint;
-import org.robokind.api.motion.servos.config.ServoConfig;
+import org.mechio.api.motion.Joint;
+import org.mechio.api.motion.servos.config.ServoConfig;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class JointTreeJointListener implements PropertyChangeListener{
     private Outline myJointTree;

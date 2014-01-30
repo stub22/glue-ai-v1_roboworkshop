@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,17 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.common.position.NormalizedDouble;
-import org.robokind.api.motion.Joint;
-import org.robokind.api.motion.Robot;
-import org.robokind.impl.motion.sync.PortableSynchronizedJointConfig;
-import org.robokind.impl.motion.sync.PortableSynchronizedRobotConfig;
-import org.robokind.impl.motion.sync.SynchronizedRobotConfigWriter;
+import org.jflux.api.common.rk.position.NormalizedDouble;
+import org.mechio.api.motion.Joint;
+import org.mechio.api.motion.Robot;
+import org.mechio.impl.motion.sync.PortableSynchronizedJointConfig;
+import org.mechio.impl.motion.sync.PortableSynchronizedRobotConfig;
+import org.mechio.impl.motion.sync.SynchronizedRobotConfigWriter;
 import org.rwshop.swing.motion.connection.IPFrame;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class Activator implements BundleActivator {
     

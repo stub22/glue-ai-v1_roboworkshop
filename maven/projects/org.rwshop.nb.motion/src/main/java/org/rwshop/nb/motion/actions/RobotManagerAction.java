@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.motion.Robot;
-import org.robokind.api.motion.utils.RobotManager;
-import org.robokind.api.motion.utils.RobotUtils;
+import org.mechio.api.motion.Robot;
+import org.mechio.api.motion.utils.RobotManager;
+import org.mechio.api.motion.utils.RobotUtils;
 import org.rwshop.nb.motion.RobotManagerTopComponent;
 
 public final class RobotManagerAction implements ActionListener {

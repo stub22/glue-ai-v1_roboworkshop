@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,18 @@ package org.rwshop.swing.animation.timeline.position;
 
 import javax.swing.JPanel;
 import org.osgi.framework.BundleContext;
-import org.robokind.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.AnimationEditor;
 import org.rwshop.swing.animation.menus.MenuProvider;
 import org.rwshop.swing.animation.menus.UIMenuItem;
 import org.rwshop.swing.animation.timeline.TimelineComponent;
 import org.rwshop.swing.common.DrawableLayer;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 
-import static org.robokind.api.common.localization.Localizer.*;
+import static org.jflux.api.common.rk.localization.Localizer.$;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class PositionSourceComponent implements TimelineComponent {
     private PositionSource myPositionSource;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 package org.rwshop.swing.animation.actions;
 
 import java.util.List;
-import org.robokind.api.animation.utils.ChannelNode;
+import org.mechio.api.animation.utils.ChannelNode;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,20 +26,21 @@ import java.util.Collections;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.editor.actions.EditorAction.AddChild;
-import org.robokind.api.animation.factory.ChannelFactory;
-import org.robokind.api.animation.utils.AnimationUtils;
-import org.robokind.api.animation.utils.ChannelsParameter;
-import org.robokind.api.animation.utils.ChannelsParameterSource;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.actions.EditorAction.AddChild;
+import org.mechio.api.animation.factory.ChannelFactory;
+import org.mechio.api.animation.utils.AnimationUtils;
+import org.mechio.api.animation.utils.ChannelsParameter;
+import org.mechio.api.animation.utils.ChannelsParameterSource;
 import org.rwshop.swing.animation.timeline.AnimationTimelinePanel;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import org.rwshop.swing.animation.menus.UIMenuItem;
-import static org.robokind.api.common.localization.Localizer.$;
+
+import static org.jflux.api.common.rk.localization.Localizer.$;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public abstract class UIAction{
     

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,13 @@ package org.rwshop.nb.animation.cookies;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
 import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.messaging.RemoteAnimationPlayerClient;
-import org.robokind.api.animation.player.AnimationPlayer;
-import org.robokind.api.common.utils.RKSource.SourceImpl;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.messaging.RemoteAnimationPlayerClient;
+import org.mechio.api.animation.player.AnimationPlayer;
 import org.rwshop.nb.common.cookies.StopCookie;
 
 /**

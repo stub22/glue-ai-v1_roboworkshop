@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@ package org.rwshop.swing.common.scaling;
 
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import java.awt.geom.Point2D;
-import org.robokind.api.common.property.PropertyChangeNotifier;
+import org.jflux.api.common.rk.property.PropertyChangeNotifier;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class DefaultCoordinateScalar 
         extends PropertyChangeNotifier implements CoordinateScalar{

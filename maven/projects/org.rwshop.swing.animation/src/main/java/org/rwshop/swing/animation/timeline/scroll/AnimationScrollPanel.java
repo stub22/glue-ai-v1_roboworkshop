@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import org.rwshop.swing.common.scaling.ScalingScrollWheelListener;
 import java.awt.Adjustable;
 import java.awt.Dimension;
 import javax.swing.border.EmptyBorder;
-import org.robokind.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.AnimationEditor;
 import org.rwshop.swing.common.scaling.LinkedScrollbarListener;
 import org.rwshop.swing.common.utils.SettingsRepository;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
@@ -35,7 +35,7 @@ import org.rwshop.swing.common.scaling.ScrollingScalableComponent;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationScrollPanel extends javax.swing.JPanel {
     private AnimationEditor myController;

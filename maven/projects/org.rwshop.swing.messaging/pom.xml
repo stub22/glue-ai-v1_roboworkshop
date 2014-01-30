@@ -18,9 +18,9 @@
             <version>1.4.0</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.messaging</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.impl.messaging.rk</artifactId>
+            <version>${jflux.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>

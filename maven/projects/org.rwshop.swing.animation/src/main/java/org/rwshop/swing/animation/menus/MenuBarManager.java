@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,20 @@
 
 package org.rwshop.swing.animation.menus;
 
-import org.robokind.api.animation.editor.history.HistoryStack;
+import org.mechio.api.animation.editor.history.HistoryStack;
 import org.jflux.api.core.Source;
 import org.rwshop.swing.animation.actions.FileAction.Open;
 import org.rwshop.swing.animation.actions.FileAction.Save;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.common.utils.RKSource;
-import static org.robokind.api.common.localization.Localizer.*;
+import org.jflux.api.common.rk.utils.RKSource;
+import org.mechio.api.animation.editor.AnimationEditor;
+
+import static org.jflux.api.common.rk.localization.Localizer.$;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class MenuBarManager {
     private JMenuBar myMenuBar;

@@ -23,16 +23,16 @@
 package org.rwshop.swing.audio.visualization;
 
 import java.beans.Beans;
-import org.robokind.api.audio.WavBuffer;
-import org.robokind.api.audio.WavPlayer;
-import org.robokind.api.audio.processing.WavBufferProcessor;
-import org.robokind.api.audio.processing.WavProcessor;
+import org.mechio.api.audio.WavBuffer;
+import org.mechio.api.audio.WavPlayer;
+import org.mechio.api.audio.processing.WavBufferProcessor;
+import org.mechio.api.audio.processing.WavProcessor;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import org.rwshop.swing.common.scaling.DefaultCoordinateScalar;
 
 /**
  *
- * @author Matthew Stevenson <matt@hansonrobokind.com>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class WavSpectrogramFrame extends javax.swing.JFrame {
     private CoordinateScalar myScalar;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,14 +24,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.configuration.Configuration;
-import org.robokind.api.animation.editor.EditState;
+import org.mechio.api.animation.editor.EditState;
 import org.rwshop.swing.animation.config.UIProperties.PropertyHelper;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 
 /**
  *
  * @param <T>
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public abstract class UIConfigLayer<T extends UIProperties> {
     private static final EditState[] theDefaultStateOrder = {

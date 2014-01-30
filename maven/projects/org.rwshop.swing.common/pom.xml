@@ -18,14 +18,14 @@
             <version>1.4.0</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.api.common</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.api.common.rk</artifactId>
+            <version>${jflux.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.extern.utils.apache_commons_configuration</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.extern.utils.apache_commons_configuration.rk</artifactId>
+            <version>${jflux.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jflux</groupId>

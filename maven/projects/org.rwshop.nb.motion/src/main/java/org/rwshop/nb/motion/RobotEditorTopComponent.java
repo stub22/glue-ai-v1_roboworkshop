@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,12 @@ import org.openide.explorer.ExplorerUtils;
 import org.openide.explorer.view.BeanTreeView;
 import org.openide.windows.TopComponent;
 //import org.openide.util.ImageUtilities;
-import org.robokind.api.motion.Robot;
+import org.mechio.api.motion.Robot;
 import org.rwshop.nb.motion.nodes.RobotNode;
 
 /**
  * 
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public final class RobotEditorTopComponent extends TopComponent implements ExplorerManager.Provider {
     private final ExplorerManager mgr = new ExplorerManager();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,16 +24,16 @@ package org.rwshop.swing.messaging;
 import java.io.File;
 import javax.swing.JFileChooser;
 import org.apache.avro.Schema;
-import org.robokind.api.messaging.services.RemoteServiceClient;
 import org.apache.avro.generic.IndexedRecord;
 import org.jflux.api.core.Source;
+import org.jflux.api.messaging.rk.services.RemoteServiceClient;
 import org.jflux.impl.messaging.rk.common.AvroUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class RemoteServicePanel<Conf extends IndexedRecord> extends javax.swing.JPanel {
     private final static Logger theLogger = 

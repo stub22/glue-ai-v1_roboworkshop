@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,29 +31,29 @@ import org.apache.qpid.client.AMQConnectionFactory;
 import org.apache.qpid.client.AMQQueue;
 import org.apache.qpid.client.AMQTopic;
 import org.jflux.api.core.util.EmptyAdapter;
+import org.jflux.api.messaging.rk.services.ServiceCommand;
+import org.jflux.api.messaging.rk.services.ServiceCommandFactory;
+import org.jflux.api.messaging.rk.services.ServiceError;
 import org.jflux.impl.messaging.rk.JMSAvroMessageAsyncReceiver;
 import org.jflux.impl.messaging.rk.JMSAvroMessageSender;
-import org.robokind.api.messaging.services.ServiceCommand;
-import org.robokind.api.messaging.services.ServiceCommandFactory;
-import org.robokind.api.messaging.services.ServiceError;
-import org.robokind.api.vision.ImageEvent;
-import org.robokind.api.vision.ImageRegionList;
-import org.robokind.api.vision.config.CameraServiceConfig;
-import org.robokind.api.vision.config.FaceDetectServiceConfig;
-import org.robokind.api.vision.messaging.RemoteImageRegionServiceClient;
-import org.robokind.api.vision.messaging.RemoteImageServiceClient;
-import org.robokind.impl.messaging.JMSAvroServiceFacade;
-import org.robokind.impl.messaging.ServiceCommandRecord;
-import org.robokind.impl.messaging.ServiceErrorRecord;
-import org.robokind.impl.messaging.services.PortableServiceCommand;
-import org.robokind.impl.vision.CameraConfig;
-import org.robokind.impl.vision.FaceDetectConfig;
-import org.robokind.impl.vision.ImageRecord;
-import org.robokind.impl.vision.ImageRegionListRecord;
+import org.jflux.impl.messaging.rk.JMSAvroServiceFacade;
+import org.jflux.impl.messaging.rk.ServiceCommandRecord;
+import org.jflux.impl.messaging.rk.ServiceErrorRecord;
+import org.jflux.impl.messaging.services.PortableServiceCommand;
+import org.mechio.api.vision.ImageEvent;
+import org.mechio.api.vision.ImageRegionList;
+import org.mechio.api.vision.config.CameraServiceConfig;
+import org.mechio.api.vision.config.FaceDetectServiceConfig;
+import org.mechio.api.vision.messaging.RemoteImageRegionServiceClient;
+import org.mechio.api.vision.messaging.RemoteImageServiceClient;
+import org.mechio.impl.vision.CameraConfig;
+import org.mechio.impl.vision.FaceDetectConfig;
+import org.mechio.impl.vision.ImageRecord;
+import org.mechio.impl.vision.ImageRegionListRecord;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class VideoControlPanel extends javax.swing.JPanel {
     private VideoPanel myVideoPanel;

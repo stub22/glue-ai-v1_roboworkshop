@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package org.rwshop.swing.animation;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.util.List;
-import org.robokind.api.animation.editor.EditState;
+import org.mechio.api.animation.editor.EditState;
 import org.rwshop.swing.animation.config.PropertySet;
 import org.rwshop.swing.animation.config.PathProperties.PathConfigRenderer;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
@@ -27,7 +27,7 @@ import org.rwshop.swing.common.DrawableLayer;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class PathRenderer implements DrawableLayer{
     private CoordinateScalar myScalar;

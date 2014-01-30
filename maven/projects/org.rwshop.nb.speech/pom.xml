@@ -55,9 +55,9 @@
             <version>${netbeans.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.api.speech</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.api.speech</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
@@ -70,9 +70,9 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.speech</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.impl.speech</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
@@ -80,9 +80,9 @@
             <version>1.4.0</version>
         </dependency>
         <dependency>
-            <artifactId>org.robokind.api.common</artifactId>
-            <groupId>org.robokind</groupId>
-            <version>${robokind.core.version}</version>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.api.common.rk</artifactId>
+            <version>${jflux.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jflux</groupId>

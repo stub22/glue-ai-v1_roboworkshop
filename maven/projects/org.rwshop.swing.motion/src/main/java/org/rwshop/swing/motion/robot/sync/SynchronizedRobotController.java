@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,12 @@
  */
 package org.rwshop.swing.motion.robot.sync;
 
-import org.robokind.api.motion.sync.SynchronizedRobot;
-import org.robokind.api.motion.utils.RobotManager;
+import org.mechio.api.motion.sync.SynchronizedRobot;
+import org.mechio.api.motion.utils.RobotManager;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class SynchronizedRobotController {
     private SynchronizedRobot myRobot;

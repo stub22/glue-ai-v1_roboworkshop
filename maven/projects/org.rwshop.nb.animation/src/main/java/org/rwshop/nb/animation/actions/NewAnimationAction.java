@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,18 @@ package org.rwshop.nb.animation.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
 import org.rwshop.nb.animation.AnimationTimelineEditor;
 import org.rwshop.nb.animation.history.UndoRedoFactory;
 import org.rwshop.swing.animation.actions.FileAction;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.common.utils.RKSource.SourceImpl;
+import org.mechio.api.animation.editor.AnimationEditor;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import org.rwshop.swing.common.scaling.DefaultCoordinateScalar;
 import org.rwshop.swing.common.scaling.ScalingManager;
 
 /**
  * 
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public final class NewAnimationAction implements ActionListener {
 

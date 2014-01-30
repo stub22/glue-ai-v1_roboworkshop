@@ -19,14 +19,14 @@
             <version>1.4.0</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.api.motion</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.api.motion</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.motion</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.impl.motion</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -34,9 +34,9 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.robokind</groupId>
-            <artifactId>org.robokind.impl.motion.dynamixel</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>org.mechio</groupId>
+            <artifactId>org.mechio.impl.motion.dynamixel</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
     </dependencies>
 

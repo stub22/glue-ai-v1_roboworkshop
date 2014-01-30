@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,18 +21,18 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.JFileChooser;
 import org.apache.commons.configuration.ConfigurationException;
+import org.jflux.api.common.rk.utils.RKSource;
 import org.jflux.api.core.Source;
-import org.robokind.api.animation.Animation;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.editor.history.HistoryStack;
-import org.robokind.api.animation.utils.AnimationUtils;
-import org.robokind.api.animation.xml.AnimationXML;
-import org.robokind.api.common.utils.RKSource;
+import org.mechio.api.animation.Animation;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.history.HistoryStack;
+import org.mechio.api.animation.utils.AnimationUtils;
+import org.mechio.api.animation.xml.AnimationXML;
 import org.rwshop.swing.common.utils.MessageAlerter;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class FileAction {
 
