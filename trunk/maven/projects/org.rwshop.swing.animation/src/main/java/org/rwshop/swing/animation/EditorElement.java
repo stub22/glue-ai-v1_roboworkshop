@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,14 @@
 
 package org.rwshop.swing.animation;
 
-import org.robokind.api.animation.editor.AbstractEditor;
+import org.mechio.api.animation.editor.AbstractEditor;
 import org.rwshop.swing.common.DrawableLayer;
 
 /**
  *
  * @param <T>
  * 
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public interface EditorElement<T extends AbstractEditor> extends DrawableLayer{
     /**

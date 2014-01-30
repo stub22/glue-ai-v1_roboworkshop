@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,24 +31,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.Icon;
-import org.robokind.api.animation.player.AnimationJob;
-import org.robokind.api.animation.player.AnimationJobListener;
-import org.robokind.api.animation.editor.ChannelEditor;
-import org.robokind.api.animation.Animation;
-import org.robokind.api.animation.Channel;
+import org.jflux.api.common.rk.config.VersionProperty;
+import org.jflux.api.common.rk.playable.PlayState;
+import org.jflux.api.common.rk.playable.PlayableListener;
+import org.jflux.api.common.rk.utils.TimeUtils;
+import org.mechio.api.animation.player.AnimationJob;
+import org.mechio.api.animation.player.AnimationJobListener;
+import org.mechio.api.animation.editor.ChannelEditor;
+import org.mechio.api.animation.Animation;
+import org.mechio.api.animation.Channel;
 import org.rwshop.swing.animation.timeline.layers.AnimationProgressLayer;
 import org.rwshop.swing.common.utils.SettingsRepository;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import org.rwshop.swing.animation.config.PathProperties;
-import org.robokind.api.common.utils.TimeUtils;
-import org.robokind.api.common.config.VersionProperty;
-import org.robokind.api.common.playable.PlayState;
-import org.robokind.api.common.playable.PlayableListener;
 import org.rwshop.swing.common.scaling.DefaultCoordinateScalar;
+
+import static org.jflux.api.common.rk.playable.PlayState.COMPLETED;
+import static org.jflux.api.common.rk.playable.PlayState.PAUSED;
+import static org.jflux.api.common.rk.playable.PlayState.PENDING;
+import static org.jflux.api.common.rk.playable.PlayState.RUNNING;
+import static org.jflux.api.common.rk.playable.PlayState.STOPPED;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationJobPanel extends javax.swing.JPanel implements PlayableListener, AnimationJobListener {
     /**

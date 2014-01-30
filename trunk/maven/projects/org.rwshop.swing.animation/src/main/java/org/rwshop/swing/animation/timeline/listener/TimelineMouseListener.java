@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,13 +29,13 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.RepaintManager;
-import org.robokind.api.animation.editor.AbstractEditor;
-import org.robokind.api.animation.editor.EditState;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.editor.ChannelEditor;
-import org.robokind.api.animation.editor.ControlPointEditor;
-import org.robokind.api.animation.editor.MotionPathEditor;
-import org.robokind.api.animation.editor.features.SynchronizedPointGroup;
+import org.mechio.api.animation.editor.AbstractEditor;
+import org.mechio.api.animation.editor.EditState;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.ChannelEditor;
+import org.mechio.api.animation.editor.ControlPointEditor;
+import org.mechio.api.animation.editor.MotionPathEditor;
+import org.mechio.api.animation.editor.features.SynchronizedPointGroup;
 import org.rwshop.swing.animation.timeline.TimelineAnimation;
 import org.rwshop.swing.animation.timeline.TimelineChannel;
 import org.rwshop.swing.animation.timeline.TimelineMotionPath;
@@ -46,7 +46,7 @@ import org.rwshop.swing.animation.timeline.position.PositionSource;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class TimelineMouseListener implements MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
     private final static Logger theLogger = Logger.getLogger(TimelineMouseListener.class.getName());

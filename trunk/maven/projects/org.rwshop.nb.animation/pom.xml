@@ -105,14 +105,14 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.api.common</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.api.common.rk</artifactId>
+            <version>${jflux.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.api.animation</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.api.animation</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -120,14 +120,14 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.animation</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.impl.animation</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.robokind</groupId>
-            <artifactId>org.robokind.headless.animation</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>org.rwshop.headless.animation</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <artifactId>org.jflux.api.core</artifactId>

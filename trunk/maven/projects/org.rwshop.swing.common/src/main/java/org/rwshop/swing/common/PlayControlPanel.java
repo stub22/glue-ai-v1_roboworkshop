@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,17 +22,16 @@
 
 package org.rwshop.swing.common;
 
-import java.beans.Beans;
 import javax.swing.Icon;
+import org.jflux.api.common.rk.playable.PlayState;
+import org.jflux.api.common.rk.playable.Playable;
+import org.jflux.api.common.rk.playable.PlayableListener;
+import org.jflux.api.common.rk.utils.TimeUtils;
 import org.rwshop.swing.common.utils.SettingsRepository;
-import org.robokind.api.common.utils.TimeUtils;
-import org.robokind.api.common.playable.PlayState;
-import org.robokind.api.common.playable.Playable;
-import org.robokind.api.common.playable.PlayableListener;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class PlayControlPanel extends javax.swing.JPanel implements PlayableListener {
     private static Icon[] theIcons = null;

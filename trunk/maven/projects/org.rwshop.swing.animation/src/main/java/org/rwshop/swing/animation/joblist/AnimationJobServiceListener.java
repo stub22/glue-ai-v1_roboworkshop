@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,19 +22,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jflux.api.common.rk.utils.TimeUtils;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
-import org.robokind.api.animation.player.AnimationJob;
-import org.robokind.api.animation.player.AnimationPlayer;
-import org.robokind.api.common.utils.TimeUtils;
+import org.mechio.api.animation.player.AnimationJob;
+import org.mechio.api.animation.player.AnimationPlayer;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationJobServiceListener implements ServiceListener{
     private final static Logger theLogger = Logger.getLogger(AnimationJobServiceListener.class.getName());

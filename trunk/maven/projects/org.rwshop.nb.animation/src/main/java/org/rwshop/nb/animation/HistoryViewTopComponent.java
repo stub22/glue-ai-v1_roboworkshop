@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import java.awt.Container;
 import java.util.Collection;
 import java.util.logging.Logger;
 import org.rwshop.nb.animation.history.UndoRedoHistoryStack;
-import org.robokind.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.AnimationEditor;
 import org.rwshop.swing.animation.table.history.HistoryTable;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
@@ -37,7 +37,7 @@ import org.openide.util.lookup.InstanceContent;
 
 /**
  * Top component which displays something.
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 @ConvertAsProperties(dtd = "-//org.rwshop.nb.animation//HistoryView//EN",
 autostore = false)

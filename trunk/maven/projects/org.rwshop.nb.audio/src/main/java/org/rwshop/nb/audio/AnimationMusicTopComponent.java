@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,13 +27,13 @@ import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
-import org.robokind.api.audio.WavPlayer;
+import org.mechio.api.audio.WavPlayer;
 import org.rwshop.swing.audio.visualization.SpectrogramPlayerPanel;
 import org.rwshop.swing.common.scaling.ScalingManager;
 
 /**
  * Top component which displays something.
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 @ConvertAsProperties(dtd = "-//org.rwshop.nb.audio//AnimationMusic//EN",
 autostore = false)

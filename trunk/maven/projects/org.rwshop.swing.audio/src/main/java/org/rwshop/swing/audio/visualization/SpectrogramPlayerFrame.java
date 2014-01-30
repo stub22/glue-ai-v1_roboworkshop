@@ -10,8 +10,7 @@
  */
 package org.rwshop.swing.audio.visualization;
 
-import org.robokind.api.audio.WavBuffer;
-import org.robokind.api.audio.WavPlayer;
+import org.mechio.api.audio.WavPlayer;
 import org.rwshop.swing.common.scaling.ScalingManager;
 
 /**

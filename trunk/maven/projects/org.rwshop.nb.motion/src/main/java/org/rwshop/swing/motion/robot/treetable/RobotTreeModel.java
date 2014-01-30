@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,15 @@ package org.rwshop.swing.motion.robot.treetable;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
-import org.robokind.api.motion.Joint;
-import org.robokind.api.motion.Robot;
-import org.robokind.api.motion.servos.Servo;
-import org.robokind.api.motion.servos.ServoController;
-import org.robokind.api.motion.servos.ServoRobot;
+import org.mechio.api.motion.Joint;
+import org.mechio.api.motion.Robot;
+import org.mechio.api.motion.servos.Servo;
+import org.mechio.api.motion.servos.ServoController;
+import org.mechio.api.motion.servos.ServoRobot;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class RobotTreeModel implements TreeModel{
     private Robot myRobot;

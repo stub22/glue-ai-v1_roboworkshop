@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,14 @@
 package org.rwshop.nb.animation.cookies;
 
 import java.io.IOException;
+import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
 import org.openide.cookies.SaveCookie;
 import org.rwshop.swing.animation.actions.FileAction.Save;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.common.utils.RKSource.SourceImpl;
+import org.mechio.api.animation.editor.AnimationEditor;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationSaveCookie extends SourceImpl<AnimationEditor> implements SaveCookie{
     public AnimationSaveCookie(AnimationEditor controller){

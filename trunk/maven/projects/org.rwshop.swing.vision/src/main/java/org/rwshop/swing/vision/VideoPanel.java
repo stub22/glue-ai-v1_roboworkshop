@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,14 +26,14 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.SwingUtilities;
 import org.jflux.api.core.Listener;
-import org.robokind.api.vision.ImageEvent;
-import org.robokind.api.vision.ImageRegion;
-import org.robokind.api.vision.ImageRegionList;
-import org.robokind.impl.vision.PortableImageUtils;
+import org.mechio.api.vision.ImageEvent;
+import org.mechio.api.vision.ImageRegion;
+import org.mechio.api.vision.ImageRegionList;
+import org.mechio.impl.vision.PortableImageUtils;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class VideoPanel extends javax.swing.JPanel{
     private final static double IMAGE_WIDTH = 320.0;

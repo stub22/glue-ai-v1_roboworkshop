@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import org.robokind.api.animation.player.AnimationJobListener;
-import org.robokind.api.common.utils.Utils;
+import org.mechio.api.animation.player.AnimationJobListener;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import org.rwshop.swing.common.DrawableLayer;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationProgressLayer implements AnimationJobListener, DrawableLayer {
     /**

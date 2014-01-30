@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,19 +29,19 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Collections;
 import org.rwshop.nb.animation.history.UndoRedoHistoryStack;
-import org.robokind.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.AnimationEditor;
 import org.rwshop.swing.animation.timeline.scroll.AnimationScrollPanel;
 import org.openide.awt.UndoRedo;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
 import org.openide.windows.TopComponent;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
-import org.robokind.api.animation.editor.AbstractEditor;
+import org.mechio.api.animation.editor.AbstractEditor;
 import org.rwshop.swing.common.scaling.ScalingManager;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationTimelineEditor extends TopComponent implements ComponentListener, PropertyChangeListener {
     private InstanceContent content = new InstanceContent();

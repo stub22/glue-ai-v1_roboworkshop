@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,12 @@ package org.rwshop.swing.motion.jointgroup;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
-import org.robokind.api.motion.Joint;
-import org.robokind.api.motion.jointgroup.JointGroup;
+import org.mechio.api.motion.Joint;
+import org.mechio.api.motion.jointgroup.JointGroup;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class JointGroupTreeModel implements TreeModel{
     private JointGroup myJointGroup;

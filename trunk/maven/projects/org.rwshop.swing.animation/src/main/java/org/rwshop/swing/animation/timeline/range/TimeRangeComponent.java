@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.editor.features.AnimationTimeRange;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.features.AnimationTimeRange;
 import org.rwshop.swing.animation.menus.MenuProvider;
 import org.rwshop.swing.animation.timeline.TimelineComponent;
 import org.rwshop.swing.common.DrawableLayer;
@@ -29,7 +29,7 @@ import org.rwshop.swing.common.scaling.CoordinateScalar;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class TimeRangeComponent implements 
         TimelineComponent, PropertyChangeListener{

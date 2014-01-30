@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,13 @@ package org.rwshop.swing.animation.table.history;
 
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
-import org.robokind.api.animation.editor.history.HistoryAction;
-import org.robokind.api.animation.editor.history.HistoryListener;
-import org.robokind.api.animation.editor.history.HistoryStack;
+import org.mechio.api.animation.editor.history.HistoryAction;
+import org.mechio.api.animation.editor.history.HistoryListener;
+import org.mechio.api.animation.editor.history.HistoryStack;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class HistoryTableHistoryStackListener implements HistoryListener{
     private HistoryTableModel myModel;

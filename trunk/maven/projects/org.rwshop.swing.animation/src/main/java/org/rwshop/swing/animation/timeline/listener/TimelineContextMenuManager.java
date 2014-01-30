@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,9 @@ package org.rwshop.swing.animation.timeline.listener;
 import org.rwshop.swing.animation.actions.UIAction;
 import java.awt.event.ActionListener;
 import javax.swing.JPopupMenu.Separator;
-import org.robokind.api.animation.editor.actions.AnimationPlayerAction.Play;
-import org.robokind.api.animation.editor.actions.HistoryAction;
-import org.robokind.api.common.utils.RKSource.SourceImpl;
-import org.robokind.api.animation.editor.history.HistoryStack;
-import org.robokind.api.common.utils.RKSource;
+import org.mechio.api.animation.editor.actions.AnimationPlayerAction.Play;
+import org.mechio.api.animation.editor.actions.HistoryAction;
+import org.mechio.api.animation.editor.history.HistoryStack;
 import javax.swing.JPopupMenu;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
@@ -31,29 +29,32 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
-import org.robokind.api.animation.editor.EditState;
-import org.robokind.api.animation.editor.actions.ChannelActions;
-import org.robokind.api.animation.editor.actions.ControlPointActions;
-import org.robokind.api.animation.editor.actions.MotionPathActions;
-import org.robokind.api.animation.editor.ChannelEditor;
-import org.robokind.api.animation.editor.ControlPointEditor;
-import org.robokind.api.animation.editor.MotionPathEditor;
+import org.jflux.api.common.rk.utils.RKSource;
+import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
+import org.mechio.api.animation.editor.EditState;
+import org.mechio.api.animation.editor.actions.ChannelActions;
+import org.mechio.api.animation.editor.actions.ControlPointActions;
+import org.mechio.api.animation.editor.actions.MotionPathActions;
+import org.mechio.api.animation.editor.ChannelEditor;
+import org.mechio.api.animation.editor.ControlPointEditor;
+import org.mechio.api.animation.editor.MotionPathEditor;
 import org.rwshop.swing.animation.timeline.TimelineAnimation;
 import org.rwshop.swing.animation.timeline.TimelineChannel;
 import org.rwshop.swing.animation.timeline.TimelineMotionPath;
 import org.rwshop.swing.animation.actions.UIAction.Zoom;
-import org.robokind.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.AnimationEditor;
 import org.rwshop.swing.animation.actions.FileAction.Save;
 import org.rwshop.swing.animation.menus.MenuProvider;
 import org.rwshop.swing.animation.menus.UIMenuItem;
 import org.rwshop.swing.animation.timeline.AnimationTimelinePanel;
 import org.rwshop.swing.common.utils.SettingsRepository;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
-import static org.robokind.api.common.localization.Localizer.*;
+
+import static org.jflux.api.common.rk.localization.Localizer.$;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class TimelineContextMenuManager{
     private TimelineAnimation myTimeline;

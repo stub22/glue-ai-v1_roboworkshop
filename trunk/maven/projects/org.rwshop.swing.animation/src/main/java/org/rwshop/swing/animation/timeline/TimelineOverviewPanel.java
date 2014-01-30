@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,11 +30,11 @@ import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingUtilities;
-import org.robokind.api.animation.utils.AnimationUtils;
-import org.robokind.api.animation.utils.ChannelsParameterSource;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.editor.ChannelEditor;
-import org.robokind.api.animation.utils.ChannelsParameter;
+import org.mechio.api.animation.utils.AnimationUtils;
+import org.mechio.api.animation.utils.ChannelsParameterSource;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.ChannelEditor;
+import org.mechio.api.animation.utils.ChannelsParameter;
 import org.rwshop.swing.animation.timeline.layers.AnimationPlayerLayer;
 import org.rwshop.swing.animation.timeline.listener.AnimationRepaintListener;
 import org.rwshop.swing.common.utils.SettingsRepository;
@@ -49,7 +49,7 @@ import org.rwshop.swing.common.scaling.DefaultCoordinateScalar;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class TimelineOverviewPanel extends javax.swing.JPanel implements ComponentListener{//, IAnimationListener {
     private CoordinateScalar myScalar;

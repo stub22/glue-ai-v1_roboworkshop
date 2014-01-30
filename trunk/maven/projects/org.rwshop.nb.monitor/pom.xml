@@ -64,14 +64,14 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.integration.animation_motion</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.integration.animation_motion</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.api.common</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.api.common.rk</artifactId>
+            <version>${jflux.version}</version>
         </dependency>
         <dependency>
             <artifactId>org.osgi.compendium</artifactId>

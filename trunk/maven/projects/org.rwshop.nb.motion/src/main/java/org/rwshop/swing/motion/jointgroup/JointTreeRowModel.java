@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,15 @@
 package org.rwshop.swing.motion.jointgroup;
 
 import java.util.List;
+import org.jflux.api.common.rk.position.NormalizedDouble;
 import org.netbeans.swing.outline.RowModel;
-import org.robokind.api.common.position.NormalizedDouble;
-import org.robokind.api.motion.Joint;
-import org.robokind.api.motion.jointgroup.JointGroup;
-import org.robokind.api.motion.JointProperty;
+import org.mechio.api.motion.Joint;
+import org.mechio.api.motion.jointgroup.JointGroup;
+import org.mechio.api.motion.JointProperty;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class JointTreeRowModel implements RowModel{
     public final static int theColCount = 2;

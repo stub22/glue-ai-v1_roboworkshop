@@ -79,29 +79,29 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.api.common</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.api.common.rk</artifactId>
+            <version>${jflux.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.api.motion</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.api.motion</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.motion.pololu</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.impl.motion.pololu</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.motion.dynamixel</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.impl.motion.dynamixel</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.motion</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.impl.motion</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -109,14 +109,14 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.extern.utils.apache_commons_configuration</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.extern.utils.apache_commons_configuration.rk</artifactId>
+            <version>${jflux.version}</version>
         </dependency>
         <dependency>
-            <artifactId>org.robokind.api.messaging</artifactId>
-            <groupId>org.robokind</groupId>
-            <version>${robokind.core.version}</version>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.api.messaging.rk</artifactId>
+            <version>${jflux.version}</version>
         </dependency>
         <dependency>
             <artifactId>ext.bundle.apache_qpid_010</artifactId>
@@ -125,14 +125,14 @@
             <version>${appdapter.msg.version}</version>
         </dependency>
         <dependency>
-            <artifactId>org.robokind.impl.messaging</artifactId>
-            <groupId>org.robokind</groupId>
-            <version>${robokind.core.version}</version>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.impl.messaging.rk</artifactId>
+            <version>${jflux.version}</version>
         </dependency>
         <dependency>
-            <artifactId>org.robokind.integration.motion_speech</artifactId>
-            <groupId>org.robokind</groupId>
-            <version>${robokind.core.version}</version>
+            <artifactId>org.mechio.integration.motion_speech</artifactId>
+            <groupId>org.mechio</groupId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
             <artifactId>org.jflux.api.core</artifactId>

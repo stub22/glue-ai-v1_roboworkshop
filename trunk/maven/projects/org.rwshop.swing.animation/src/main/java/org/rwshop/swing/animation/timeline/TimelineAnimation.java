@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +19,17 @@ package org.rwshop.swing.animation.timeline;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
-import org.robokind.api.animation.editor.AbstractEditor;
-import org.robokind.api.animation.editor.EditState;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.editor.ChannelEditor;
-import org.robokind.api.animation.editor.EditorListener;
+import org.mechio.api.animation.editor.AbstractEditor;
+import org.mechio.api.animation.editor.EditState;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.ChannelEditor;
+import org.mechio.api.animation.editor.EditorListener;
 import org.rwshop.swing.animation.ElementSettings;
 import org.rwshop.swing.animation.EditorElement;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class TimelineAnimation extends EditorListener implements EditorElement{
     private AnimationEditor myAnimation;

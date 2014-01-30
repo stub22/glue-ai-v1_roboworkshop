@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@ package org.rwshop.swing.animation.timeline;
 
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
-import org.robokind.api.animation.editor.EditState;
-import org.robokind.api.animation.editor.EditorListener;
-import org.robokind.api.animation.editor.ControlPointEditor;
+import org.mechio.api.animation.editor.EditState;
+import org.mechio.api.animation.editor.EditorListener;
+import org.mechio.api.animation.editor.ControlPointEditor;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import org.rwshop.swing.animation.config.PointProperties.PointConfigRenderer;
 import org.rwshop.swing.animation.ElementSettings;
@@ -28,7 +28,7 @@ import org.rwshop.swing.animation.EditorElement;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class TimelineControlPoint extends EditorListener implements EditorElement {
     private ControlPointEditor myController;

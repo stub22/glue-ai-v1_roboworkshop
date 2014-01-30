@@ -46,14 +46,14 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.api.audio</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.api.audio</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.audio</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.impl.audio</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -66,9 +66,9 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${robokind.core.groupId}</groupId>
-            <artifactId>org.robokind.impl.animation</artifactId>
-            <version>${robokind.core.version}</version>
+            <groupId>${mechio.groupId}</groupId>
+            <artifactId>org.mechio.impl.animation</artifactId>
+            <version>${mechio.version}</version>
         </dependency>
     </dependencies>
 

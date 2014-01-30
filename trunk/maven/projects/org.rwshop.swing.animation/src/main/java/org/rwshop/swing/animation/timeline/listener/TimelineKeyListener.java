@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,22 +18,17 @@ package org.rwshop.swing.animation.timeline.listener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Map.Entry;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import org.robokind.api.animation.utils.AnimationUtils;
-import org.robokind.api.animation.utils.ChannelsParameterSource;
+import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
 import org.rwshop.swing.animation.actions.FileAction.Save;
-import org.robokind.api.animation.editor.AnimationEditor;
-import org.robokind.api.animation.editor.history.HistoryStack;
-import org.robokind.api.animation.Channel;
-import org.robokind.api.animation.MotionPath;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.history.HistoryStack;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
-import org.robokind.api.common.utils.RKSource.SourceImpl;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class TimelineKeyListener implements KeyListener {
     private JPanel myPanel;

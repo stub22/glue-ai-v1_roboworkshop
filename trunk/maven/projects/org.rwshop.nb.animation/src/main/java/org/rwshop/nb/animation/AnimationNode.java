@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Hanson Robokind LLC.
+ * Copyright 2014 the RoboWorkshop Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,8 +37,8 @@ import org.openide.util.Utilities;
 import org.openide.util.WeakListeners;
 import org.openide.util.lookup.InstanceContent;
 import org.rwshop.nb.animation.cookies.AnimationSaveAsCookie;
-import org.robokind.api.animation.editor.AbstractEditor;
-import org.robokind.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.AbstractEditor;
+import org.mechio.api.animation.editor.AnimationEditor;
 import org.rwshop.nb.animation.cookies.LoopAnimationCookie;
 import org.rwshop.nb.animation.cookies.StopAnimationCookie;
 import org.rwshop.nb.common.VersionPropertySheet;
@@ -49,7 +49,7 @@ import org.rwshop.nb.common.cookies.StopCookie;
 
 /**
  *
- * @author Matthew Stevenson <www.robokind.org>
+ * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationNode extends AbstractNode implements PropertyChangeListener{
     private AnimationEditor myController;
