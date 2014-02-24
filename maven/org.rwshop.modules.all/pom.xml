@@ -48,6 +48,7 @@
         <mechio.groupId>org.mechio</mechio.groupId>
         <mechio.version>1.0.0-SNAPSHOT</mechio.version>
         <jflux.version>0.1.9-SNAPSHOT</jflux.version>
+        <appdapter.version>1.1.5-SNAPSHOT</appdapter.version>
         <netbeans.run.params.ide>-J-Xmx1024m</netbeans.run.params.ide>
         <netbeans.run.params>${netbeans.run.params.ide}</netbeans.run.params>
         <netbeans.compile.on.save>none</netbeans.compile.on.save>
