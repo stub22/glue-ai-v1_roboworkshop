@@ -26,6 +26,7 @@ import javax.jms.Connection;
 import javax.jms.JMSException;
 import javax.swing.JOptionPane;
 import org.jflux.api.common.rk.utils.TimeUtils;
+import org.jflux.api.core.Source;
 import org.jflux.impl.messaging.rk.config.RKMessagingConfigUtils;
 import org.jflux.impl.messaging.rk.lifecycle.BytesMessageBlockingReceiverLifecycle;
 import org.jflux.impl.messaging.rk.lifecycle.JMSAvroAsyncReceiverLifecycle;
@@ -54,9 +55,10 @@ import org.mechio.impl.motion.messaging.PortableRobotDefinitionResponse;
 import org.mechio.impl.motion.messaging.PortableRobotRequest;
 import org.mechio.impl.motion.messaging.RobotDefinitionResponseRecord;
 import org.mechio.impl.motion.messaging.RobotRequestRecord;
-import org.rwshop.swing.motion.connection.IPFrame;
 
 import static org.jflux.impl.messaging.rk.utils.ConnectionUtils.TOPIC;
+import org.jflux.spec.discovery.UniqueService;
+import org.rwshop.swing.motion.connection.SelectorFrame;
 
 public final class ConnectRemoteRobotAction implements ActionListener {
     private final static Logger theLogger = 
@@ -66,7 +68,6 @@ public final class ConnectRemoteRobotAction implements ActionListener {
     private final static String REQUEST_DEST_ID = "robotRequest";
     private final static String RESPONSE_DEST_ID = "robotResponse";
     private final static String MOVE_DEST_ID = "robotMotionFrame";
-    private final static Robot.Id ROBOT_ID = new Robot.Id("myRobot");
     private final static String REQUEST_SENDER_ID = "robotRequestSender";
     private final static String RESPONSE_RECEIVER_ID = "robotResponseReceiver";
     private final static String MOVE_SENDER_ID = "robotFrameSender"; 
@@ -79,21 +80,42 @@ public final class ConnectRemoteRobotAction implements ActionListener {
 
             @Override
             public void run() {
-                IPFrame ipFrame = IPFrame.getInstance();
+                SelectorFrame ipFrame = SelectorFrame.getInstance();
                 ipFrame.setLocationRelativeTo(null);
                 ipFrame.setVisible(true);
 
-                String ip = null;
+                UniqueService robot = null;
 
-                while(ip == null) {
-                    ip = ipFrame.consumeIPAddress();
+                while(robot == null) {
+                    for(Source<UniqueService> selector:
+                            ipFrame.getSelectors()) {
+                        robot = selector.getValue();
+                        
+                        if(robot != null) {
+                            break;
+                        }
+                    }
+
                     TimeUtils.sleep(1000);
                 }
+                
+                String ip = robot.getIPAddress();
 
                 if(ip.equals("CANCEL")) {
                     theLogger.info("User cancelled ConnectRemoteRobot action.");
                     return;
                 }
+                
+                String robotId = robot.getProperties().get("robotId");
+                
+                if(robotId == null) {
+                    robotId = "Avatar_ZenoR50";
+                }
+                
+                theLogger.log(Level.INFO, "Connecting to robot {0}", robotId);
+                
+                Robot.Id mainRobotId = new Robot.Id(robotId);
+                String smallRobotId = robotId.replaceAll("_", "");
 
                 String tcp = "tcp://" + ip + ":5672";
                 theLogger.info(tcp);
@@ -118,18 +140,28 @@ public final class ConnectRemoteRobotAction implements ActionListener {
                             DEF_RECEIVER_ID, DEF_DEST_ID));
                     DisconnectAction.addRegs(connectMotion(
                             context, tcp, CONNECTION_ID, REQUEST_DEST_ID, 
-                            RESPONSE_DEST_ID, MOVE_DEST_ID, DEF_DEST_ID));
-                    DisconnectAction.addComponents(ConnectAction.loadJointGroup(
-                            context, ROBOT_ID, "./resources/jointgroup.xml"));
+                            RESPONSE_DEST_ID, MOVE_DEST_ID, DEF_DEST_ID,
+                            smallRobotId));
+                    if(robotId.equals("myRobot")) {
+                        DisconnectAction.addComponents(
+                                ConnectAction.loadJointGroup(
+                                        context, mainRobotId,
+                                        "./resources/jointgroup.xml"));
+                    } else if(robotId.equals("Avatar_ZenoR50")) {
+                        DisconnectAction.addComponents(
+                                ConnectAction.loadJointGroup(
+                                        context, mainRobotId,
+                                        "./resources/jointgroup-avatar.xml"));
+                    }
                     DisconnectAction.addComponent(startRobotClientLifecycle(
-                            context, "source", "dest", ROBOT_ID, 
+                            context, "source", "dest", mainRobotId, 
                             REQUEST_SENDER_ID, RESPONSE_RECEIVER_ID,
                             MOVE_SENDER_ID));
                     DisconnectAction.addComponent(
                             startRemoteRobot(
-                                    context, ROBOT_ID, DEF_RECEIVER_ID));
+                                    context, mainRobotId, DEF_RECEIVER_ID));
                     DisconnectAction.addServices(RobotUtils.startDefaultBlender(
-                            context, ROBOT_ID, 40L));
+                            context, mainRobotId, 40L));
                     OSGiComponent mfe = new OSGiComponent(context,
                             new SimpleLifecycle(
                                     new PortableMotionFrameEvent.Factory(), 
@@ -178,7 +210,7 @@ public final class ConnectRemoteRobotAction implements ActionListener {
     private Set<ServiceRegistration> connectMotion(
             BundleContext context, String connectionStr, String connectionId,
             String requestDestId, String responseDestId, String moveDestId,
-            String defDestId){
+            String defDestId, String robotId){
         Set<ServiceRegistration> regs = new HashSet<ServiceRegistration>(4);
         theLogger.info("Registering Motion Connection and Destinations");
         Connection con = ConnectionManager.createConnection(
@@ -197,10 +229,10 @@ public final class ConnectRemoteRobotAction implements ActionListener {
         regs.add(ConnectionUtils.ensureSession(context, 
                 connectionId, con, null));
         regs.addAll(ConnectionUtils.ensureDestinations(context, 
-                requestDestId, "robotmyRobothostrobotRequest", TOPIC, null, 
-                responseDestId, "robotmyRobothostrobotResponse", TOPIC, null,
-                moveDestId, "robotmyRobothostmotionFrame", TOPIC, null,
-                defDestId, "robotmyRobothostrobotDefinition", TOPIC, null));
+                requestDestId, "robot" + robotId + "hostrobotRequest", TOPIC, null, 
+                responseDestId, "robot" + robotId + "hostrobotResponse", TOPIC, null,
+                moveDestId, "robot" + robotId + "hostmotionFrame", TOPIC, null,
+                defDestId, "robot" + robotId + "hostrobotDefinition", TOPIC, null));
         theLogger.info("Motion Connection and Destinations Registered");
         
         return regs;

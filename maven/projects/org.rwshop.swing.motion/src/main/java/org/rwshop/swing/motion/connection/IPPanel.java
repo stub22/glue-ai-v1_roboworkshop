@@ -16,14 +16,20 @@
 
 package org.rwshop.swing.motion.connection;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import org.jflux.api.core.Source;
+import org.jflux.spec.discovery.UniqueService;
 import org.rwshop.swing.common.HistoricalComboBoxModel;
 
 /**
  *
  * @author jgpallack
  */
-public class IPPanel extends javax.swing.JPanel {
+public class IPPanel extends JPanel implements Source<UniqueService> {
     private HistoricalComboBoxModel myModel;
     private String myIPAddress;
     
@@ -49,10 +55,13 @@ public class IPPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
 
         jLabel1.setText("Remote robot IP?");
 
@@ -70,16 +79,28 @@ public class IPPanel extends javax.swing.JPanel {
             }
         });
 
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Robot");
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setSelected(true);
+        jRadioButton2.setText("Avatar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2))
             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jButton2))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jRadioButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton2)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,10 +108,14 @@ public class IPPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)))
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -98,8 +123,8 @@ public class IPPanel extends javax.swing.JPanel {
         String address = myModel.getSelectedItem().toString();
         
         if(validateIP(address)) {
-            IPFrame ipFrame = IPFrame.getInstance();
-            ipFrame.setVisible(false);
+            SelectorFrame frame = SelectorFrame.getInstance();
+            frame.setVisible(false);
             myIPAddress = address;
         } else {
             JOptionPane.showMessageDialog(
@@ -136,23 +161,33 @@ public class IPPanel extends javax.swing.JPanel {
         return true;
     }
     
-    String consumeIPAddress() {
+    @Override
+    public UniqueService getValue() {
         String ipAddress = myIPAddress;
-        myIPAddress = null;
+        String serial = UUID.randomUUID().toString();
+        boolean physical = jRadioButton1.isSelected();
+        Map<String, String> props = new HashMap<String, String>();
         
-        return ipAddress;
+        myIPAddress = null;
+        props.put("robotId", physical ? "myRobot" : "Avatar_ZenoR50");
+        
+        return ipAddress == null ?
+                null : new UniqueService(ipAddress, serial, props);
     }
     
     void cancel() {
-        IPFrame ipFrame = IPFrame.getInstance();
-        ipFrame.setVisible(false);
+        SelectorFrame frame = SelectorFrame.getInstance();
+        frame.setVisible(false);
         myIPAddress = "CANCEL";
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     // End of variables declaration//GEN-END:variables
 }

@@ -27,7 +27,7 @@ import org.mechio.api.motion.Robot;
 import org.mechio.impl.motion.sync.PortableSynchronizedJointConfig;
 import org.mechio.impl.motion.sync.PortableSynchronizedRobotConfig;
 import org.mechio.impl.motion.sync.SynchronizedRobotConfigWriter;
-import org.rwshop.swing.motion.connection.IPFrame;
+import org.rwshop.swing.motion.connection.SelectorFrame;
 
 /**
  *
@@ -59,7 +59,7 @@ public class Activator implements BundleActivator {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                IPFrame.instantiate();
+                SelectorFrame.instantiate();
             }
         });
     }

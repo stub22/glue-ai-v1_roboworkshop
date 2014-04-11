@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the RoboWorkshop Project
+ * Copyright 2014 the Friendularity Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,24 +16,29 @@
 
 package org.rwshop.swing.motion.connection;
 
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.List;
+import org.jflux.api.core.Source;
+import org.jflux.spec.discovery.Discoverer;
+import org.jflux.spec.discovery.UniqueService;
 
 /**
  *
- * @author jgpallack
+ * @author Amy Jessica Book <jgpallack@gmail.com>
  */
-public class IPFrame extends javax.swing.JFrame {
-    private static IPFrame theInstance = null;
-    
-    private String myIPAddress;
+public class SelectorFrame extends javax.swing.JFrame {
+    private static SelectorFrame theInstance;
+    private List<Source<UniqueService>> mySelectors;
     
     /**
-     * Creates new form IPFrame
+     * Creates new form SelectorFrame
      */
-    public IPFrame() {
+    public SelectorFrame() {
         initComponents();
-        myIPAddress = null;
+        
+        mySelectors = new ArrayList<Source<UniqueService>>(2);
+        mySelectors.add(robotSelector1);
+        mySelectors.add(iPPanel1);
     }
 
     /**
@@ -45,23 +50,24 @@ public class IPFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        robotSelector1 = new org.rwshop.swing.motion.connection.RobotSelector();
         iPPanel1 = new org.rwshop.swing.motion.connection.IPPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTabbedPane1.addTab("Discovery", robotSelector1);
+        jTabbedPane1.addTab("Manual", iPPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(iPPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(iPPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1)
         );
 
         pack();
@@ -84,40 +90,58 @@ public class IPFrame extends javax.swing.JFrame {
                 }
             }
         } catch(ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IPFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch(InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IPFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch(IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IPFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch(javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IPFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SelectorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new IPFrame().setVisible(true);
+                SelectorFrame frame = new SelectorFrame();
+                Discoverer discoverer = new Discoverer();
+                Thread thread = new Thread(discoverer);
+                
+                frame.initialize(discoverer);
+                thread.start();
+                frame.setVisible(true);
             }
         });
     }
     
-    public static IPFrame getInstance() {
-        return theInstance;
+    public void initialize(Discoverer discoverer) {
+        robotSelector1.setDiscoverer(discoverer);
     }
     
     public static void instantiate() {
         if(theInstance == null) {
-            theInstance = new IPFrame();
+            theInstance = new SelectorFrame();
             theInstance.setVisible(false);
+            
+            Discoverer discoverer = new Discoverer();
+            Thread thread = new Thread(discoverer); 
+            theInstance.initialize(discoverer);
+            thread.start();
         }
     }
     
-    public String consumeIPAddress() {
-        return iPPanel1.consumeIPAddress();
+    public static SelectorFrame getInstance() {
+        return theInstance;
+    }
+    
+    public List<Source<UniqueService>> getSelectors() {        
+        return mySelectors;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.rwshop.swing.motion.connection.IPPanel iPPanel1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private org.rwshop.swing.motion.connection.RobotSelector robotSelector1;
     // End of variables declaration//GEN-END:variables
 }

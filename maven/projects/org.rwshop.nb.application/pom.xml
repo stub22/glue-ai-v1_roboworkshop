@@ -79,7 +79,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
-                <version>3.11</version>
+                <version>3.13</version>
                 <extensions>true</extensions>
                 <configuration>
                     <brandingToken>${brandingToken}</brandingToken>
@@ -196,7 +196,6 @@
         </profile>
     </profiles>
     <properties>
-        <netbeans.run.params.ide />
-        <netbeans.run.params>${netbeans.run.params.ide} -J-Xmx512m</netbeans.run.params>
+        <netbeans.run.params> -J-Xmx512m</netbeans.run.params>
     </properties>
 </project>
