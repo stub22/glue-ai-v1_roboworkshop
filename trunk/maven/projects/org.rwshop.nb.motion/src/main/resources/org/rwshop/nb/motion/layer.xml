@@ -41,12 +41,6 @@
                 <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
                 <attr name="noIconInMenu" boolvalue="false"/>
             </file>
-            <file name="org-rwshop-nb-motion-actions-ConnectRemoteAvatarAction.instance">
-                <attr name="delegate" newvalue="org.rwshop.nb.motion.actions.ConnectRemoteAvatarAction"/>
-                <attr name="displayName" bundlevalue="org.rwshop.nb.motion.actions.Bundle#CTL_ConnectRemoteAvatarAction"/>
-                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
-                <attr name="noIconInMenu" boolvalue="false"/>
-            </file>
             <file name="org-rwshop-nb-motion-actions-DisconnectAction.instance">
                 <attr name="delegate" newvalue="org.rwshop.nb.motion.actions.DisconnectAction"/>
                 <attr name="displayName" bundlevalue="org.rwshop.nb.motion.actions.Bundle#CTL_DisconnectAction"/>
@@ -86,10 +80,6 @@
             </file-->
             <file name="org-rwshop-nb-motion-actions-ConnectRemoteRobotAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Tools/org-rwshop-nb-motion-actions-ConnectRemoteRobotAction.instance"/>
-                <attr name="position" intvalue="50"/>
-            </file>
-            <file name="org-rwshop-nb-motion-actions-ConnectRemoteAvatarAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Tools/org-rwshop-nb-motion-actions-ConnectRemoteAvatarAction.instance"/>
                 <attr name="position" intvalue="50"/>
             </file>
             <file name="org-rwshop-nb-motion-actions-ConnectSynchronizedRobotAction.shadow">

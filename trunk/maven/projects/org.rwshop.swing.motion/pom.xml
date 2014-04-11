@@ -38,6 +38,11 @@
             <artifactId>org.mechio.impl.motion.dynamixel</artifactId>
             <version>${mechio.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.jflux</groupId>
+            <artifactId>org.jflux.demo.discovery</artifactId>
+            <version>${jflux.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
