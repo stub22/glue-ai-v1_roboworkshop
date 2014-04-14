@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
-import org.apache.http.entity.mime.content.StringBody;
 import org.jflux.api.core.Listener;
 import org.jflux.spec.discovery.Discoverer;
 import org.jflux.spec.discovery.UniqueService;
