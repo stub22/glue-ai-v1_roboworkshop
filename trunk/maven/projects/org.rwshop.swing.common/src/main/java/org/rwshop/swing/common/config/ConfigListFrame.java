@@ -17,7 +17,7 @@ package org.rwshop.swing.common.config;
 
 /**
  *
- * @author Jason G. Pallack <jgpallack@gmail.com>
+ * @author Amy Jessica Book <jgpallack@gmail.com>
  */
 public class ConfigListFrame extends javax.swing.JFrame {
 

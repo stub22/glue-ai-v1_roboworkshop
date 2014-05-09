@@ -22,7 +22,7 @@ import javax.swing.RepaintManager;
 
 /**
  *
- * @author Jason G. Pallack <jgpallack@gmail.com>
+ * @author Amy Jessica Book <jgpallack@gmail.com>
  */
 public class PositionSourceToggle implements ActionListener {
     private PositionSource myPositionSource;

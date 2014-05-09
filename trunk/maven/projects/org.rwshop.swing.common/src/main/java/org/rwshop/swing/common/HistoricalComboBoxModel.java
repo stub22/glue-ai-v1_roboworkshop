@@ -25,7 +25,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  *
- * @author Jason G. Pallack <jgpallack@gmail.com>
+ * @author Amy Jessica Book <jgpallack@gmail.com>
  */
 
 
