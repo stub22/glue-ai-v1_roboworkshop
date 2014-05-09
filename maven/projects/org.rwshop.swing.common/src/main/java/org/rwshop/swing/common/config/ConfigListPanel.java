@@ -15,7 +15,7 @@ import org.jflux.api.core.config.Configuration;
 
 /**
  *
- * @author Jason G. Pallack <jgpallack@gmail.com>
+ * @author Amy Jessica Book <jgpallack@gmail.com>
  */
 public class ConfigListPanel extends javax.swing.JPanel {
 
