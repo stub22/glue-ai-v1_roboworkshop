@@ -27,6 +27,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import javax.swing.RepaintManager;
+import javax.swing.SwingUtilities;
 import org.jflux.impl.services.rk.osgi.ServiceClassListener;
 import org.netbeans.swing.outline.DefaultOutlineModel;
 import org.netbeans.swing.outline.OutlineModel;
@@ -85,13 +86,18 @@ public class JointTreePanel extends javax.swing.JPanel {
             }
             
             private void setJointGroup(){
-                JointGroup group = getTopService();
+                final JointGroup group = getTopService();
                 if(group == null){
                     return;
                 }else if(group == myRootGroup){
                     return;
                 }
-                setModel(group, myPropertyNames);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        setModel(group, myPropertyNames);
+                    }
+                });
             }
         };
         myGroupTracker.start();
