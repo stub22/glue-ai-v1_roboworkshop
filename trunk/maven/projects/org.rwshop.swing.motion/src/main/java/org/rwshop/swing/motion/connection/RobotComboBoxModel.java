@@ -29,105 +29,43 @@ import org.jflux.spec.discovery.UniqueService;
  *
  * @author Amy Jessica Book <jgpallack@gmail.com>
  */
-public class RobotComboBoxModel extends DefaultComboBoxModel
+public class RobotComboBoxModel extends DefaultComboBoxModel<UniqueService>
     implements Listener<UniqueService> {
-    private Map<String, String> myRobotServiceMap;
-    private List<UniqueService> myRobots;
-    private String mySelectedItem;
+    private Map<String, UniqueService> myRobotServiceMap;
     
     // format is robotId @ IP / UUID
     
     public RobotComboBoxModel(Discoverer discoverer) {
-        myRobotServiceMap = new HashMap<String, String>();
-        myRobots = new ArrayList<UniqueService>();
-        mySelectedItem = null;
+        myRobotServiceMap = new HashMap<String, UniqueService>();
         discoverer.addListener(this);
     }
     
-    @Override
-    public void setSelectedItem(Object o) {
-        mySelectedItem = o.toString();
-    }
-    
-    @Override
-    public Object getSelectedItem() {
-        return mySelectedItem;
-    }
-    
-    @Override
-    public int getSize() {
-        return myRobots.size();
-    }
-    
-    @Override
-    public Object getElementAt(int i) {
-        if(myRobots.isEmpty()) {
-            return null;
-        } else {
-            return format(myRobots.get(i));
-        }
-    }
-    
     public String getSelectedIP() {
-        return myRobotServiceMap.get(mySelectedItem);
-    }
-    
-    public UniqueService getSelectedRobot() {
-        for (UniqueService robot : myRobots) {
-            if (robot.getSerial().equals(deformat(mySelectedItem))) {
-                return robot;
-            }
+        UniqueService s = (UniqueService)getSelectedItem();
+        if(s == null){
+            return "none";
         }
-        
-        return null;
+        return s.getIPAddress();
     }
 
     @Override
     public void handleEvent(UniqueService t) {
-        String serial = t.getSerial();
-        String ipAddress = t.getIPAddress();
-        
-        if(myRobotServiceMap.containsKey(serial) &&
-                myRobotServiceMap.get(serial).equals(ipAddress)) {
+        if(getIndexOf(t) >= 0){
             return;
         }
         
+        String serial = t.getSerial();
         if(myRobotServiceMap.containsKey(serial)) {
             // This means the IP changed.
-            
-            int index = 0;
-            
-            for(int i = 0; i < myRobots.size(); i++) {
-                if(myRobots.get(i).getSerial().equals(serial)) {
-                    index = i;
-                    break;
-                }
-            }
-            
-            myRobots.remove(index);
-            myRobots.add(index, t);
+            UniqueService u = myRobotServiceMap.get(serial);
+            int i = getIndexOf(u);
+            removeElement(u);
+            insertElementAt(t, i);
         } else {
             // We have a new robot.
-            
-            myRobots.add(t);
+            addElement(t);
         }
-
-        myRobotServiceMap.put(serial, ipAddress);
-        fireContentsChanged(this, 0, myRobots.size() - 1);
-    }
-    
-    private static String format(UniqueService service) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(service.getProperties().get("robotId"));
-        sb.append(" @ ");
-        sb.append(service.getIPAddress());
-        sb.append(" / ");
-        sb.append(service.getSerial());
-        
-        return sb.toString();
-    }
-    
-    private static String deformat(String formatted) {
-        return formatted.split("/")[1].trim();
+        myRobotServiceMap.put(serial, t);
+        fireContentsChanged(this, 0, getSize());
     }
 }

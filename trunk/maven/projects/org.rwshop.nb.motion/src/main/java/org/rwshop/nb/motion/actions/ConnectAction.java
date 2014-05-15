@@ -74,7 +74,7 @@ public final class ConnectAction implements ActionListener {
                 null, new OSGiComponentFactory(context));
         new RemoteRobotHostServiceGroup(
                 context, robotId, "host", "client", 
-                connectionConfigId, null).start();
+                connectionConfigId, null, null, 100).start();
     }
     
     private File chooseFile(){
