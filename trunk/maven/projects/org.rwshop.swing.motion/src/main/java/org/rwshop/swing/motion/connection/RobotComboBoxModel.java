@@ -29,7 +29,7 @@ import org.jflux.spec.discovery.UniqueService;
  *
  * @author Amy Jessica Book <jgpallack@gmail.com>
  */
-public class RobotComboBoxModel extends DefaultComboBoxModel<UniqueService>
+public class RobotComboBoxModel extends DefaultComboBoxModel
     implements Listener<UniqueService> {
     private Map<String, UniqueService> myRobotServiceMap;
     
