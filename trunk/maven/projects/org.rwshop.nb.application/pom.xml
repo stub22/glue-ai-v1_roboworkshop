@@ -196,6 +196,7 @@
         </profile>
     </profiles>
     <properties>
-        <netbeans.run.params> -J-Xmx512m</netbeans.run.params>
+        <netbeans.run.params> -J-Xmx512m ${netbeans.run.params.ide}</netbeans.run.params>
+        <netbeans.run.params.ide/>
     </properties>
 </project>
