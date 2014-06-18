@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.rwshop</groupId>
+		<artifactId>org.rwshop.project.root</artifactId>
+		<version>0.9.6</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>org.rwshop.modules.all</artifactId>
+	<name>${project.artifactId} - All Modules</name>
+	<packaging>pom</packaging>
+    <repositories>
+		<!-- This declaration allows us to use the Sonatype "public" repo to find releases of JFlux and Appdapter 
+			immediately, without waiting for the final sync to maven-central.   We are continuing to review the full 
+			impact of this policy,	but there is currently no known significant practical downside.
+		-->
+		<repository>
+			<id>sonatype-public</id>
+			<name>sonatype public</name>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+		</repository>		
+	</repositories>
+	<modules>
+		<module>../org.rwshop.modules.common</module>
+		<module>../org.rwshop.modules.messaging</module>
+		<module>../org.rwshop.modules.motion</module>
+		<module>../org.rwshop.modules.animation</module>
+		<module>../org.rwshop.modules.audio</module>
+		<module>../org.rwshop.modules.speech</module>
+		<module>../org.rwshop.modules.vision</module>
+		<module>../org.rwshop.modules.integration</module>
+		<module>../org.rwshop.modules.application</module>
+	</modules>
+	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<encoding>UTF-8</encoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<netbeans.hint.license>robokind-apache20</netbeans.hint.license>
+        <netbeans.version>RELEASE721</netbeans.version>
+
+		<appdapter.msg.version>1.0.5</appdapter.msg.version>
+
+        <brandingToken>robokindcontroller</brandingToken>
+        <cluster>robokind</cluster>
+        <mechio.groupId>org.mechio</mechio.groupId>
+        <mechio.version>1.0.2</mechio.version>
+        <jflux.version>0.2.1</jflux.version>
+        <appdapter.version>1.1.7</appdapter.version>
+        <netbeans.run.params.ide>-J-Xmx1024m</netbeans.run.params.ide>
+        <netbeans.run.params>${netbeans.run.params.ide}</netbeans.run.params>
+        <netbeans.compile.on.save>none</netbeans.compile.on.save>
+	</properties>
+	<build>
+		<pluginManagement>
+			<plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>nbm-maven-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <brandingToken>${brandingToken}</brandingToken>
+                        <cluster>${cluster}</cluster>
+                        <useOSGiDependencies>true</useOSGiDependencies>
+                    </configuration>
+                </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.4.3</version>
+					<configuration>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.9</version>
+					<configuration>
+						<skipTests>true</skipTests>
+					</configuration>
+				</plugin>
+
+
+			</plugins>
+		</pluginManagement>
+		<plugins>
+
+		</plugins>
+	</build>
+</project>
