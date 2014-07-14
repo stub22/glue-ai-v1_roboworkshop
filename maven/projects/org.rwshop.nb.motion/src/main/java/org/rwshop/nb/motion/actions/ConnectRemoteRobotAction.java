@@ -99,14 +99,14 @@ public final class ConnectRemoteRobotAction implements ActionListener {
                     TimeUtils.sleep(1000);
                 }
                 
-                String ip = robot.getIPAddress();
+                String ip = robot.getIPAddress().trim();
 
                 if(ip.equals("CANCEL")) {
                     theLogger.info("User cancelled ConnectRemoteRobot action.");
                     return;
                 }
                 
-                String robotId = robot.getProperties().get("robotId");
+                String robotId = robot.getProperties().get("robotId").trim();
                 
                 if(robotId == null) {
                     robotId = "Avatar_ZenoR50";
