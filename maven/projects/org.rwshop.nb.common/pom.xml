@@ -4,7 +4,7 @@
 	<parent>
         <artifactId>org.rwshop.modules.common</artifactId>
         <groupId>org.rwshop</groupId>
-        <version>0.9.7-SNAPSHOT</version>
+        <version>0.9.7</version>
 		<relativePath>../../org.rwshop.modules.common/pom.xml</relativePath>
     </parent>
     <artifactId>org.rwshop.nb.common</artifactId>
