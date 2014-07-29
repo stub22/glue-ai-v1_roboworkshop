@@ -12,9 +12,13 @@
 	<name>${project.artifactId} - All Modules</name>
 	<packaging>pom</packaging>
     <repositories>
-		<!-- This declaration allows us to use the Sonatype "public" repo to find releases of JFlux and Appdapter 
-			immediately, without waiting for the final sync to maven-central.   We are continuing to review the full 
-			impact of this policy,	but there is currently no known significant practical downside.
+		<!-- 	Explicit reference to Maven central ... ensures it is always checked first (we think).	-->		
+		<repository>
+			<id>maven-central</id>
+			<url>http://repo.maven.apache.org/maven2/</url>
+		</repository>			
+		<!-- This declaration allows us to use the Sonatype "public" repo to find recent releases 
+			and snapshots of MechIO, JFlux and Appdapter.
 		-->
 		<repository>
 			<id>sonatype-public</id>
@@ -22,6 +26,19 @@
 			<url>https://oss.sonatype.org/content/groups/public/</url>
 		</repository>		
 	</repositories>
+	<pluginRepositories>
+		<!-- 	Explicit reference to Maven central ... ensures it is always checked first (we think).	-->
+		<pluginRepository>
+			<id>maven-central</id>
+			<url>http://repo.maven.apache.org/maven2/</url>
+		</pluginRepository>			
+		<pluginRepository>
+			<!-- Necessary to find JFlux plugins during an empty-repo build from SNAPSHOTs -->
+			<id>sonatype-public</id>
+			<name>sonatype public</name>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+		</pluginRepository>		
+	</pluginRepositories>  		
 	<modules>
 		<module>../org.rwshop.modules.common</module>
 		<module>../org.rwshop.modules.messaging</module>
