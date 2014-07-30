@@ -10,7 +10,7 @@
     <artifactId>org.rwshop.nb.motion</artifactId>
     <name>${project.artifactId} NetBeans Module</name>
     <packaging>nbm</packaging>
-
+<!--
     <repositories>
         <repository>
             <id>netbeans</id>
@@ -21,7 +21,7 @@
             </snapshots>
         </repository>
     </repositories>
-
+-->
     <dependencies>
         <dependency>
             <groupId>org.netbeans.api</groupId>
@@ -177,7 +177,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
-                <version>3.11</version>
+                <version>${nbm.maven.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <useOSGiDependencies>true</useOSGiDependencies>
