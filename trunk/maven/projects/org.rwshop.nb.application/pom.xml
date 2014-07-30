@@ -10,7 +10,7 @@
     <artifactId>org.rwshop.nb.application</artifactId>
     <name>${project.artifactId} NetBeans Module</name>
     <packaging>nbm-application</packaging>
-
+<!--
     <repositories>
         <repository>
             <id>netbeans</id>
@@ -18,7 +18,7 @@
             <url>http://bits.netbeans.org/maven2/</url>
         </repository>
     </repositories>
-
+-->
     <dependencies>
         <dependency>
             <groupId>org.netbeans.cluster</groupId>
@@ -79,7 +79,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
-                <version>3.13</version>
+                <version>${nbm.maven.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <brandingToken>${brandingToken}</brandingToken>
@@ -179,7 +179,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>nbm-maven-plugin</artifactId>
-                        <version>3.11</version>
+                        <version>${nbm.maven.plugin.version}</version>
                         <extensions>true</extensions>
                         <executions>
                             <execution>

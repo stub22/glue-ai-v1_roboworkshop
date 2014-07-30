@@ -24,6 +24,20 @@
 			<id>sonatype-public</id>
 			<name>sonatype public</name>
 			<url>https://oss.sonatype.org/content/groups/public/</url>
+		</repository>
+        <repository>
+            <id>netbeans</id>
+            <name>NetBeans</name>
+            <url>http://bits.netbeans.org/maven2/</url>
+			<snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+		<!-- used in o.r.nb.common - but can't it get transitively from Appdapter -->
+		<repository>
+			<id>com.springsource.repository.bundles.external</id>
+			<name>Spring EBR External Release Repository</name>
+			<url>http://repository.springsource.com/maven/bundles/external</url>
 		</repository>		
 	</repositories>
 	<pluginRepositories>
@@ -37,7 +51,15 @@
 			<id>sonatype-public</id>
 			<name>sonatype public</name>
 			<url>https://oss.sonatype.org/content/groups/public/</url>
-		</pluginRepository>		
+		</pluginRepository>
+		<pluginRepository>
+            <id>netbeans</id>
+            <name>NetBeans</name>
+            <url>http://bits.netbeans.org/maven2/</url>
+			<snapshots>
+                <enabled>false</enabled>
+            </snapshots>			
+        </pluginRepository>
 	</pluginRepositories>  		
 	<modules>
 		<module>../org.rwshop.modules.common</module>
@@ -57,6 +79,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<netbeans.hint.license>robokind-apache20</netbeans.hint.license>
         <netbeans.version>RELEASE721</netbeans.version>
+		<nbm.maven.plugin.version>3.11</nbm.maven.plugin.version>
 
 		<appdapter.msg.version>1.0.5</appdapter.msg.version>
 
@@ -76,7 +99,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>nbm-maven-plugin</artifactId>
-                    <version>3.8.1</version>
+                    <version>${nbm.maven.plugin.version}</version>
                     <extensions>true</extensions>
                     <configuration>
                         <brandingToken>${brandingToken}</brandingToken>

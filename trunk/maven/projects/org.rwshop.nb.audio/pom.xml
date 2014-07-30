@@ -12,6 +12,7 @@
     <name>${project.artifactId} OSGi Bundle</name>
     <packaging>nbm</packaging>
 
+<!-- Now shared with org.rwshop.modules.all.
     <repositories>
         <repository>
             <id>netbeans</id>
@@ -22,7 +23,7 @@
             </snapshots>
         </repository>
     </repositories>
-
+-->
     <dependencies>
         <dependency>
             <groupId>org.netbeans.api</groupId>
@@ -161,7 +162,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
-                <version>3.11</version>
+                <version>${nbm.maven.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>ces&gt;
                     <publicPackages>
