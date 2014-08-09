@@ -10,68 +10,47 @@
     <artifactId>org.rwshop.nb.motion</artifactId>
     <name>${project.artifactId} NetBeans Module</name>
     <packaging>nbm</packaging>
-<!--
-    <repositories>
-        <repository>
-            <id>netbeans</id>
-            <name>NetBeans</name>
-            <url>http://bits.netbeans.org/maven2/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
--->
+
     <dependencies>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util</artifactId>
-            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-nodes</artifactId>
-            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-explorer</artifactId>
-            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-windows</artifactId>
-            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util-lookup</artifactId>
-            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-awt</artifactId>
-            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-modules-settings</artifactId>
-            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-swing-outline</artifactId>
-            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <artifactId>org.osgi.compendium</artifactId>
             <groupId>org.apache.felix</groupId>
-            <version>1.4.0</version>
         </dependency>
         <dependency>
             <artifactId>org.osgi.core</artifactId>
             <groupId>org.apache.felix</groupId>
-            <version>1.4.0</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -81,27 +60,22 @@
         <dependency>
             <groupId>org.jflux</groupId>
             <artifactId>org.jflux.api.common.rk</artifactId>
-            <version>${jflux.version}</version>
         </dependency>
         <dependency>
             <groupId>${mechio.groupId}</groupId>
             <artifactId>org.mechio.api.motion</artifactId>
-            <version>${mechio.version}</version>
         </dependency>
         <dependency>
             <groupId>${mechio.groupId}</groupId>
             <artifactId>org.mechio.impl.motion.pololu</artifactId>
-            <version>${mechio.version}</version>
         </dependency>
         <dependency>
             <groupId>${mechio.groupId}</groupId>
             <artifactId>org.mechio.impl.motion.dynamixel</artifactId>
-            <version>${mechio.version}</version>
         </dependency>
         <dependency>
             <groupId>${mechio.groupId}</groupId>
             <artifactId>org.mechio.impl.motion</artifactId>
-            <version>${mechio.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -111,64 +85,50 @@
         <dependency>
             <groupId>org.jflux</groupId>
             <artifactId>org.jflux.extern.utils.apache_commons_configuration.rk</artifactId>
-            <version>${jflux.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jflux</groupId>
             <artifactId>org.jflux.api.messaging.rk</artifactId>
-            <version>${jflux.version}</version>
         </dependency>
         <dependency>
+			<groupId>org.appdapter</groupId>
             <artifactId>ext.bundle.apache_qpid_010</artifactId>
-            <groupId>org.appdapter</groupId>
-            <type>jar</type>
-            <version>${appdapter.msg.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jflux</groupId>
             <artifactId>org.jflux.impl.messaging.rk</artifactId>
-            <version>${jflux.version}</version>
         </dependency>
         <dependency>
-            <artifactId>org.mechio.integration.motion_speech</artifactId>
-            <groupId>org.mechio</groupId>
-            <version>${mechio.version}</version>
+			<groupId>org.mechio</groupId>
+			<artifactId>org.mechio.integration.motion_speech</artifactId>
         </dependency>
         <dependency>
+			<groupId>org.jflux</groupId>
             <artifactId>org.jflux.api.core</artifactId>
-            <groupId>org.jflux</groupId>
-            <type>jar</type>
-            <version>${jflux.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jflux</groupId>
             <artifactId>org.jflux.impl.encode.avro</artifactId>
-            <version>${jflux.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jflux</groupId>
             <artifactId>org.jflux.impl.messaging.rk</artifactId>
-            <version>${jflux.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jflux</groupId>
             <artifactId>org.jflux.impl.transport.qpid</artifactId>
-            <version>${jflux.version}</version>
         </dependency>
         <dependency>
+			<groupId>org.jflux</groupId>
             <artifactId>org.jflux.impl.services.rk</artifactId>
-            <groupId>org.jflux</groupId>
-            <version>${jflux.version}</version>
         </dependency>
         <dependency>
+			<groupId>org.jflux</groupId>
             <artifactId>org.jflux.demo.discovery</artifactId>
-            <groupId>org.jflux</groupId>
-            <version>${jflux.version}</version>
         </dependency>
         <dependency>
+			<groupId>org.jflux</groupId>
             <artifactId>org.jflux.spec.discovery</artifactId>
-            <groupId>org.jflux</groupId>
-            <version>${jflux.version}</version>
         </dependency>
     </dependencies>
 
@@ -177,7 +137,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
-                <version>${nbm.maven.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <useOSGiDependencies>true</useOSGiDependencies>
@@ -188,17 +147,12 @@
                 <!-- netbeans modules in 6.9+ are 1.6 compatible -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.2</version>
+                <!--version>2.2</version-->
                 <configuration>
                     <!-- to have the jar plugin pickup the nbm generated manifest -->
                     <useDefaultManifestFile>true</useDefaultManifestFile>
