@@ -34,22 +34,23 @@
     </scm>
     
     <properties>
+        <!-- Glue Dependencies -->
         <appdapter.version>1.2.0</appdapter.version>
         <appdapter.msg.version>1.0.5</appdapter.msg.version>
+        <jflux.version>0.2.2</jflux.version>
+        <mechio.groupId>org.mechio</mechio.groupId>
+        <mechio.version>1.0.3</mechio.version>
+        <!-- Non Glue Dependencies -->
         <brandingToken>robokindcontroller</brandingToken>
         <cluster>robokind</cluster>
         <encoding>UTF-8</encoding>
         <felix.gogo.commands.version>0.2.2</felix.gogo.commands.version>
         <felix.org.osgi.compendium.version>1.4.0</felix.org.osgi.compendium.version>
         <felix.org.osgi.core.version>1.4.0</felix.org.osgi.core.version>
-        <jflux.version>0.2.2</jflux.version>
         <junit.version>4.8.2</junit.version>
         <log4j.version>1.2.16</log4j.version>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
-        <mechio.groupId>org.mechio</mechio.groupId>
-        <mechio.version>1.0.3</mechio.version>
-        <nbm.maven.plugin.version>3.11</nbm.maven.plugin.version>
         <netbeans.compile.on.save>none</netbeans.compile.on.save>
         <netbeans.hint.license>robokind-apache20</netbeans.hint.license>
         <netbeans.run.params.ide>-J-Xmx1024m</netbeans.run.params.ide>
@@ -66,6 +67,7 @@
         <version.maven.jar.plugin>2.3</version.maven.jar.plugin>
         <version.maven.resources.plugin>2.4.3</version.maven.resources.plugin>
         <version.maven.surefire.plugin>2.9</version.maven.surefire.plugin>
+        <version.nbm.maven.plugin>3.11</version.nbm.maven.plugin>
     </properties>
     
     <dependencyManagement>
@@ -429,7 +431,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>nbm-maven-plugin</artifactId>
-                    <version>${nbm.maven.plugin.version}</version>
+                    <version>${version.nbm.maven.plugin}</version>
                     <extensions>true</extensions>
                     <configuration>
                         <brandingToken>${brandingToken}</brandingToken>
