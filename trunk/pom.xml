@@ -18,7 +18,7 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <url>http://www.robokind.org/license.txt</url>
+            <url>http://www.rwshop.org/license.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>	
@@ -35,14 +35,14 @@
     
     <properties>
         <!-- Glue Dependencies -->
-        <appdapter.version>1.2.0</appdapter.version>
+        <appdapter.version>1.2.1-SNAPSHOT</appdapter.version>
         <appdapter.msg.version>1.0.5</appdapter.msg.version>
-        <jflux.version>0.2.2</jflux.version>
+        <jflux.version>0.2.3-SNAPSHOT</jflux.version>
         <mechio.groupId>org.mechio</mechio.groupId>
-        <mechio.version>1.0.3</mechio.version>
+        <mechio.version>1.0.4-SNAPSHOT</mechio.version>
         <!-- Non Glue Dependencies -->
-        <brandingToken>robokindcontroller</brandingToken>
-        <cluster>robokind</cluster>
+        <brandingToken>rwshopcontroller</brandingToken>
+        <cluster>rwshop</cluster>
         <encoding>UTF-8</encoding>
         <felix.gogo.commands.version>0.2.2</felix.gogo.commands.version>
         <felix.org.osgi.compendium.version>1.4.0</felix.org.osgi.compendium.version>
@@ -52,7 +52,7 @@
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
         <netbeans.compile.on.save>none</netbeans.compile.on.save>
-        <netbeans.hint.license>robokind-apache20</netbeans.hint.license>
+        <netbeans.hint.license>rwshop-apache20</netbeans.hint.license>
         <netbeans.run.params.ide>-J-Xmx1024m</netbeans.run.params.ide>
         <netbeans.run.params>${netbeans.run.params.ide}</netbeans.run.params>
         <netbeans.version>RELEASE721</netbeans.version>
