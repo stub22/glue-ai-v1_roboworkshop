@@ -30,6 +30,7 @@ import org.apache.qpid.client.AMQQueue;
 import org.jflux.api.common.rk.services.ServiceConnectionDirectory;
 import org.jflux.extern.utils.apache_commons_configuration.rk.ConfigUtils;
 import org.jflux.impl.messaging.rk.utils.ConnectionManager;
+import org.jflux.impl.messaging.rk.utils.ConnectionUtils;
 import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
@@ -99,7 +100,8 @@ private final static long theDefaultBlenderInterval = 40L;
     private static void createAndRegisterServer(
             BundleContext bundleCtx, Robot robot){
         Connection connection = ConnectionManager.createConnection(
-                "admin", "admin", "client1", "test", "tcp://127.0.0.1:5672");
+                ConnectionUtils.getUsername(), ConnectionUtils.getPassword(),
+                "client1", "test", "tcp://127.0.0.1:5672");
         if(connection == null){
             return;
         }
