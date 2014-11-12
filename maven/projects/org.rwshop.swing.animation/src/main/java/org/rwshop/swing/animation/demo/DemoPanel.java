@@ -154,20 +154,25 @@ public class DemoPanel extends javax.swing.JPanel {
         BundleContext context = OSGiUtils.getBundleContext(Animation.class);
         String ip = txtIP.getText();
         Connection con = ConnectionManager.createConnection(
-                "admin", "admin", "client1", "test", 
-                "tcp://" + ip + ":5672");
+                ConnectionUtils.getUsername(), ConnectionUtils.getPassword(),
+                "client1", "test", "tcp://" + ip + ":5672");
         try{
             con.start();
         }catch(JMSException ex){
-            JOptionPane.showMessageDialog(this, "Unable to connect to " + ip, "Connection Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    this, "Unable to connect to " + ip, "Connection Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
-        myConnectionService = new OSGiComponent(context, new SimpleLifecycle(con, Connection.class));
+        myConnectionService =
+                new OSGiComponent(
+                        context, new SimpleLifecycle(con, Connection.class));
         myConnectionService.start();
         ConnectionUtils.ensureSession(context, 
                 "remoteAnimConnection", con, null);
         ConnectionUtils.ensureDestinations(context, 
-                "remoteAnimationRequest", "animationRequest", ConnectionUtils.TOPIC, null);
+                "remoteAnimationRequest", "animationRequest",
+                ConnectionUtils.TOPIC, null);
         JMSAvroMessageSenderLifecycle senderLife = 
                 new JMSAvroMessageSenderLifecycle(
                         new PortableAnimationEvent.MessageRecordAdapter(), 
@@ -180,14 +185,16 @@ public class DemoPanel extends javax.swing.JPanel {
         ConnectionUtils.ensureSession(context, 
                 "remoteSignalConnection", con, null);
         ConnectionUtils.ensureDestinations(context, 
-                "remoteAnimationSignal", "animationSignal", ConnectionUtils.TOPIC, null);
+                "remoteAnimationSignal", "animationSignal",
+                ConnectionUtils.TOPIC, null);
         JMSAvroAsyncReceiverLifecycle receiverLife =
                 new JMSAvroAsyncReceiverLifecycle(
                 new PortableAnimationSignal.RecordMessageAdapter(),
                 AnimationSignal.class, AnimationSignallingRecord.class,
                 AnimationSignallingRecord.SCHEMA$, "remoteSignalReceiver",
                 "remoteSignalConnection", "remoteAnimationSignal");
-        ManagedService myReceiverService = new OSGiComponent(context, receiverLife);
+        ManagedService myReceiverService =
+                new OSGiComponent(context, receiverLife);
         myReceiverService.start();
         myLifecycle = 
                 new AnimationPlayerClientLifecycle(
@@ -199,7 +206,8 @@ public class DemoPanel extends javax.swing.JPanel {
     }
     
     private void registerEventFactory(BundleContext context){
-        if(OSGiUtils.serviceExists(context, AnimationEvent.AnimationEventFactory.class, null)){
+        if(OSGiUtils.serviceExists(
+                context, AnimationEvent.AnimationEventFactory.class, null)){
             return;
         }
         new OSGiComponent(context, 

@@ -40,6 +40,7 @@ import org.jflux.impl.messaging.rk.JMSAvroServiceFacade;
 import org.jflux.impl.messaging.rk.ServiceCommandRecord;
 import org.jflux.impl.messaging.rk.ServiceErrorRecord;
 import org.jflux.impl.messaging.rk.services.PortableServiceCommand;
+import org.jflux.impl.messaging.rk.utils.ConnectionUtils;
 import org.mechio.api.vision.ImageEvent;
 import org.mechio.api.vision.ImageRegionList;
 import org.mechio.api.vision.config.CameraServiceConfig;
@@ -188,8 +189,9 @@ public class VideoControlPanel extends javax.swing.JPanel {
 
     private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
         String addr = txtBrokerAddress.getText();
-        String con = "amqp://admin:admin@clientid/test?brokerlist='tcp://" 
-                + addr + "'";
+        String con = "amqp://" + ConnectionUtils.getUsername() +
+                ":" + ConnectionUtils.getPassword() +
+                "@clientid/test?brokerlist='tcp://" + addr + "'";
         try{
             RemoteImageServiceClient videoService = imageClient(con);
             RemoteImageRegionServiceClient faceService = imageRegionClient(con);

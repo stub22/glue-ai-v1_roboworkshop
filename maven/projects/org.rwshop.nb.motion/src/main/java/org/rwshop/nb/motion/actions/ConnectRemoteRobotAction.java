@@ -214,8 +214,8 @@ public final class ConnectRemoteRobotAction implements ActionListener {
         Set<ServiceRegistration> regs = new HashSet<ServiceRegistration>(4);
         theLogger.info("Registering Motion Connection and Destinations");
         Connection con = ConnectionManager.createConnection(
-                "admin", "admin", "client1", "test", 
-                connectionStr);
+                ConnectionUtils.getUsername(), ConnectionUtils.getPassword(),
+                "client1", "test", connectionStr);
         if(con == null){
             return null;
         }
