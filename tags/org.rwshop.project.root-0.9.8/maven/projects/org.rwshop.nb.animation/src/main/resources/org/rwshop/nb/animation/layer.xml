@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="File">
+            <file name="org-rwshop-nb-animation-actions-NewAnimationAction.instance">
+                <attr name="delegate" newvalue="org.rwshop.nb.animation.actions.NewAnimationAction"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.actions.Bundle#CTL_NewAnimationAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
+                <attr name="noIconInMenu" boolvalue="false"/>
+            </file>
+            <file name="org-rwshop-nb-animation-actions-OpenAnimationAction.instance">
+                <attr name="delegate" newvalue="org.rwshop.nb.animation.actions.OpenAnimationAction"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.actions.Bundle#CTL_OpenAnimationAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
+                <attr name="noIconInMenu" boolvalue="false"/>
+            </file>
+            <file name="org-rwshop-nb-animation-actions-SaveAsAction.instance">
+                <attr name="delegate" methodvalue="org.openide.awt.Actions.inject"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.actions.Bundle#CTL_SaveAsAction"/>
+                <attr name="injectable" stringvalue="org.rwshop.nb.animation.actions.SaveAsAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.context"/>
+                <attr name="noIconInMenu" boolvalue="false"/>
+                <attr name="selectionType" stringvalue="EXACTLY_ONE"/>
+                <attr name="type" stringvalue="org.rwshop.nb.common.cookies.SaveAsCookie"/>
+            </file>
+        </folder>
+        <folder name="Animation">
+            <file name="org-rwshop-nb-animation-actions-PlayAnimationAction.instance">
+                <attr name="delegate" methodvalue="org.openide.awt.Actions.inject"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.actions.Bundle#CTL_PlayAnimationAction"/>
+                <attr name="iconBase" stringvalue="org/rwshop/nb/animation/resources/images/Play16.gif"/>
+                <attr name="injectable" stringvalue="org.rwshop.nb.animation.actions.PlayAnimationAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.context"/>
+                <attr name="noIconInMenu" boolvalue="false"/>
+                <attr name="selectionType" stringvalue="EXACTLY_ONE"/>
+                <attr name="type" stringvalue="org.rwshop.nb.common.cookies.PlayCookie"/>
+            </file>
+        </folder>
+        <folder name="Window">
+            <file name="org-rwshop-nb-animation-AnimationMonitorAction.instance">
+                <attr name="component" methodvalue="org.rwshop.nb.animation.AnimationMonitorTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.Bundle#CTL_AnimationMonitorAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+            <file name="org-rwshop-nb-animation-AnimationOverviewAction.instance">
+                <attr name="component" methodvalue="org.rwshop.nb.animation.AnimationOverviewTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.Bundle#CTL_AnimationOverviewAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+            <file name="org-rwshop-nb-animation-AnimationViewAction.instance">
+                <attr name="component" methodvalue="org.rwshop.nb.animation.AnimationViewTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.Bundle#CTL_AnimationViewAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+            <file name="org-rwshop-nb-animation-ChannelViewAction.instance">
+                <attr name="component" methodvalue="org.rwshop.nb.animation.ChannelViewTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.Bundle#CTL_ChannelViewAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+            <file name="org-rwshop-nb-animation-HistoryViewAction.instance">
+                <attr name="component" methodvalue="org.rwshop.nb.animation.HistoryViewTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.Bundle#CTL_HistoryViewAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+            <file name="org-rwshop-nb-animation-MotionPathViewAction.instance">
+                <attr name="component" methodvalue="org.rwshop.nb.animation.MotionPathViewTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.Bundle#CTL_MotionPathViewAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="File">
+            <attr name="position" intvalue="0"/>
+            <file name="org-rwshop-nb-animation-actions-NewAnimationAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/File/org-rwshop-nb-animation-actions-NewAnimationAction.instance"/>
+                <attr name="position" intvalue="150"/>
+            </file>
+            <file name="org-rwshop-nb-animation-actions-OpenAnimationAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/File/org-rwshop-nb-animation-actions-OpenAnimationAction.instance"/>
+                <attr name="position" intvalue="200"/>
+            </file>
+            <file name="org-openide-actions-SaveAsAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/File/org-rwshop-nb-animation-actions-SaveAsAction.instance"/>
+                <attr name="position" intvalue="400"/>
+            </file>
+            <file name="org-openide-actions-SaveAllAction.shadow_hidden">
+                <attr name="position" intvalue="100"/>
+            </file>
+        </folder>
+        <folder name="Animation">
+            <attr name="position" intvalue="700"/>
+            <file name="org-rwshop-nb-animation-actions-PlayAnimationAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Animation/org-rwshop-nb-animation-actions-PlayAnimationAction.instance"/>
+                <attr name="position" intvalue="0"/>
+            </file>
+        </folder>
+        <folder name="Window">
+            <folder name="Animations">
+                <attr name="position" intvalue="1500"/>
+                <file name="AnimationMonitorAction.shadow">
+                    <attr name="originalFile" stringvalue="Actions/Window/org-rwshop-nb-animation-AnimationMonitorAction.instance"/>
+                    <attr name="position" intvalue="450"/>
+                </file>
+                <file name="AnimationOverviewAction.shadow">
+                    <attr name="originalFile" stringvalue="Actions/Window/org-rwshop-nb-animation-AnimationOverviewAction.instance"/>
+                    <attr name="position" intvalue="400"/>
+                </file>
+                <file name="AnimationViewAction.shadow">
+                    <attr name="originalFile" stringvalue="Actions/Window/org-rwshop-nb-animation-AnimationViewAction.instance"/>
+                    <attr name="position" intvalue="200"/>
+                </file>
+                <file name="ChannelViewAction.shadow">
+                    <attr name="originalFile" stringvalue="Actions/Window/org-rwshop-nb-animation-ChannelViewAction.instance"/>
+                        <attr name="position" intvalue="300"/>
+                </file>
+                <file name="HistoryViewAction.shadow">
+                    <attr name="originalFile" stringvalue="Actions/Window/org-rwshop-nb-animation-HistoryViewAction.instance"/>
+                    <attr name="position" intvalue="500"/>
+                </file>
+                <file name="MotionPathViewAction.shadow">
+                    <attr name="originalFile" stringvalue="Actions/Window/org-rwshop-nb-animation-MotionPathViewAction.instance"/>
+                    <attr name="position" intvalue="350"/>
+                </file>
+                <file name="javax-swing-JSeparator_1.instance">
+                    <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                    <attr name="position" intvalue="425"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="Toolbars">
+        <folder name="Animation">
+            <file name="org-rwshop-nb-animation-actions-PlayAnimationAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Animation/org-rwshop-nb-animation-actions-PlayAnimationAction.instance"/>
+                <attr name="position" intvalue="300"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="AnimationMonitorTopComponent.settings" url="AnimationMonitorTopComponentSettings.xml"/>
+            <file name="AnimationOverviewTopComponent.settings" url="AnimationOverviewTopComponentSettings.xml"/>
+            <file name="AnimationViewTopComponent.settings" url="AnimationViewTopComponentSettings.xml"/>
+            <file name="ChannelViewTopComponent.settings" url="ChannelViewTopComponentSettings.xml"/>
+            <file name="HistoryViewTopComponent.settings" url="HistoryViewTopComponentSettings.xml"/>
+            <file name="MotionPathViewTopComponent.settings" url="MotionPathViewTopComponentSettings.xml"/>
+        </folder>
+        <folder name="Modes">
+            <folder name="explorer">
+                <file name="AnimationViewTopComponent.wstcref" url="AnimationViewTopComponentWstcref.xml"/>
+                <file name="ChannelViewTopComponent.wstcref" url="ChannelViewTopComponentWstcref.xml"/>
+                <file name="MotionPathViewTopComponent.wstcref" url="MotionPathViewTopComponentWstcref.xml"/>
+            </folder>
+            <folder name="output">
+                <file name="AnimationOverviewTopComponent.wstcref" url="AnimationOverviewTopComponentWstcref.xml"/>
+            </folder>
+            <folder name="rightSlidingSide">
+                <file name="AnimationMonitorTopComponent.wstcref" url="AnimationMonitorTopComponentWstcref.xml"/>
+                <file name="HistoryViewTopComponent.wstcref" url="HistoryViewTopComponentWstcref.xml"/>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>
