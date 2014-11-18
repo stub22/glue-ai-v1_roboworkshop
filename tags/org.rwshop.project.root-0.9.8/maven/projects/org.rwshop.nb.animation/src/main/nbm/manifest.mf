@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Export-Package: org.rwshop.nb.animation
-OpenIDE-Module-Localizing-Bundle: org/rwshop/nb/animation/Bundle.properties
-OpenIDE-Module-Layer: org/rwshop/nb/animation/layer.xml
-OpenIDE-Module-Requires: org.openide.windows.WindowManager

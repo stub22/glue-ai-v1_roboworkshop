@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-OpenIDE-Module-Localizing-Bundle: org/rwshop/nb/vision/Bundle.properties
-OpenIDE-Module-Layer: org/rwshop/nb/vision/layer.xml
-OpenIDE-Module-Requires: org.openide.windows.WindowManager
