@@ -39,10 +39,10 @@
         <appdapter.msg.version>1.0.5</appdapter.msg.version>
         <jflux.version>0.2.3</jflux.version>
         <mechio.groupId>org.mechio</mechio.groupId>
-        <mechio.version>1.0.4</mechio.version>
+        <mechio.version>1.0.5-SNAPSHOT</mechio.version>
         <!-- Non Glue Dependencies -->
-        <brandingToken>rwshopcontroller</brandingToken>
-        <cluster>rwshop</cluster>
+        <brandingToken>robokindcontroller</brandingToken>
+        <cluster>robokind</cluster>
         <encoding>UTF-8</encoding>
         <felix.gogo.commands.version>0.2.2</felix.gogo.commands.version>
         <felix.org.osgi.compendium.version>1.4.0</felix.org.osgi.compendium.version>
