@@ -40,11 +40,13 @@ import org.rwshop.nb.animation.cookies.AnimationSaveAsCookie;
 import org.mechio.api.animation.editor.AbstractEditor;
 import org.mechio.api.animation.editor.AnimationEditor;
 import org.rwshop.nb.animation.cookies.LoopAnimationCookie;
+import org.rwshop.nb.animation.cookies.StopAllAnimationsCookie;
 import org.rwshop.nb.animation.cookies.StopAnimationCookie;
 import org.rwshop.nb.common.VersionPropertySheet;
 import org.rwshop.nb.common.cookies.LoopCookie;
 import org.rwshop.nb.common.cookies.PlayCookie;
 import org.rwshop.nb.common.cookies.SaveAsCookie;
+import org.rwshop.nb.common.cookies.StopAllCookie;
 import org.rwshop.nb.common.cookies.StopCookie;
 
 /**
@@ -71,6 +73,7 @@ public class AnimationNode extends AbstractNode implements PropertyChangeListene
         getCookieSet().add(new PlayAnimationCookie(myController));
         getCookieSet().add(new LoopAnimationCookie(myController));
         getCookieSet().add(new StopAnimationCookie(myController));
+        getCookieSet().add(new StopAllAnimationsCookie(myController));
     }
     
     private void setSaveCookie(){
@@ -85,7 +88,8 @@ public class AnimationNode extends AbstractNode implements PropertyChangeListene
     
     public void registerCookies(InstanceContent content, Lookup l){
         registerCookies(content, l, getCookieSet(), 
-                SaveCookie.class, SaveAsCookie.class, PlayCookie.class, LoopCookie.class, StopCookie.class);
+                SaveCookie.class, SaveAsCookie.class, PlayCookie.class,
+                LoopCookie.class, StopCookie.class, StopAllCookie.class);
     }
     
     private static void registerCookies(InstanceContent i, Lookup l, CookieSet cs, Class<? extends Node.Cookie>...types){

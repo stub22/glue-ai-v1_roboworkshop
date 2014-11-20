@@ -36,6 +36,15 @@
                 <attr name="selectionType" stringvalue="EXACTLY_ONE"/>
                 <attr name="type" stringvalue="org.rwshop.nb.common.cookies.PlayCookie"/>
             </file>
+            <file name="org-rwshop-nb-animation-actions-StopAllAnimationsAction.instance">
+                <attr name="delegate" methodvalue="org.openide.awt.Actions.inject"/>
+                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.actions.Bundle#CTL_StopAllAnimationsAction"/>
+                <attr name="injectable" stringvalue="org.rwshop.nb.animation.actions.StopAllAnimationsAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.context"/>
+                <attr name="noIconInMenu" boolvalue="true"/>
+                <attr name="selectionType" stringvalue="EXACTLY_ONE"/>
+                <attr name="type" stringvalue="org.rwshop.nb.common.cookies.StopAllCookie"/>
+            </file>
         </folder>
         <folder name="Window">
             <file name="org-rwshop-nb-animation-AnimationMonitorAction.instance">
@@ -94,6 +103,10 @@
             <file name="org-rwshop-nb-animation-actions-PlayAnimationAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Animation/org-rwshop-nb-animation-actions-PlayAnimationAction.instance"/>
                 <attr name="position" intvalue="0"/>
+            </file>
+            <file name="org-rwshop-nb-animation-actions-StopAllAnimationsAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Animation/org-rwshop-nb-animation-actions-StopAllAnimationsAction.instance"/>
+                <attr name="position" intvalue="50"/>
             </file>
         </folder>
         <folder name="Window">
