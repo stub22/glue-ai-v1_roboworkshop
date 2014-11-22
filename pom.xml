@@ -35,9 +35,9 @@
     
 	<properties>
 		<!-- Glue Dependencies -->
-		<appdapter.version>1.2.2</appdapter.version>
+		<appdapter.version>1.2.3-SNAPSHOT</appdapter.version>
 		<appdapter.msg.version>1.0.5</appdapter.msg.version>
-		<jflux.version>0.2.3</jflux.version>
+		<jflux.version>0.2.4-SNAPSHOT</jflux.version>
 		<mechio.groupId>org.mechio</mechio.groupId>
 		<mechio.version>1.0.5-SNAPSHOT</mechio.version>
 		<!-- Non Glue Dependencies -->
