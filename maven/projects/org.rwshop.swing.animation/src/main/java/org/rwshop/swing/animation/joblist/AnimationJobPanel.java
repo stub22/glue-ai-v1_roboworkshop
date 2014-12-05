@@ -25,7 +25,6 @@ package org.rwshop.swing.animation.joblist;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.Beans;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,12 +50,17 @@ import static org.jflux.api.common.rk.playable.PlayState.PAUSED;
 import static org.jflux.api.common.rk.playable.PlayState.PENDING;
 import static org.jflux.api.common.rk.playable.PlayState.RUNNING;
 import static org.jflux.api.common.rk.playable.PlayState.STOPPED;
+import org.jflux.api.core.Listener;
+import org.mechio.api.animation.player.AnimationPlayer;
+import org.mechio.api.animation.protocol.AnimationSignal;
 
 /**
  *
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
-public class AnimationJobPanel extends javax.swing.JPanel implements PlayableListener, AnimationJobListener {
+public class AnimationJobPanel extends javax.swing.JPanel
+        implements PlayableListener, AnimationJobListener,
+        Listener<AnimationSignal> {
     /**
      *
      */
@@ -67,6 +71,8 @@ public class AnimationJobPanel extends javax.swing.JPanel implements PlayableLis
     private CoordinateScalar myScalar;
     private long myStartTime;
     private long myAnimationLength;
+    private PlayState myCachedPlayState;
+    private AnimationPlayer myPlayer;
     
     /** Creates new form AnimationJobPanel */
     public AnimationJobPanel() {
@@ -132,6 +138,9 @@ public class AnimationJobPanel extends javax.swing.JPanel implements PlayableLis
         updateTime(job.getElapsedPlayTime(TimeUtils.now()));
         boolean loop = myAnimationJob.getLoop();
         myLoopCheckBox.setSelected(loop);
+        
+        myPlayer = myAnimationJob.getSource();
+        myPlayer.addAnimationSignalListener(this);
     }
 
     private void updateTime(long time) {
@@ -175,6 +184,10 @@ public class AnimationJobPanel extends javax.swing.JPanel implements PlayableLis
         ActionEvent event = new ActionEvent(this, 0, null);
         for(ActionListener listener : myCloseListeners){
             listener.actionPerformed(event);
+        }
+        
+        if(myPlayer != null) {
+            myPlayer.removeAnimationSignalListener(this);
         }
     }
 
@@ -317,6 +330,7 @@ public class AnimationJobPanel extends javax.swing.JPanel implements PlayableLis
         }
         myAnimationLayer.setColor(col);
         myAnimationRenderer.repaint();
+        myCachedPlayState = state;
     }
 
     private void setHeaderState(PlayState state){
@@ -347,4 +361,35 @@ public class AnimationJobPanel extends javax.swing.JPanel implements PlayableLis
         myStartTime = start;
     }
 
+    @Override
+    public void handleEvent(AnimationSignal input) {
+        PlayState state;
+        
+        if(input.getEventType().equals(AnimationSignal.EVENT_CANCEL)) {
+            state = STOPPED;
+        } else if(input.getEventType().equals(AnimationSignal.EVENT_COMPLETE)) {
+            state = COMPLETED;
+        } else if(input.getEventType().equals(AnimationSignal.EVENT_PAUSE)) {
+            state = PAUSED;
+        } else if(input.getEventType().equals(AnimationSignal.EVENT_RESUME) ||
+                input.getEventType().equals(AnimationSignal.EVENT_START)) {
+            state = RUNNING;
+        } else {
+            throw new IllegalArgumentException("Invalid signal type.");
+        }
+        
+        playStateChanged(myCachedPlayState, state, input.getAnimationLength());
+        myPlayControl.playStateChanged(
+                myCachedPlayState, state, input.getAnimationLength());
+        
+        boolean loop =
+                input.getAnimationProperties().contains(
+                        AnimationSignal.PROP_LOOP);
+        
+        if(state == STOPPED && !myLoopCheckBox.isSelected()) {
+            myLoopCheckBox.setSelected(false);
+        } else {
+            myLoopCheckBox.setSelected(loop);
+        }
+    }
 }
