@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.rwshop</groupId>
+		<artifactId>org.rwshop.project.root</artifactId>
+		<version>0.9.9</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+	<artifactId>org.rwshop.modules.all</artifactId>
+	<name>${project.artifactId} - All Modules</name>
+	<packaging>pom</packaging>
+	<modules>
+		<module>../org.rwshop.modules.common</module>
+		<module>../org.rwshop.modules.messaging</module>
+		<module>../org.rwshop.modules.motion</module>
+		<module>../org.rwshop.modules.animation</module>
+		<module>../org.rwshop.modules.audio</module>
+		<module>../org.rwshop.modules.speech</module>
+		<module>../org.rwshop.modules.vision</module>
+		<module>../org.rwshop.modules.integration</module>
+		<module>../org.rwshop.modules.application</module>
+	</modules>
+</project>

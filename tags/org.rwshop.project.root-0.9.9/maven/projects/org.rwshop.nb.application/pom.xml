@@ -1,0 +1,188 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>org.rwshop.modules.application</artifactId>
+        <groupId>org.rwshop</groupId>
+        <version>0.9.9</version>
+        <relativePath>../../org.rwshop.modules.application/pom.xml</relativePath>
+    </parent>
+    <artifactId>org.rwshop.nb.application</artifactId>
+    <name>${project.artifactId} NetBeans Module</name>
+    <packaging>nbm-application</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.netbeans.cluster</groupId>
+            <artifactId>platform</artifactId>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-libs-osgi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.modules</groupId>
+            <artifactId>org-netbeans-core-osgi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>org.rwshop.nb.animation</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>org.rwshop.nb.motion</artifactId>
+            <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>geronimo-jms_1.1_spec</artifactId>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>org.rwshop.nb.branding</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>org.rwshop.nb.monitor</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>org.rwshop.nb.speech</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>org.rwshop.nb.vision</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <brandingToken>${brandingToken}</brandingToken>
+                    <cluster>${brandingToken}</cluster>
+                    <useOSGiDependencies>true</useOSGiDependencies>
+                </configuration>
+                <executions>
+                    <execution>
+						<!-- Disable the inherited standalone-zip generation -->
+                        <id>default-standalone-zip</id>
+                        <phase>none</phase>
+                    </execution>
+
+                    <execution>
+						<!-- Build a patched standalone-zip AFTER the package phase is complete -->
+                        <id>redo-default-standalone-zip</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>standalone-zip</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>patched_${project.artifactId}_${project.version}</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+						<!-- Copies lwjgl native libs for the OpenGL simulator-->
+					<!--
+                    <execution>
+					
+                        <id>copy-native-libs-to-root</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${brandingToken}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/${brandingToken}/org_cogchar_nbui_render/native-lib</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+					-->
+                    <execution>
+						<!-- Copies launch scripts to bin directory -->
+                        <id>copy-launch-scripts-to-bin</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${brandingToken}/bin</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>launch_scripts</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+						<!-- Overwrite the felix lib with our own version that has a patched default.properties file,
+							 allowing LWJGL simulator code to use the sun.misc.Unsafe code under Netisgo.
+						-->
+                        <id>patch-felix-lib</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <overwrite>true</overwrite>
+                            <outputDirectory>${project.build.directory}/${brandingToken}/platform/modules/ext</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/patched_platform_modules_ext</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>deployment</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>nbm-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <executions>
+                            <execution>
+                                <id>extra</id>
+                                <goals>
+                                    <goal>autoupdate</goal>
+                                    <goal>webstart-app</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    <!--properties>
+        <netbeans.run.params> -J-Xmx512m ${netbeans.run.params.ide}</netbeans.run.params>
+        <netbeans.run.params.ide />
+    </properties-->
+</project>
