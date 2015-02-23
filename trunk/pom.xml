@@ -35,11 +35,11 @@
     
 	<properties>
 		<!-- Glue Dependencies -->
-		<appdapter.version>1.2.3-SNAPSHOT</appdapter.version>
+		<appdapter.version>1.2.3</appdapter.version>
 		<appdapter.msg.version>1.0.5</appdapter.msg.version>
-		<jflux.version>0.2.4-SNAPSHOT</jflux.version>
+		<jflux.version>0.2.4</jflux.version>
 		<mechio.groupId>org.mechio</mechio.groupId>
-		<mechio.version>1.0.5-SNAPSHOT</mechio.version>
+		<mechio.version>1.0.5</mechio.version>
 		<!-- Non Glue Dependencies -->
 		<brandingToken>robokindcontroller</brandingToken>
 		<cluster>robokind</cluster>
