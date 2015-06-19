@@ -61,7 +61,7 @@ public class FileAction {
             mySource.set(controller);
         }
     }
-    
+
     /**
      *
      */
@@ -138,6 +138,7 @@ public class FileAction {
                 }
                 path = fileChooser.getSelectedFile().getPath();
             }
+			String name = path.substring(path.lastIndexOf("\\")+1);
             boolean error = true;
             String innerError = "";
             Throwable innerException = null;
@@ -147,6 +148,7 @@ public class FileAction {
                         editor.collectSynchronizedPointGroups());
                 error = false;
                 editor.setFilePath(path);
+				editor.setName(name);
             }catch(ConfigurationException ex){
                 innerError = "There was an error writing the Animation to XML";
                 innerException = ex;

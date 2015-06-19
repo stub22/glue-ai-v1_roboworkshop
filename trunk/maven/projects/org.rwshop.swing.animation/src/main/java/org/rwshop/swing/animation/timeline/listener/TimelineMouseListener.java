@@ -22,6 +22,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.Point2D;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +37,9 @@ import org.mechio.api.animation.editor.AnimationEditor;
 import org.mechio.api.animation.editor.ChannelEditor;
 import org.mechio.api.animation.editor.ControlPointEditor;
 import org.mechio.api.animation.editor.MotionPathEditor;
+import org.mechio.api.animation.editor.actions.MotionPathActions;
 import org.mechio.api.animation.editor.features.SynchronizedPointGroup;
+import org.mechio.api.animation.factory.ControlPointFactory;
 import org.rwshop.swing.animation.timeline.TimelineAnimation;
 import org.rwshop.swing.animation.timeline.TimelineChannel;
 import org.rwshop.swing.animation.timeline.TimelineMotionPath;
@@ -62,8 +67,8 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 	private boolean myPathChanging;
 	private Double myLastClickX;
 	private Double myLastClickY;
-	private Double cpX;
-	private Double cpY;
+	private Double cpX = 0.0;
+	private Double cpY = 0.0;
 	private PositionSource myPositionSource;
 
 	/**
@@ -224,7 +229,30 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		setLastClick(e);
-		myContextMenu.tryShowPopup(e);
+		if (e.isShiftDown()) {
+			if (myController == null) {
+				return;
+			}
+			ChannelEditor channel = myController.getSelected();
+			if (channel == null) {
+				return;
+			}
+			MotionPathEditor motionPath = channel.getSelected();
+			if (motionPath == null) {
+				return;
+			}
+			DecimalFormat dForm = new DecimalFormat("#.##");
+			double y = Double.valueOf(dForm.format(myScalar.unscaleY(e.getY())));
+			Point2D p = new Point2D.Double(myScalar.unscaleX(e.getX()), y);
+			TimelineMotionPath tmp = getSelectedTimelinePath();
+			MotionPathEditor controller = tmp.getController();
+			ControlPointFactory factory = new ControlPointFactory(p);
+			int id = controller.addChild(e, factory.getValue(), controller.getSharedHistory());
+
+
+		} else {
+			myContextMenu.tryShowPopup(e);
+		}
 	}
 
 	@Override
@@ -252,12 +280,21 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 		double xDiff2 = e.getX() - myScalar.scaleX(myLastClickX);
 		double yDiff2 = e.getY() - myScalar.scaleY(myLastClickY);
 
+		DecimalFormat dForm = new DecimalFormat("#.##");
+		y = Double.valueOf(dForm.format(y));
+		yDiff = Double.valueOf(dForm.format(yDiff));
+
 		if (e.isShiftDown()) {
 			if (Math.abs(xDiff2) >= Math.abs(yDiff2)) {
 				y = cpY;
 			} else {
 				x = cpX.longValue();
 			}
+		}
+
+		if (e.isAltDown()) {
+			y = gridY(y);
+			x = gridX(x);
 		}
 
 		if (myPathChanging && e.isControlDown()) {
@@ -408,6 +445,89 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 		if (mp != null) {
 			mp.endPathChange(false, mp.getSharedHistory());
 		}
+	}
+
+	private double gridY(double y){
+		if(y > .75){
+				if(y >= .97)
+					y = 1;
+				else if(y >= .91)
+					y = .94;
+				else if(y >= .84)
+					y = .88;
+				else
+					y = .81;
+			}
+			else if(y > .5){
+				if(y >= .72)
+					y = .75;
+				else if(y >= .66)
+					y = .69;
+				else if(y >= .59)
+					y = .63;
+				else
+					y = .56;
+			}
+			else if(y > .25){
+				if(y >= .47)
+					y = .5;
+				else if(y >= .41)
+					y = .44;
+				else if(y >= .34)
+					y = .38;
+				else
+					y = .31;
+			} else {
+				if(y > .22)
+					y = .25;
+				else if(y >= .16)
+					y = .19;
+				else if(y >= .09)
+					y = .13;
+				else if(y >= .03)
+					y = .06; 
+				else
+					y = 0;
+			}
+		return y;
+	}
+
+	private long gridX(long x){
+		double lowX = -1;
+		double highX = -1;
+		double interval = myContextMenu.getPanel().getTimeInterval();
+		double max = myContextMenu.getPanel().getMax();
+
+		for(int i = 0; i < max; i+=interval){
+			if(x <= i){
+				highX = i;
+				if(i == 0){
+					lowX = i;
+				}
+				else{
+					lowX = (i-interval);
+				}
+				break;
+			}
+		}
+
+		double block = .25*interval;
+
+		if(highX == lowX){
+			return 0;
+		}
+		if(x >= lowX + 3.5*block)
+			x = (long)highX;
+		else if( x >= lowX + 2.5*block)
+			x = (long)(highX - block);
+		else if(x >= lowX + 1.5*block)
+			x = (long)(highX - 2*block);
+		else if(x >= lowX + .5*block)
+			x = (long)(lowX + block);
+		else
+			x = (long)lowX;
+
+		return x;
 	}
 
 	@Override

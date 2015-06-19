@@ -73,7 +73,7 @@ public class TimelineContextMenuManager{
     public TimelineContextMenuManager(AnimationTimelinePanel panel, CoordinateScalar scalar){
         myPanel = panel;
         myScalar = scalar;
-        
+
         myHistorySource = new SourceImpl<HistoryStack>();
         myControllerSource = new SourceImpl<AnimationEditor>();
         myDefaultItems = new ArrayList();
@@ -87,16 +87,16 @@ public class TimelineContextMenuManager{
         myDefaultItems.add(new Separator());
         myDefaultItems.add(new UIMenuItem($("save"), new Save(myControllerSource, false)));
         myDefaultItems.add(new UIMenuItem($("save.as"), new Save(myControllerSource, true)));
-        
+
         myProviders = new ArrayList();
     }
-    
+
     public void addMenuProvider(MenuProvider provider){
         if(!myProviders.contains(provider)){
             myProviders.add(provider);
         }
     }
-    
+
     public void removeMenuProvider(MenuProvider provider){
         if(myProviders.contains(provider)){
             myProviders.remove(provider);
@@ -120,6 +120,10 @@ public class TimelineContextMenuManager{
         myHistorySource.set(controller.getSharedHistory());
     }
 
+	public AnimationTimelinePanel getPanel() {
+		return myPanel;
+	}
+
     /**
      *
      * @param e
@@ -139,7 +143,7 @@ public class TimelineContextMenuManager{
         showMenu(menuItems, e.getX(), e.getY());
         return true;
     }
-    
+
     private List<JComponent> getProvidedMenus(MouseEvent e){
         List<JComponent> menus = new ArrayList<JComponent>(myProviders.size());
         for(MenuProvider provider : myProviders){
@@ -151,7 +155,7 @@ public class TimelineContextMenuManager{
         }
         return menus;
     }
-    
+
     private void showMenu(List<JComponent> items, int x, int y){
         JPopupMenu menu = new JPopupMenu();
         for(JComponent item : items){

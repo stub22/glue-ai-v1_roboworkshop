@@ -41,6 +41,8 @@ public class ResizableGrid extends javax.swing.JPanel implements ComponentListen
     protected CoordinateScalar myScalar;
     private int myKeyHeight = 30;
     private int myKeyPlacement;
+	private double interval;
+	private double max;
     /** Creates new form ResizableGrid */
     public ResizableGrid() {
         initComponents();
@@ -64,7 +66,7 @@ public class ResizableGrid extends javax.swing.JPanel implements ComponentListen
         drawGridLines(g);
         drawTimelineKey(g);
     }
-    
+
     private void drawTimelineKey(Graphics g){
         if(myScalar == null){
             return;
@@ -73,7 +75,7 @@ public class ResizableGrid extends javax.swing.JPanel implements ComponentListen
         int h = getHeight();
         g.setColor(Color.black);
         double tStep = calcStep();
-        double max = myScalar.unscaleX(w);
+        max = myScalar.unscaleX(w);
         for(double t=0, i=0; t<max; t+=tStep, i++){
             int l = 5;
             int x = (int)myScalar.scaleX(t);
@@ -86,6 +88,9 @@ public class ResizableGrid extends javax.swing.JPanel implements ComponentListen
                 l = 15;
                 NumberFormat nf = new DecimalFormat("0.000");
                 g.drawString(nf.format(t/1000.0), x, h-17);
+				if(i == 20){
+					interval = t;
+				}
             }else if(i%10 == 0){
                 l = 11;
             }else if(i%5 == 0){
@@ -139,6 +144,14 @@ public class ResizableGrid extends javax.swing.JPanel implements ComponentListen
             g.drawLine(0, h, getWidth(), h);
         }
     }
+
+	public double getTimeInterval(){
+		return interval;
+	}
+
+	public double getMax(){
+		return max;
+	}
 
     /** This method is called from within the constructor to
      * initialize the form.
