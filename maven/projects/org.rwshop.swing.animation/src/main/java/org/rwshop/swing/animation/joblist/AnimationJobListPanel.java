@@ -118,6 +118,7 @@ public class AnimationJobListPanel extends javax.swing.JPanel {
         myAnimationJobMap.put(job, panel);
         myAnimationJobPanels.add(panel);
         myAnimationJobsPanel.add(panel);
+		btnClear.setEnabled(true);
     }
 
     /**
@@ -134,6 +135,18 @@ public class AnimationJobListPanel extends javax.swing.JPanel {
         myAnimationJobsPanel.revalidate();
         myAnimationJobsPanel.repaint();
     }
+
+	public void removeAllAnimationJobs() {
+		if (myAnimationJobPanels.isEmpty()) {
+			return;
+		}
+		AnimationJob job;
+		for (int i = myAnimationJobPanels.size(); i > 0; i--) {
+			job = myAnimationJobPanels.get(i - 1).getAnimationJob();
+			removeAnimationJob(job);
+		}
+		btnClear.setEnabled(false);
+	}
 
     private void closePanel(ActionEvent e){
         Object obj = e.getSource();
@@ -166,6 +179,7 @@ public class AnimationJobListPanel extends javax.swing.JPanel {
 
         myAnimationJobsScrollPane = new javax.swing.JScrollPane();
         myAnimationJobsPanel = new javax.swing.JPanel();
+        btnClear = new javax.swing.JButton();
 
         myAnimationJobsScrollPane.setBorder(null);
 
@@ -173,29 +187,53 @@ public class AnimationJobListPanel extends javax.swing.JPanel {
         myAnimationJobsPanel.setLayout(myAnimationJobsPanelLayout);
         myAnimationJobsPanelLayout.setHorizontalGroup(
             myAnimationJobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 49, Short.MAX_VALUE)
+            .addGap(0, 77, Short.MAX_VALUE)
         );
         myAnimationJobsPanelLayout.setVerticalGroup(
             myAnimationJobsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 33, Short.MAX_VALUE)
+            .addGap(0, 34, Short.MAX_VALUE)
         );
 
         myAnimationJobsScrollPane.setViewportView(myAnimationJobsPanel);
+
+        btnClear.setText("Clear");
+        btnClear.setEnabled(false);
+        btnClear.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnClear.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(myAnimationJobsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnClear)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(myAnimationJobsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(myAnimationJobsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnClear)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(myAnimationJobsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        removeAllAnimationJobs();
+    }//GEN-LAST:event_btnClearActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
     private javax.swing.JPanel myAnimationJobsPanel;
     private javax.swing.JScrollPane myAnimationJobsScrollPane;
     // End of variables declaration//GEN-END:variables
