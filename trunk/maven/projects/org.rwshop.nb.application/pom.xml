@@ -93,6 +93,7 @@
                         </configuration>
                     </execution>
                 </executions>
+                <version>3.13</version>
             </plugin>
 
             <plugin>
@@ -101,7 +102,7 @@
 						<!-- Copies lwjgl native libs for the OpenGL simulator-->
 					<!--
                     <execution>
-					
+
                         <id>copy-native-libs-to-root</id>
                         <phase>package</phase>
                         <goals>

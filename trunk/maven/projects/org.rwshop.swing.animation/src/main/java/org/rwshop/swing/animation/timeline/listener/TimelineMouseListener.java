@@ -24,7 +24,6 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,9 +36,7 @@ import org.mechio.api.animation.editor.AnimationEditor;
 import org.mechio.api.animation.editor.ChannelEditor;
 import org.mechio.api.animation.editor.ControlPointEditor;
 import org.mechio.api.animation.editor.MotionPathEditor;
-import org.mechio.api.animation.editor.actions.MotionPathActions;
 import org.mechio.api.animation.editor.features.SynchronizedPointGroup;
-import org.mechio.api.animation.factory.ControlPointFactory;
 import org.rwshop.swing.animation.timeline.TimelineAnimation;
 import org.rwshop.swing.animation.timeline.TimelineChannel;
 import org.rwshop.swing.animation.timeline.TimelineMotionPath;
@@ -61,10 +58,14 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 	private CoordinateScalar myScalar;
 	private TimelineContextMenuManager myContextMenu;
 	private TimelineControlPoint myControlPoint;
+	private MotionPathEditor myTempPath;
 	private int myLastButton;
 	private JPanel myPanel;
 
 	private boolean myPathChanging;
+	private boolean isCDown;
+	private boolean isVDown;
+	private boolean isBDown;
 	private Double myLastClickX;
 	private Double myLastClickY;
 	private Double cpX = 0.0;
@@ -229,7 +230,29 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		setLastClick(e);
-		if (e.isShiftDown()) {
+		if (e.isControlDown() && isCDown) {
+			myTempPath = getSelectedPath();
+		} else if (e.isControlDown() && isVDown) {
+			if (myTempPath == null) {
+				return;
+			}
+			MotionPathEditor path = getSelectedPath();
+			if (!path.getControlPoints().isEmpty()) {
+				for (int i = 0; i < path.getControlPoints().size(); i++) {
+					path.removeChildByIndex(this, i, path.getSharedHistory());
+				}
+			}
+			for (int i = 0; i < myTempPath.getControlPoints().size(); i++) {
+				path.addChild(this, myTempPath.getControlPoints().get(i), path.getSharedHistory());
+			}
+		} else if (e.isControlDown() && isBDown) {
+			MotionPathEditor path = getSelectedPath();
+			for (int i = 0; i < path.getControlPoints().size(); i++) {
+				double x = path.getControlPoints().get(i).getX();
+				double y = path.getControlPoints().get(i).getY();
+				path.movePoint(this, i, (long) x, 1 - y, path.getSharedHistory());
+			}
+		} else if (e.isShiftDown()) {
 			if (myController == null) {
 				return;
 			}
@@ -246,10 +269,7 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 			Point2D p = new Point2D.Double(myScalar.unscaleX(e.getX()), y);
 			TimelineMotionPath tmp = getSelectedTimelinePath();
 			MotionPathEditor controller = tmp.getController();
-			ControlPointFactory factory = new ControlPointFactory(p);
-			int id = controller.addChild(e, factory.getValue(), controller.getSharedHistory());
-
-
+			controller.addChild(this, p, controller.getSharedHistory());
 		} else {
 			myContextMenu.tryShowPopup(e);
 		}
@@ -485,7 +505,7 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 				else if(y >= .09)
 					y = .13;
 				else if(y >= .03)
-					y = .06; 
+					y = .06;
 				else
 					y = 0;
 			}
@@ -562,6 +582,12 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 			boolean val = !myPositionSource.getEditEnabled();
 			myPositionSource.setEditEnabled(val);
 			repaint();
+		} else if(e.getKeyCode() == KeyEvent.VK_C){
+			isCDown = true;
+		} else if(e.getKeyCode() == KeyEvent.VK_V){
+			isVDown = true;
+		} else if(e.getKeyCode() == KeyEvent.VK_B){
+			isBDown = true;
 		}
 	}
 
@@ -576,6 +602,15 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 				break;
 			case KeyEvent.VK_M:
 				//myMoveFlag = false;
+				break;
+			case KeyEvent.VK_C:
+				isCDown = false;
+				break;
+			case KeyEvent.VK_V:
+				isVDown = false;
+				break;
+			case KeyEvent.VK_B:
+				isBDown = false;
 				break;
 		}
 	}
