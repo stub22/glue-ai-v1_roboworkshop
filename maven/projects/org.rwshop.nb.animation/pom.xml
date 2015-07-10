@@ -121,6 +121,16 @@
 			<groupId>org.jflux</groupId>
             <artifactId>org.jflux.impl.services.rk</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-core-multiview</artifactId>
+            <version>${netbeans.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-dialogs</artifactId>
+            <version>${netbeans.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -130,6 +140,7 @@
                 <artifactId>nbm-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
+                    <useOSGiDependencies>true</useOSGiDependencies>
                     <nbmResources>
                         <nbmResource>
                             <directory>src/main/resources/org/rwshop/nb/animation/resources</directory>

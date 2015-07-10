@@ -45,7 +45,7 @@ public final class ChannelViewTopComponent extends TopComponent implements Looku
     private Lookup.Result result = null;
     private ChannelTable myTable;
     private static ChannelViewTopComponent instance;
-    private AnimationNode myNode;
+    private AnimationDataObject myAnimDataObj;
     private AnimationEditor myController;
     private InstanceContent myContent;
     /** path to the icon used by the component and its open action */
@@ -77,7 +77,7 @@ public final class ChannelViewTopComponent extends TopComponent implements Looku
             .addComponent(component, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -159,10 +159,10 @@ public final class ChannelViewTopComponent extends TopComponent implements Looku
     private void readPropertiesImpl(java.util.Properties p) {
         String version = p.getProperty("version");
     }
-    
+
     @Override
     public void componentOpened() {
-        result = Utilities.actionsGlobalContext().lookupResult(AnimationNode.class);
+        result = Utilities.actionsGlobalContext().lookupResult(AnimationDataObject.class);
         result.allItems();
         result.addLookupListener (this);
     }
@@ -172,10 +172,10 @@ public final class ChannelViewTopComponent extends TopComponent implements Looku
         Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
         Collection c = r.allInstances();
         if (!c.isEmpty()) {
-            myNode = (AnimationNode)c.iterator().next();
-            myController = myNode.getAnimationController();
-            myTable.setAnimationController(myController);
-            myNode.registerCookies(myContent, getLookup());
+			myAnimDataObj = (AnimationDataObject)c.iterator().next();
+			myController = myAnimDataObj.getController();
+			myTable.setAnimationController(myController);
+			myAnimDataObj.registerCookies(myContent, getLookup());
         } else {
             //myTable.setController(null);
         }

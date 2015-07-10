@@ -29,14 +29,13 @@ import org.mechio.api.animation.editor.EditorListener;
 public class AnimationChangeListener extends EditorListener implements PropertyChangeListener {
     public final static String PROP_ANIMATION_CHANGE = "AnimationChange";
     private PropertyChangeSupport mySupport;
-    
+
     public AnimationChangeListener(){
         mySupport = new PropertyChangeSupport(this);
     }
-    
+
     @Override
-    public void selectionChanged(Object invoker, Object controller, int oldIndex, int newIndex) {
-    }
+    public void selectionChanged(Object invoker, Object controller, int oldIndex, int newIndex) {}
 
     @Override
     public void itemAdded(Object invoker, Object controller, int index) {
@@ -55,7 +54,7 @@ public class AnimationChangeListener extends EditorListener implements PropertyC
 
     @Override
     public void stateChanged(Object invoker, Object controller, EditState state, boolean value) {
-        fireAnimationChange(controller);
+        //fireAnimationChange(controller);
     }
 
     @Override
@@ -67,17 +66,17 @@ public class AnimationChangeListener extends EditorListener implements PropertyC
     public void propertyChange(PropertyChangeEvent evt) {
         fireAnimationChange(evt.getNewValue());
     }
-    
+
     private void fireAnimationChange(Object controller){
         mySupport.firePropertyChange(PROP_ANIMATION_CHANGE, null, controller);
     }
-    
+
     public void addListener(PropertyChangeListener listener){
         mySupport.addPropertyChangeListener(listener);
     }
-    
+
     public void removeListener(PropertyChangeListener listener){
         mySupport.removePropertyChangeListener(listener);
     }
-    
+
 }

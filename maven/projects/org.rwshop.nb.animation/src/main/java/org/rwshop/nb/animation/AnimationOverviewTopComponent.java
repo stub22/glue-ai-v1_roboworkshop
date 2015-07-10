@@ -45,7 +45,7 @@ public final class AnimationOverviewTopComponent extends TopComponent implements
     private Lookup.Result result = null;
     private TimelineOverviewPanel myPanel;
     private static AnimationOverviewTopComponent instance;
-    private AnimationNode myNode;
+    private AnimationDataObject myAnimDataObj;
     private AnimationEditor myController;
     /** path to the icon used by the component and its open action */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
@@ -159,7 +159,7 @@ public final class AnimationOverviewTopComponent extends TopComponent implements
     }
     @Override
     public void componentOpened() {
-        result = Utilities.actionsGlobalContext().lookupResult(AnimationNode.class);
+        result = Utilities.actionsGlobalContext().lookupResult(AnimationDataObject.class);
         result.allItems();
         result.addLookupListener (this);
     }
@@ -175,10 +175,10 @@ public final class AnimationOverviewTopComponent extends TopComponent implements
         Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
         Collection c = r.allInstances();
         if (!c.isEmpty()) {
-            myNode = (AnimationNode)c.iterator().next();
-            myController = myNode.getAnimationController();
-            myPanel.setController(myController);
-            myNode.registerCookies(myContent, getLookup());
+            myAnimDataObj = (AnimationDataObject)c.iterator().next();
+			myController = myAnimDataObj.getController();
+			myPanel.setController(myController);
+			myAnimDataObj.registerCookies(myContent, getLookup());
         } else {
             //myTable.setController(null);
         }

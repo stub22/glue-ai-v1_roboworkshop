@@ -15,15 +15,6 @@
                 <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
                 <attr name="noIconInMenu" boolvalue="false"/>
             </file>
-            <file name="org-rwshop-nb-animation-actions-SaveAsAction.instance">
-                <attr name="delegate" methodvalue="org.openide.awt.Actions.inject"/>
-                <attr name="displayName" bundlevalue="org.rwshop.nb.animation.actions.Bundle#CTL_SaveAsAction"/>
-                <attr name="injectable" stringvalue="org.rwshop.nb.animation.actions.SaveAsAction"/>
-                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.context"/>
-                <attr name="noIconInMenu" boolvalue="false"/>
-                <attr name="selectionType" stringvalue="EXACTLY_ONE"/>
-                <attr name="type" stringvalue="org.rwshop.nb.common.cookies.SaveAsCookie"/>
-            </file>
         </folder>
         <folder name="Animation">
             <file name="org-rwshop-nb-animation-actions-PlayAnimationAction.instance">
@@ -80,6 +71,12 @@
         </folder>
     </folder>
     <folder name="Menu">
+        <folder name="Edit">
+            <file name="org-openide-actions-CopyAction.shadow_hidden"/>
+            <file name="org-openide-actions-CutAction.shadow_hidden"/>
+            <file name="org-openide-actions-DeleteAction.shadow_hidden"/>
+            <file name="org-openide-actions-PasteAction.shadow_hidden"/>
+        </folder>
         <folder name="File">
             <attr name="position" intvalue="0"/>
             <file name="org-rwshop-nb-animation-actions-NewAnimationAction.shadow">
@@ -89,16 +86,6 @@
             <file name="org-rwshop-nb-animation-actions-OpenAnimationAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/File/org-rwshop-nb-animation-actions-OpenAnimationAction.instance"/>
                 <attr name="position" intvalue="200"/>
-            </file>
-			 <file name="org-rwshop-nb-animation-actions-SaveAsAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/File/org-rwshop-nb-animation-actions-SaveAsAction.instance"/>
-                <attr name="position" intvalue="400"/>
-            </file>
-            <file name="org-openide-actions-SaveAsAction.shadow_hidden">
-                <attr name="position" intvalue="100"/>
-            </file>
-			<file name="org-openide-actions-SaveAllAction.shadow_hidden">
-                <attr name="position" intvalue="100"/>
             </file>
         </folder>
         <folder name="Animation">
@@ -148,20 +135,13 @@
     </folder>
     <folder name="Toolbars">
         <folder name="Animation">
+			<attr name="position" intvalue="400"/>
             <file name="org-rwshop-nb-animation-actions-PlayAnimationAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Animation/org-rwshop-nb-animation-actions-PlayAnimationAction.instance"/>
                 <attr name="position" intvalue="300"/>
             </file>
         </folder>
-		<folder name="File">
-            <file name="org-rwshop-nb-animation-actions-SaveAllAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/File/org-rwshop-nb-animation-actions-SaveAllAction.instance"/>
-                <attr name="position" intvalue="300"/>
-            </file>
-			<file name="org-openide-actions-SaveAllAction.shadow_hidden">
-                <attr name="position" intvalue="100"/>
-            </file>
-        </folder>
+        <file name="Clipboard_hidden"/>
     </folder>
     <folder name="Windows2">
         <folder name="Components">

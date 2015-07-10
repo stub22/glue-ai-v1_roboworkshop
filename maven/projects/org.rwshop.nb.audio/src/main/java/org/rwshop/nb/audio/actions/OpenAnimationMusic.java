@@ -17,6 +17,7 @@ package org.rwshop.nb.audio.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.List;
 import org.jflux.api.common.rk.playable.Playable;
 import org.jflux.api.common.rk.services.addon.ServiceAddOn;
@@ -25,6 +26,12 @@ import org.openide.windows.Mode;
 import org.openide.windows.WindowManager;
 import org.mechio.api.animation.editor.AnimationEditor;
 import org.mechio.api.audio.WavPlayer;
+import org.openide.filesystems.FileObject;
+import org.openide.filesystems.FileUtil;
+import org.openide.loaders.DataObject;
+import org.openide.loaders.DataObjectNotFoundException;
+import org.openide.util.Exceptions;
+import org.rwshop.nb.animation.AnimationDataObject;
 import org.rwshop.nb.audio.AnimationMusicTopComponent;
 import org.rwshop.nb.animation.AnimationTimelineEditor;
 import org.rwshop.nb.animation.history.UndoRedoFactory;
@@ -46,11 +53,27 @@ public class OpenAnimationMusic implements ActionListener {
         if(cS.getValue() == null){
             return;
         }
+
+		String path = cS.getValue().getFilePath();
+		FileObject fob = FileUtil.toFileObject(new File(path));
+		DataObject dob = null;
+		try {
+			dob = DataObject.find(fob);
+
+		} catch (DataObjectNotFoundException ex) {
+			Exceptions.printStackTrace(ex);
+		}
+		if(dob == null || !(AnimationDataObject.class).isInstance(dob)){
+			return;
+		}
+		AnimationDataObject animDob = (AnimationDataObject)dob;
+		animDob.setController(cS.getValue());
+
         List<ServiceAddOn<Playable>> addons = cS.getValue().getAnimation().getAddOns();
         WavPlayer player = (WavPlayer)addons.get(0).getAddOn();
         CoordinateScalar scalar = new DefaultCoordinateScalar(0.02, 400, true);
         ScalingManager sm = new ScalingManager(scalar);
-        AnimationTimelineEditor editor = new AnimationTimelineEditor();
+        AnimationTimelineEditor editor = new AnimationTimelineEditor(animDob);
         editor.init(sm);
         editor.setController(cS.getValue());
         editor.open();
