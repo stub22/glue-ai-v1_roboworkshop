@@ -27,13 +27,13 @@ import org.openide.awt.ActionReference;
 @ConvertAsProperties(dtd = "-//org.rwshop.nb.animation//RemoteAnimationPlayer//EN",
 autostore = false)
 @TopComponent.Description(preferredID = "RemoteAnimationPlayerTopComponent",
-//iconBase="SET/PATH/TO/ICON/HERE", 
+//iconBase="SET/PATH/TO/ICON/HERE",
 persistenceType = TopComponent.PERSISTENCE_ALWAYS)
 @TopComponent.Registration(mode = "rightSlidingSide", openAtStartup = false)
 @ActionID(category = "Window", id = "org.rwshop.nb.animation.RemoteAnimationPlayerTopComponent")
 @ActionReference(path = "Menu/Window" /*, position = 333 */)
-@TopComponent.OpenActionRegistration(displayName = "#CTL_RemoteAnimationPlayerAction",
-preferredID = "RemoteAnimationPlayerTopComponent")
+@TopComponent.OpenActionRegistration(displayName = "#CTL_RemoteAnimationPlayerAction", //comment out, (clean and) build, then uncomment and build
+preferredID = "RemoteAnimationPlayerTopComponent")									  //workaround for compilation error
 public final class RemoteAnimationPlayerTopComponent extends TopComponent {
 
     public RemoteAnimationPlayerTopComponent() {

@@ -18,7 +18,6 @@ package org.rwshop.swing.animation.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import javax.swing.JFileChooser;
 import org.apache.commons.configuration.ConfigurationException;
 import org.jflux.api.common.rk.utils.RKSource;
@@ -55,10 +54,21 @@ public class FileAction {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
+			JFileChooser fileChooser = new JFileChooser();
+			int i = fileChooser.showOpenDialog(null);
+			if(i == JFileChooser.CANCEL_OPTION){
+				mySource.set(null);
+				return;
+			}
+			String path = fileChooser.getSelectedFile().getPath();
+			if (!path.endsWith(".rkanim")) {
+				path = path.concat(".rkanim");
+			}
+
             Animation anim = new Animation();
-        AnimationEditor controller = new AnimationEditor(anim, null,
+			AnimationEditor editor = new AnimationEditor(anim, path,
             myHistoryFactory.getValue());
-            mySource.set(controller);
+            mySource.set(editor);
         }
     }
 
@@ -93,12 +103,16 @@ public class FileAction {
                     return;
                 }
                 path = fileChooser.getSelectedFile().getPath();
+				if (!path.endsWith(".rkanim")) {
+					path = path.concat(".rkanim");
+				}
             }
             AnimationEditor temp = mySource.getValue();
             mySource.set(null);
+			String name = path.substring(path.lastIndexOf("\\") + 1, path.lastIndexOf(".rkanim"));
             try{
                 Animation anim = AnimationXML.loadAnimation(path);
-                    anim.setVersion(new File(path).getName(), anim.getVersion().getNumber());
+                    anim.setVersion(name, anim.getVersion().getNumber());
                 AnimationEditor editor = new AnimationEditor(anim, path,
                         myHistoryFactory.getValue());
                 mySource.set(editor);
@@ -162,4 +176,31 @@ public class FileAction {
             }
         }
     }
+
+	public static class SaveAs {
+		public SaveAs(String path, String name, AnimationEditor controller) {
+			boolean error = true;
+			String innerError = "";
+			Throwable innerException = null;
+			AnimationEditor editor = controller;
+			try {
+				AnimationXML.saveAnimation(path, editor.getAnimation(),
+						AnimationUtils.getChannelsParameterSource(),
+						editor.collectSynchronizedPointGroups());
+				error = false;
+				editor.setFilePath(path);
+				editor.setName(name);
+			} catch (ConfigurationException ex) {
+				innerError = "There was an error writing the Animation to XML";
+				innerException = ex;
+			} catch (Throwable ex) {
+				innerException = ex;
+			}
+			if (error) {
+				MessageAlerter.Error("Unable to save Animation", innerError, innerException);
+			} else {
+				MessageAlerter.Ok("File Saved", "The Animation was successfully saved.");
+			}
+		}
+	}
 }

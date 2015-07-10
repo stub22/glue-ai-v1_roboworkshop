@@ -37,7 +37,7 @@ import org.openide.util.lookup.InstanceContent;
 
 /**
  * Top component which displays something.
- * 
+ *
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
 @ConvertAsProperties(dtd = "-//org.rwshop.nb.animation//MotionPathView//EN",
@@ -45,7 +45,7 @@ autostore = false)
 public final class MotionPathViewTopComponent extends TopComponent implements LookupListener {
     private Lookup.Result result = null;
     private MotionPathTable myTable;
-    private AnimationNode myNode;
+	private AnimationDataObject myAnimDataObj;
     private AnimationEditor myController;
 
     private static MotionPathViewTopComponent instance;
@@ -65,7 +65,7 @@ public final class MotionPathViewTopComponent extends TopComponent implements Lo
 //        setIcon(ImageUtilities.loadImage(ICON_PATH, true));
 
     }
-    
+
     private void setComponent(Container component){
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -173,10 +173,10 @@ public final class MotionPathViewTopComponent extends TopComponent implements Lo
     protected String preferredID() {
         return PREFERRED_ID;
     }
-    
+
     @Override
     public void componentOpened() {
-        result = Utilities.actionsGlobalContext().lookupResult(AnimationNode.class);
+        result = Utilities.actionsGlobalContext().lookupResult(AnimationDataObject.class);
         result.allItems();
         result.addLookupListener (this);
     }
@@ -186,10 +186,11 @@ public final class MotionPathViewTopComponent extends TopComponent implements Lo
         Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
         Collection c = r.allInstances();
         if (!c.isEmpty()) {
-            myNode = (AnimationNode)c.iterator().next();
-            myController = myNode.getAnimationController();
-            myTable.setAnimationController(myController);
-            myNode.registerCookies(myContent, getLookup());
+			myAnimDataObj = (AnimationDataObject)c.iterator().next();
+			myController = myAnimDataObj.getController();
+			myTable.setAnimationController(myController);
+			myAnimDataObj.registerCookies(myContent, getLookup());
+
         } else {
             //myTable.setController(null);
         }

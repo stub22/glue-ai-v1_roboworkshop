@@ -18,17 +18,24 @@ package org.rwshop.nb.animation.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
 import org.rwshop.nb.animation.AnimationTimelineEditor;
 import org.rwshop.nb.animation.history.UndoRedoFactory;
 import org.rwshop.swing.animation.actions.FileAction;
 import org.mechio.api.animation.editor.AnimationEditor;
+import org.openide.filesystems.FileObject;
+import org.openide.filesystems.FileUtil;
+import org.openide.loaders.DataObject;
+import org.openide.loaders.DataObjectNotFoundException;
+import org.openide.util.Exceptions;
+import org.rwshop.nb.animation.AnimationDataObject;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import org.rwshop.swing.common.scaling.DefaultCoordinateScalar;
 import org.rwshop.swing.common.scaling.ScalingManager;
 
 /**
- * 
+ *
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public final class OpenAnimationAction implements ActionListener {
@@ -40,7 +47,23 @@ public final class OpenAnimationAction implements ActionListener {
         if(cS.getValue() == null){
             return;
         }
-        AnimationTimelineEditor editor = new AnimationTimelineEditor();
+
+		String path = cS.getValue().getFilePath();
+		FileObject fob = FileUtil.toFileObject(new File(path));
+		DataObject dob = null;
+		try {
+			dob = DataObject.find(fob);
+
+		} catch (DataObjectNotFoundException ex) {
+			Exceptions.printStackTrace(ex);
+		}
+		if(dob == null || !(AnimationDataObject.class).isInstance(dob)){
+			return;
+		}
+		AnimationDataObject animDob = (AnimationDataObject)dob;
+		animDob.setController(cS.getValue());
+
+		AnimationTimelineEditor editor = new AnimationTimelineEditor(animDob);
         editor.open();
         editor.requestActive();
         CoordinateScalar scaler = new DefaultCoordinateScalar(0.02, 400, true);

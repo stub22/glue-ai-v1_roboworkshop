@@ -16,60 +16,181 @@
 
 package org.rwshop.nb.animation;
 
-import org.rwshop.nb.animation.cookies.AnimationSaveCookie;
 import java.io.IOException;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.netbeans.core.spi.multiview.MultiViewElement;
+import org.netbeans.core.spi.multiview.text.MultiViewEditorElement;
+import org.openide.awt.ActionID;
+import org.openide.awt.ActionReference;
+import org.openide.awt.ActionReferences;
 import org.openide.cookies.SaveCookie;
 import org.openide.filesystems.FileObject;
+import org.openide.filesystems.MIMEResolver;
+import org.openide.loaders.DataObject;
 import org.openide.loaders.DataObjectExistsException;
 import org.openide.loaders.MultiDataObject;
 import org.openide.loaders.MultiFileLoader;
+import org.openide.nodes.CookieSet;
 import org.openide.nodes.Node;
 import org.openide.util.Lookup;
+import org.openide.util.NbBundle.Messages;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
-import org.mechio.api.animation.editor.AnimationEditor;
-import org.rwshop.nb.animation.cookies.AnimationSaveAsCookie;
-import org.rwshop.nb.common.cookies.SaveAsCookie;
+import org.openide.windows.TopComponent;
+import org.rwshop.nb.animation.cookies.*;
+import org.rwshop.nb.common.cookies.*;
 
-/**
- * 
- * @author Matthew Stevenson <www.roboworkshop.org>
- */
+@Messages({
+	"LBL_Animation_LOADER=Files of Animation"
+})
+@MIMEResolver.ExtensionRegistration(
+		displayName = "#LBL_Animation_LOADER",
+		mimeType = "text/rkanim+xml",
+		extension = {"rkanim", "xml"}
+)
+@DataObject.Registration(
+		mimeType = "text/rkanim+xml",
+		iconBase = "org/rwshop/nb/animation/web.png",
+		displayName = "#LBL_Animation_LOADER",
+		position = 300
+)
+@ActionReferences({
+	@ActionReference(
+			path = "Loaders/text/rkanim+xml/Actions",
+			id = @ActionID(category = "System", id = "org.openide.actions.OpenAction"),
+			position = 100,
+			separatorAfter = 200
+	),
+	@ActionReference(
+			path = "Loaders/text/rkanim+xml/Actions",
+			id = @ActionID(category = "Edit", id = "org.openide.actions.CutAction"),
+			position = 300
+	),
+	@ActionReference(
+			path = "Loaders/text/rkanim+xml/Actions",
+			id = @ActionID(category = "Edit", id = "org.openide.actions.CopyAction"),
+			position = 400,
+			separatorAfter = 500
+	),
+	@ActionReference(
+			path = "Loaders/text/rkanim+xml/Actions",
+			id = @ActionID(category = "Edit", id = "org.openide.actions.DeleteAction"),
+			position = 600
+	),
+	@ActionReference(
+			path = "Loaders/text/rkanim+xml/Actions",
+			id = @ActionID(category = "System", id = "org.openide.actions.RenameAction"),
+			position = 700,
+			separatorAfter = 800
+	),
+	@ActionReference(
+			path = "Loaders/text/rkanim+xml/Actions",
+			id = @ActionID(category = "System", id = "org.openide.actions.SaveAsTemplateAction"),
+			position = 900,
+			separatorAfter = 1000
+	),
+	@ActionReference(
+			path = "Loaders/text/rkanim+xml/Actions",
+			id = @ActionID(category = "System", id = "org.openide.actions.FileSystemAction"),
+			position = 1100,
+			separatorAfter = 1200
+	),
+	@ActionReference(
+			path = "Loaders/text/rkanim+xml/Actions",
+			id = @ActionID(category = "System", id = "org.openide.actions.ToolsAction"),
+			position = 1300
+	),
+	@ActionReference(
+			path = "Loaders/text/rkanim+xml/Actions",
+			id = @ActionID(category = "System", id = "org.openide.actions.PropertiesAction"),
+			position = 1400
+	)
+})
 public class AnimationDataObject extends MultiDataObject {
-    private InstanceContent myInstance;
-    private Lookup myLookup;
-    private AnimationEditor myController;
-    
-    public AnimationDataObject(AnimationEditor controller, FileObject pf, MultiFileLoader loader) throws DataObjectExistsException, IOException {
-        super(pf, loader);
-        myController = controller;
-        myInstance = new InstanceContent();
-        myLookup = new AbstractLookup(myInstance);
-        myInstance.add(myController);
-        setSaveCookie();
+	private InstanceContent myContent;
+	private Lookup lookup;
+	private AnimationEditor myController;
+
+	public AnimationDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException, IOException {
+		super(pf, loader);
+		registerEditor("text/rkanim+xml", true);
+
+		myContent = new InstanceContent();
+		lookup = new AbstractLookup(myContent);
+		//myController = Lookup.getDefault().lookup(AnimationEditor.class);
+		myController = null;
+		myContent.add(this);
+	}
+
+	public void setController(AnimationEditor editor){
+		if(myController != null){
+			myContent.remove(myController);
+		}
+		myController = editor;
+		myContent.add(myController);
+
+		getCookieSet().add(new PlayAnimationCookie(myController));
+        getCookieSet().add(new LoopAnimationCookie(myController));
+        getCookieSet().add(new StopAnimationCookie(myController));
+        getCookieSet().add(new StopAllAnimationsCookie(myController));
+		registerCookies(myContent, lookup);
+	}
+
+	public AnimationEditor getController(){
+		return myController;
+	}
+
+	@Override
+	protected int associateLookup() {
+		return 1;
+	}
+
+	@MultiViewElement.Registration(
+			displayName = "#LBL_Animation_EDITOR",
+			iconBase = "org/rwshop/nb/animation/web.png",
+			mimeType = "text/rkanim+xml",
+			persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED,
+			preferredID = "Animation",
+			position = 1000
+	)
+	@Messages("LBL_Animation_EDITOR=Source")
+	public static MultiViewEditorElement createEditor(Lookup lkp) {
+		return new MultiViewEditorElement(lkp);
+	}
+
+	@Override
+	protected Node createNodeDelegate(){
+		return new AnimationNode(getLookup().lookup(AnimationEditor.class));
+	}
+
+	@Override
+	public Lookup getLookup(){
+		return lookup;
+	}
+
+	public void registerCookies(InstanceContent content, Lookup l){
+        registerCookies(content, l, getCookieSet(),
+                PlayCookie.class,LoopCookie.class, StopCookie.class, StopAllCookie.class);
     }
-    
-    private void setSaveCookie(){
-        if(getLookup().lookup(SaveCookie.class) == null){
-            SaveCookie cookie = new AnimationSaveCookie(myController);
-            myInstance.add(cookie);
-        }
-        
-        if(getLookup().lookup(SaveAsCookie.class) == null){
-            SaveAsCookie saCookie = new AnimationSaveAsCookie(myController);
-            myInstance.add(saCookie);
+
+    private static void registerCookies(InstanceContent i, Lookup l, CookieSet cs, Class<? extends Node.Cookie>...types){
+        for(Class<? extends Node.Cookie> c : types){
+            removeCookie(c, l, i);
+            addCookie(c, cs, i);
         }
     }
 
-    @Override
-    protected Node createNodeDelegate() {
-        return new AnimationNode(getLookup().lookup(AnimationEditor.class));
+    private static <T extends Node.Cookie> void removeCookie(Class<T> c, Lookup l, InstanceContent i){
+        T t = l.lookup(c);
+        if(t != null){
+            i.remove(t);
+        }
     }
 
-    @Override
-    public Lookup getLookup() {
-        return myLookup;
+    private static <T extends Node.Cookie> void addCookie(Class<T> c, CookieSet cs, InstanceContent i){
+        T t = cs.getCookie(c);
+        if(t != null){
+            i.add(t);
+        }
     }
-    
-    
 }

@@ -16,8 +16,6 @@
 
 package org.rwshop.nb.animation;
 
-import org.rwshop.nb.animation.cookies.PlayAnimationCookie;
-import org.rwshop.nb.animation.cookies.AnimationSaveCookie;
 import java.awt.Image;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -25,29 +23,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Action;
-import org.openide.cookies.SaveCookie;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
-import org.openide.nodes.CookieSet;
-import org.openide.nodes.Node;
 import org.openide.nodes.PropertySupport;
 import org.openide.nodes.Sheet;
-import org.openide.util.Lookup;
 import org.openide.util.Utilities;
 import org.openide.util.WeakListeners;
-import org.openide.util.lookup.InstanceContent;
-import org.rwshop.nb.animation.cookies.AnimationSaveAsCookie;
 import org.mechio.api.animation.editor.AbstractEditor;
 import org.mechio.api.animation.editor.AnimationEditor;
-import org.rwshop.nb.animation.cookies.LoopAnimationCookie;
-import org.rwshop.nb.animation.cookies.StopAllAnimationsCookie;
-import org.rwshop.nb.animation.cookies.StopAnimationCookie;
 import org.rwshop.nb.common.VersionPropertySheet;
-import org.rwshop.nb.common.cookies.LoopCookie;
-import org.rwshop.nb.common.cookies.PlayCookie;
-import org.rwshop.nb.common.cookies.SaveAsCookie;
-import org.rwshop.nb.common.cookies.StopAllCookie;
-import org.rwshop.nb.common.cookies.StopCookie;
 
 /**
  *
@@ -55,8 +39,7 @@ import org.rwshop.nb.common.cookies.StopCookie;
  */
 public class AnimationNode extends AbstractNode implements PropertyChangeListener{
     private AnimationEditor myController;
-    private AnimationChangeListener myAnimListener;
-    
+
     public AnimationNode(AnimationEditor controller) {
         super(Children.LEAF);
         //super(new AnimationControllerChildren(controller), Lookups.singleton(controller));
@@ -64,59 +47,14 @@ public class AnimationNode extends AbstractNode implements PropertyChangeListene
             throw new NullPointerException("Cannot create JointNode with null Joint.");
         }
         myController = controller;
-        setDisplayName(controller.getName());
-        controller.addPropertyChangeListener(WeakListeners.propertyChange(this, controller));
-        myAnimListener = new AnimationChangeListener();
-        myController.addConsumer(myAnimListener);
-        myAnimListener.addListener(this);
-        setSaveCookie();
-        getCookieSet().add(new PlayAnimationCookie(myController));
-        getCookieSet().add(new LoopAnimationCookie(myController));
-        getCookieSet().add(new StopAnimationCookie(myController));
-        getCookieSet().add(new StopAllAnimationsCookie(myController));
-    }
-    
-    private void setSaveCookie(){
-        CookieSet cookies = getCookieSet();
-        if(cookies.getCookie(SaveCookie.class) == null){
-            cookies.add(new AnimationSaveCookie(myController));
-        }
-        if(cookies.getCookie(SaveAsCookie.class) == null){
-            cookies.add(new AnimationSaveAsCookie(myController));
-        }
-    }
-    
-    public void registerCookies(InstanceContent content, Lookup l){
-        registerCookies(content, l, getCookieSet(), 
-                SaveCookie.class, SaveAsCookie.class, PlayCookie.class,
-                LoopCookie.class, StopCookie.class, StopAllCookie.class);
-    }
-    
-    private static void registerCookies(InstanceContent i, Lookup l, CookieSet cs, Class<? extends Node.Cookie>...types){
-        for(Class<? extends Node.Cookie> c : types){
-            removeCookie(c, l, i);
-            addCookie(c, cs, i);
-        }
-    }
-    
-    private static <T extends Cookie> void removeCookie(Class<T> c, Lookup l, InstanceContent i){
-        T t = l.lookup(c);
-        if(t != null){
-            i.remove(t);
-        }
-    }
-    
-    private static <T extends Cookie> void addCookie(Class<T> c, CookieSet cs, InstanceContent i){
-        T t = cs.getCookie(c);
-        if(t != null){
-            i.add(t);
-        }
+        setDisplayName(myController.getName());
+        myController.addPropertyChangeListener(WeakListeners.propertyChange(this, myController));
     }
 
     public AnimationEditor getAnimationController(){
         return myController;
     }
-    
+
     @Override
     public String getHtmlDisplayName() {
         if(myController == null){
@@ -150,8 +88,8 @@ public class AnimationNode extends AbstractNode implements PropertyChangeListene
         set.put(pathProp);
         return set;
     }
-    
-    private Property getPathProperty(){
+
+	private Property getPathProperty(){
         /* Changed Path property from read/write to read only since changing the
          * could be expected to move or copy the animation to the new path.
          * I don't want to spend time supporting this since I plan to change
@@ -183,7 +121,7 @@ public class AnimationNode extends AbstractNode implements PropertyChangeListene
         };
         return pathProp;
     }
-    
+
     protected Sheet.Set[] getPropertySheetSets(){
         List<Sheet.Set> sets = new ArrayList(2);
         try{
@@ -203,16 +141,15 @@ public class AnimationNode extends AbstractNode implements PropertyChangeListene
         }
         return sheet;
     }
-    
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (AbstractEditor.PROP_NAME.equals(evt.getPropertyName())) {
             setDisplayName((String)evt.getNewValue());
         }
-        setSaveCookie();
     }
 
-    /*public static class AnimationControllerChildren extends Children.Keys{
+	/*public static class AnimationControllerChildren extends Children.Keys{
         private AnimationEditor myController;
 
         public AnimationControllerChildren(AnimationEditor controller){
