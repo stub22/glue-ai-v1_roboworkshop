@@ -23,7 +23,6 @@ import org.netbeans.core.spi.multiview.text.MultiViewEditorElement;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionReferences;
-import org.openide.cookies.SaveCookie;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.MIMEResolver;
 import org.openide.loaders.DataObject;
@@ -40,13 +39,17 @@ import org.openide.windows.TopComponent;
 import org.rwshop.nb.animation.cookies.*;
 import org.rwshop.nb.common.cookies.*;
 
+/**
+ *
+ * @author krystal
+ */
 @Messages({
 	"LBL_Animation_LOADER=Files of Animation"
 })
 @MIMEResolver.ExtensionRegistration(
 		displayName = "#LBL_Animation_LOADER",
 		mimeType = "text/rkanim+xml",
-		extension = {"rkanim", "xml"}
+		extension = {"rkanim", "xml", "anim"}
 )
 @DataObject.Registration(
 		mimeType = "text/rkanim+xml",
@@ -111,6 +114,13 @@ public class AnimationDataObject extends MultiDataObject {
 	private Lookup lookup;
 	private AnimationEditor myController;
 
+	/**
+	 *
+	 * @param pf
+	 * @param loader
+	 * @throws DataObjectExistsException
+	 * @throws IOException	 *
+	 */
 	public AnimationDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException, IOException {
 		super(pf, loader);
 		registerEditor("text/rkanim+xml", true);
@@ -122,11 +132,15 @@ public class AnimationDataObject extends MultiDataObject {
 		myContent.add(this);
 	}
 
-	public void setController(AnimationEditor editor){
+	/**
+	 *
+	 * @param controller
+	 */
+	public void setController(AnimationEditor controller){
 		if(myController != null){
 			myContent.remove(myController);
 		}
-		myController = editor;
+		myController = controller;
 		myContent.add(myController);
 
 		getCookieSet().add(new PlayAnimationCookie(myController));
@@ -136,15 +150,28 @@ public class AnimationDataObject extends MultiDataObject {
 		registerCookies(myContent, lookup);
 	}
 
+	/**
+	 *
+	 * @return AnimationEditor controller
+	 */
 	public AnimationEditor getController(){
 		return myController;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	@Override
 	protected int associateLookup() {
 		return 1;
 	}
 
+	/**
+	 *
+	 * @param lkp
+	 * @return
+	 */
 	@MultiViewElement.Registration(
 			displayName = "#LBL_Animation_EDITOR",
 			iconBase = "org/rwshop/nb/animation/web.png",
@@ -158,19 +185,32 @@ public class AnimationDataObject extends MultiDataObject {
 		return new MultiViewEditorElement(lkp);
 	}
 
+	/**
+	 *
+	 * @return new AnimationNode
+	 */
 	@Override
 	protected Node createNodeDelegate(){
 		return new AnimationNode(getLookup().lookup(AnimationEditor.class));
 	}
 
+	/**
+	 *
+	 * @return AnimationDataObject lookup
+	 */
 	@Override
 	public Lookup getLookup(){
 		return lookup;
 	}
 
+	/**
+	 *
+	 * @param content
+	 * @param l
+	 */
 	public void registerCookies(InstanceContent content, Lookup l){
         registerCookies(content, l, getCookieSet(),
-                PlayCookie.class,LoopCookie.class, StopCookie.class, StopAllCookie.class);
+                PlayCookie.class, LoopCookie.class, StopCookie.class, StopAllCookie.class);
     }
 
     private static void registerCookies(InstanceContent i, Lookup l, CookieSet cs, Class<? extends Node.Cookie>...types){

@@ -19,6 +19,8 @@ package org.rwshop.nb.animation.actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
 import org.rwshop.nb.animation.AnimationTimelineEditor;
 import org.rwshop.nb.animation.history.UndoRedoFactory;
@@ -42,33 +44,48 @@ public final class OpenAnimationAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        SourceImpl<AnimationEditor> cS = new SourceImpl<AnimationEditor>();
-        new FileAction.Open(cS, new UndoRedoFactory(), null).actionPerformed(null);
-        if(cS.getValue() == null){
-            return;
-        }
+		File[] files = fileChooser();
+		for (File file : files) {
+			SourceImpl<AnimationEditor> cS = new SourceImpl<AnimationEditor>();
+			new FileAction.Open(cS, new UndoRedoFactory(), file.getPath()).actionPerformed(null);
+			if(cS.getValue() == null){
+				return;
+			}
+			String path = cS.getValue().getFilePath();
+			FileObject fob = FileUtil.toFileObject(new File(path));
+			DataObject dob = null;
+			try {
+				dob = DataObject.find(fob);
 
-		String path = cS.getValue().getFilePath();
-		FileObject fob = FileUtil.toFileObject(new File(path));
-		DataObject dob = null;
-		try {
-			dob = DataObject.find(fob);
+			} catch (DataObjectNotFoundException ex) {
+				Exceptions.printStackTrace(ex);
+			}
+			if(dob == null || !(AnimationDataObject.class).isInstance(dob)){
+				return;
+			}
+			AnimationDataObject animDob = (AnimationDataObject)dob;
+			animDob.setController(cS.getValue());
 
-		} catch (DataObjectNotFoundException ex) {
-			Exceptions.printStackTrace(ex);
+			AnimationTimelineEditor editor = new AnimationTimelineEditor(animDob);
+			editor.open();
+			editor.requestActive();
+			CoordinateScalar scaler = new DefaultCoordinateScalar(0.02, 400, true);
+			ScalingManager sm = new ScalingManager(scaler);
+			editor.init(sm);
+			editor.setController(cS.getValue());
 		}
-		if(dob == null || !(AnimationDataObject.class).isInstance(dob)){
-			return;
-		}
-		AnimationDataObject animDob = (AnimationDataObject)dob;
-		animDob.setController(cS.getValue());
-
-		AnimationTimelineEditor editor = new AnimationTimelineEditor(animDob);
-        editor.open();
-        editor.requestActive();
-        CoordinateScalar scaler = new DefaultCoordinateScalar(0.02, 400, true);
-        ScalingManager sm = new ScalingManager(scaler);
-        editor.init(sm);
-        editor.setController(cS.getValue());
     }
+
+	private File[] fileChooser(){
+		JFileChooser chooser = new JFileChooser(FileAction.Settings.getLastDirectory());
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				"rkanim files", "rkanim");
+		chooser.setFileFilter(filter);
+		chooser.setMultiSelectionEnabled(true);
+		int ret = chooser.showOpenDialog(null);
+		if (ret != JFileChooser.APPROVE_OPTION) {
+			return null;
+		}
+		return chooser.getSelectedFiles();
+	}
 }

@@ -63,7 +63,7 @@ public class AnimationTimelineEditor extends TopComponent implements ComponentLi
         addComponentListener(this);
 		associateLookup(new AbstractLookup(content));
 		content.add(animDob);
-    }
+	}
 
     public void init(ScalingManager scalingManager){
         myPanel.init(scalingManager);
@@ -84,6 +84,7 @@ public class AnimationTimelineEditor extends TopComponent implements ComponentLi
 			myController.addPropertyChangeListener(this);
 			myController.recursiveAdd(myAnimListener);
 			myAnimListener.addListener(this);
+			animDob.registerCookies(content, getLookup());
 		}
     }
 

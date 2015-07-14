@@ -142,6 +142,7 @@
             </file>
         </folder>
         <file name="Clipboard_hidden"/>
+        <file name="Memory_hidden"/>
     </folder>
     <folder name="Windows2">
         <folder name="Components">
