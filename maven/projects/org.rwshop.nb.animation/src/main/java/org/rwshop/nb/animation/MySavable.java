@@ -16,6 +16,7 @@
 
 package org.rwshop.nb.animation;
 
+import java.io.File;
 import java.io.IOException;
 import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
 import org.netbeans.spi.actions.AbstractSavable;
@@ -32,17 +33,31 @@ import org.rwshop.swing.animation.actions.FileAction;
 public class MySavable extends AbstractSavable implements SaveAsCapable{
 	private AnimationDataObject myAnimDObj;
 	private InstanceContent myContent;
+
+	/**
+	 *
+	 * @param animDob
+	 * @param content
+	 */
 	public MySavable(AnimationDataObject animDob, InstanceContent content){
 		myAnimDObj = animDob;
 		myContent = content;
 		register();
 	}
 
+	/**
+	 *
+	 * @return Animation name
+	 */
 	@Override
 	protected String findDisplayName() {
 		return myAnimDObj.getController().getName();
 	}
 
+	/**
+	 *
+	 * @throws IOException	 *
+	 */
 	@Override
 	protected void handleSave() throws IOException {
 		new FileAction.Save(new SourceImpl(myAnimDObj.getController()), false).actionPerformed(null);
@@ -65,9 +80,15 @@ public class MySavable extends AbstractSavable implements SaveAsCapable{
 		return myAnimDObj.hashCode();
 	}
 
+	/**
+	 *
+	 * @param folder
+	 * @param name
+	 * @throws IOException
+	 */
 	@Override
-	public void saveAs(FileObject folder, String name) throws IOException {
-		String path = folder.getPath() + "/" + name;
+	public void saveAs(FileObject directory, String name) throws IOException {
+		String path = directory.getPath() + File.separator + name;
 		if (!path.endsWith(".rkanim")) {
 			path = path.concat(".rkanim");
 		}

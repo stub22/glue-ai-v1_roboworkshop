@@ -18,6 +18,8 @@ package org.rwshop.swing.animation.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.prefs.*;
 import javax.swing.JFileChooser;
 import org.apache.commons.configuration.ConfigurationException;
 import org.jflux.api.common.rk.utils.RKSource;
@@ -34,17 +36,15 @@ import org.rwshop.swing.common.utils.MessageAlerter;
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class FileAction {
-
     /**
      *
      */
-    public static class New implements ActionListener{
+    public static class New implements ActionListener {
         private RKSource<AnimationEditor> mySource;
         private Source<? extends HistoryStack> myHistoryFactory;
 
         /**
          *
-         * @param label
          * @param source
          * @param histFact
          */
@@ -54,7 +54,7 @@ public class FileAction {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-			JFileChooser fileChooser = new JFileChooser();
+			JFileChooser fileChooser = new JFileChooser(Settings.getLastDirectory());
 			int i = fileChooser.showOpenDialog(null);
 			if(i == JFileChooser.CANCEL_OPTION){
 				mySource.set(null);
@@ -64,6 +64,7 @@ public class FileAction {
 			if (!path.endsWith(".rkanim")) {
 				path = path.concat(".rkanim");
 			}
+			Settings.saveLastDirectory(path);
 
             Animation anim = new Animation();
 			AnimationEditor editor = new AnimationEditor(anim, path,
@@ -82,7 +83,6 @@ public class FileAction {
 
         /**
          *
-         * @param label
          * @param source
          * @param histFact
          * @param path
@@ -96,20 +96,22 @@ public class FileAction {
         public void actionPerformed(ActionEvent e) {
             String path = myPath;
             if(path == null || path.isEmpty()){
-                JFileChooser fileChooser = new JFileChooser();
+                JFileChooser fileChooser = new JFileChooser(Settings.getLastDirectory());
                 int i = fileChooser.showOpenDialog(null);
                 if(i == JFileChooser.CANCEL_OPTION){
                     mySource.set(null);
                     return;
                 }
                 path = fileChooser.getSelectedFile().getPath();
-				if (!path.endsWith(".rkanim")) {
-					path = path.concat(".rkanim");
-				}
             }
+			String name = path.substring(path.lastIndexOf(File.separator)+File.separator.length());
+			if (!path.endsWith(".rkanim")) {
+				path = path.concat(".rkanim");
+			}
+			Settings.saveLastDirectory(path);
             AnimationEditor temp = mySource.getValue();
             mySource.set(null);
-			String name = path.substring(path.lastIndexOf("\\") + 1, path.lastIndexOf(".rkanim"));
+
             try{
                 Animation anim = AnimationXML.loadAnimation(path);
                     anim.setVersion(name, anim.getVersion().getNumber());
@@ -125,14 +127,13 @@ public class FileAction {
     }
 
     /**
-     *
+     * Handles save in MySavable and various other files in org.rwshop.swing.animation
      */
     public static class Save implements ActionListener{
         private RKSource<AnimationEditor> mySource;
         private boolean myOpenDialog;
         /**
          *
-         * @param label
          * @param source
          * @param dialog
          */
@@ -145,14 +146,15 @@ public class FileAction {
             AnimationEditor editor = mySource.getValue();
             String path = editor.getFilePath();
             if(myOpenDialog || path == null || path.isEmpty()){
-                JFileChooser fileChooser = new JFileChooser();
+                JFileChooser fileChooser = new JFileChooser(Settings.getLastDirectory());
                 int i = fileChooser.showSaveDialog(null);
                 if(i == JFileChooser.CANCEL_OPTION){
                     return;
                 }
                 path = fileChooser.getSelectedFile().getPath();
             }
-			String name = path.substring(path.lastIndexOf("\\")+1);
+			Settings.saveLastDirectory(path);
+			String name = path.substring(path.lastIndexOf(File.separator)+File.separator.length());
             boolean error = true;
             String innerError = "";
             Throwable innerException = null;
@@ -177,7 +179,17 @@ public class FileAction {
         }
     }
 
+	/**
+	 * Handles SaveAs for SaveAsCapable implementation in MySavable
+	 */
 	public static class SaveAs {
+
+		/**
+		 *
+		 * @param path
+		 * @param name
+		 * @param controller
+		 */
 		public SaveAs(String path, String name, AnimationEditor controller) {
 			boolean error = true;
 			String innerError = "";
@@ -189,6 +201,7 @@ public class FileAction {
 						editor.collectSynchronizedPointGroups());
 				error = false;
 				editor.setFilePath(path);
+				Settings.saveLastDirectory(path);
 				editor.setName(name);
 			} catch (ConfigurationException ex) {
 				innerError = "There was an error writing the Animation to XML";
@@ -201,6 +214,34 @@ public class FileAction {
 			} else {
 				MessageAlerter.Ok("File Saved", "The Animation was successfully saved.");
 			}
+		}
+	}
+
+	/**
+	 *Saves and retrieves most recently accessed directory.
+	 */
+	public static class Settings {
+		private final static Preferences prefs = Preferences.userNodeForPackage(Settings.class);;
+
+		private void Settings() {}
+
+		/**
+		 *
+		 * @param path
+		 */
+		public static void saveLastDirectory(String path) {
+			prefs.put("LAST_DIRECTORY", path);
+		}
+
+		/**
+		 *
+		 * @return most recently accessed directory
+		 */
+		public static String getLastDirectory() {
+			if (prefs.get("LAST_DIRECTORY", "") == null || prefs.get("LAST_DIRECTORY", "").isEmpty()) {
+				return System.getProperty("user.home");
+			}
+			return prefs.get("LAST_DIRECTORY", "");
 		}
 	}
 }

@@ -17,7 +17,7 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<scope>runtime</scope>
 		    <exclusions>
-				<!-- This embedded Log4J version is not OSGi friendly -->				
+				<!-- This embedded Log4J version is not OSGi friendly -->
 		        <exclusion>
 		            <artifactId>log4j</artifactId>
 		            <groupId>log4j</groupId>
@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>org.apache.log4j</groupId>
 			<artifactId>com.springsource.org.apache.log4j</artifactId>
-			<scope>runtime</scope>		
+			<scope>runtime</scope>
 		</dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
@@ -56,14 +56,17 @@
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util</artifactId>
+            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util-lookup</artifactId>
+            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-awt</artifactId>
+            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
@@ -81,6 +84,11 @@
         <dependency>
 			<groupId>org.jflux</groupId>
             <artifactId>org.jflux.impl.services.rk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-modules-options-api</artifactId>
+            <version>${netbeans.version}</version>
         </dependency>
     </dependencies>
 
