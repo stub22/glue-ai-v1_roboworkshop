@@ -155,6 +155,9 @@ public class FileAction {
             }
 			Settings.saveLastDirectory(path);
 			String name = path.substring(path.lastIndexOf(File.separator)+File.separator.length());
+			if (!path.endsWith(".rkanim")) {
+				path = path.concat(".rkanim");
+			}
             boolean error = true;
             String innerError = "";
             Throwable innerException = null;
