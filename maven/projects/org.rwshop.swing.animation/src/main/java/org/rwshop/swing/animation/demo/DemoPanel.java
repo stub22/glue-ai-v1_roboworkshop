@@ -168,23 +168,23 @@ public class DemoPanel extends javax.swing.JPanel {
                 new OSGiComponent(
                         context, new SimpleLifecycle(con, Connection.class));
         myConnectionService.start();
-        ConnectionUtils.ensureSession(context, 
+        ConnectionUtils.ensureSession(context,
                 "remoteAnimConnection", con, null);
-        ConnectionUtils.ensureDestinations(context, 
+        ConnectionUtils.ensureDestinations(context,
                 "remoteAnimationRequest", "animationRequest",
                 ConnectionUtils.TOPIC, null);
-        JMSAvroMessageSenderLifecycle senderLife = 
+        JMSAvroMessageSenderLifecycle senderLife =
                 new JMSAvroMessageSenderLifecycle(
-                        new PortableAnimationEvent.MessageRecordAdapter(), 
-                        AnimationEvent.class, AnimationRecord.class, 
-                        "remoteAnimSender", "remoteAnimConnection", 
+                        new PortableAnimationEvent.MessageRecordAdapter(),
+                        AnimationEvent.class, AnimationRecord.class,
+                        "remoteAnimSender", "remoteAnimConnection",
                         "remoteAnimationRequest");
         registerEventFactory(context);
         mySenderService = new OSGiComponent(context, senderLife);
         mySenderService.start();
-        ConnectionUtils.ensureSession(context, 
+        ConnectionUtils.ensureSession(context,
                 "remoteSignalConnection", con, null);
-        ConnectionUtils.ensureDestinations(context, 
+        ConnectionUtils.ensureDestinations(context,
                 "remoteAnimationSignal", "animationSignal",
                 ConnectionUtils.TOPIC, null);
         JMSAvroAsyncReceiverLifecycle receiverLife =
@@ -196,27 +196,28 @@ public class DemoPanel extends javax.swing.JPanel {
         ManagedService myReceiverService =
                 new OSGiComponent(context, receiverLife);
         myReceiverService.start();
-        myLifecycle = 
+        myLifecycle =
                 new AnimationPlayerClientLifecycle(
                 "remotePlayer", "remotePlayer", "remoteAnimSender",
                 "remoteSignalReceiver", context);
         myPlayerService = new OSGiComponent(context, myLifecycle);
         myPlayerService.start();
+		JOptionPane.showMessageDialog(null, "Robot successfully connected!", "", JOptionPane.INFORMATION_MESSAGE);
         myStartFlag = true;
     }
-    
+
     private void registerEventFactory(BundleContext context){
         if(OSGiUtils.serviceExists(
                 context, AnimationEvent.AnimationEventFactory.class, null)){
             return;
         }
-        new OSGiComponent(context, 
+        new OSGiComponent(context,
                 new SimpleLifecycle(
-                        new PortableAnimationEvent.Factory(), 
+                        new PortableAnimationEvent.Factory(),
                         AnimationEventFactory.class)
                 ).start();
     }
-    
+
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         if(myLifecycle == null){
             return;
@@ -254,7 +255,7 @@ public class DemoPanel extends javax.swing.JPanel {
         btnDisconnect.setEnabled(myStartFlag);
         btnClear.setEnabled(myStartFlag);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDisconnect;
