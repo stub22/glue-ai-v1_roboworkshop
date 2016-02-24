@@ -103,23 +103,23 @@
 					<!--
                     <execution>
 
-                        <id>copy-native-libs-to-root</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/${brandingToken}</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.build.directory}/${brandingToken}/org_cogchar_nbui_render/native-lib</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-					-->
+    <id>copy-native-libs-to-root</id>
+    <phase>package</phase>
+    <goals>
+        <goal>copy-resources</goal>
+    </goals>
+    <configuration>
+        <outputDirectory>${project.build.directory}/${brandingToken}</outputDirectory>
+        <resources>
+            <resource>
+                <directory>${project.build.directory}/${brandingToken}/org_cogchar_nbui_render/native-lib</directory>
+            </resource>
+        </resources>
+    </configuration>
+</execution>
+                    -->
                     <execution>
-						<!-- Copies launch scripts to bin directory -->
+                        <!-- Copies launch scripts to bin directory -->
                         <id>copy-launch-scripts-to-bin</id>
                         <phase>package</phase>
                         <goals>
@@ -135,9 +135,9 @@
                         </configuration>
                     </execution>
                     <execution>
-						<!-- Overwrite the felix lib with our own version that has a patched default.properties file,
-							 allowing LWJGL simulator code to use the sun.misc.Unsafe code under Netisgo.
-						-->
+                        <!-- Overwrite the felix lib with our own version that has a patched default.properties file,
+                                 allowing LWJGL simulator code to use the sun.misc.Unsafe code under Netisgo.
+                        -->
                         <id>patch-felix-lib</id>
                         <phase>package</phase>
                         <goals>
