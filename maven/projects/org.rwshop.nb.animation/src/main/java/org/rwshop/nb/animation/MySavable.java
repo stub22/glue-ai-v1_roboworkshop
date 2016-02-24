@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.rwshop.nb.animation;
 
 import java.io.File;
@@ -29,20 +28,29 @@ import org.rwshop.swing.animation.actions.FileAction;
  *
  * @author krystal
  */
+public class MySavable extends AbstractSavable implements SaveAsCapable {
 
-public class MySavable extends AbstractSavable implements SaveAsCapable{
 	private AnimationDataObject myAnimDObj;
 	private InstanceContent myContent;
+	private boolean myRegistered;
 
 	/**
 	 *
 	 * @param animDob
 	 * @param content
 	 */
-	public MySavable(AnimationDataObject animDob, InstanceContent content){
+	public MySavable(AnimationDataObject animDob, InstanceContent content) {
 		myAnimDObj = animDob;
 		myContent = content;
 		register();
+		myRegistered = true;
+	}
+
+	/**
+	 * @return the myRegistered
+	 */
+	public boolean isRegistered() {
+		return myRegistered;
 	}
 
 	/**
@@ -56,12 +64,13 @@ public class MySavable extends AbstractSavable implements SaveAsCapable{
 
 	/**
 	 *
-	 * @throws IOException	 *
+	 * @throws IOException	*
 	 */
 	@Override
 	protected void handleSave() throws IOException {
 		new FileAction.Save(new SourceImpl(myAnimDObj.getController()), false).actionPerformed(null);
 		unregister();
+		myRegistered = false;
 		myContent.remove(this);
 		myAnimDObj.setModified(false);
 	}
@@ -69,8 +78,8 @@ public class MySavable extends AbstractSavable implements SaveAsCapable{
 	@Override
 	public boolean equals(Object obj) {
 		Class save = MySavable.class;
-		if(save.isInstance(obj)){
-			return ((MySavable)obj).myAnimDObj.equals(myAnimDObj);
+		if (save.isInstance(obj)) {
+			return ((MySavable) obj).myAnimDObj.equals(myAnimDObj);
 		}
 		return false;
 	}
@@ -84,6 +93,7 @@ public class MySavable extends AbstractSavable implements SaveAsCapable{
 	 *
 	 * @param folder
 	 * @param name
+	 *
 	 * @throws IOException
 	 */
 	@Override
@@ -95,8 +105,8 @@ public class MySavable extends AbstractSavable implements SaveAsCapable{
 
 		new FileAction.SaveAs(path, name, myAnimDObj.getController());
 		unregister();
+		myRegistered = false;
 		myContent.remove(this);
 		myAnimDObj.setModified(false);
 	}
 }
-
