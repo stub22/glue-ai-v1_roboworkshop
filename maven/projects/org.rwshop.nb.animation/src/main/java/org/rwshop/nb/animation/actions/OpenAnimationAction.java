@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *	  http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.rwshop.nb.animation.actions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.lang.invoke.MethodHandles;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
-import org.rwshop.nb.animation.AnimationTimelineEditor;
-import org.rwshop.nb.animation.history.UndoRedoFactory;
-import org.rwshop.swing.animation.actions.FileAction;
 import org.mechio.api.animation.editor.AnimationEditor;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
@@ -32,6 +31,9 @@ import org.openide.loaders.DataObject;
 import org.openide.loaders.DataObjectNotFoundException;
 import org.openide.util.Exceptions;
 import org.rwshop.nb.animation.AnimationDataObject;
+import org.rwshop.nb.animation.AnimationTimelineEditor;
+import org.rwshop.nb.animation.history.UndoRedoFactory;
+import org.rwshop.swing.animation.actions.FileAction;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import org.rwshop.swing.common.scaling.DefaultCoordinateScalar;
 import org.rwshop.swing.common.scaling.ScalingManager;
@@ -42,13 +44,20 @@ import org.rwshop.swing.common.scaling.ScalingManager;
  */
 public final class OpenAnimationAction implements ActionListener {
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+	private final static Logger theLogger = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		File[] files = fileChooser();
+		if (files == null) {
+			theLogger.log(Level.INFO, "OpenAnimationAction cancelled. No file(s) were selected.");
+			return;
+		}
+
 		for (File file : files) {
 			SourceImpl<AnimationEditor> cS = new SourceImpl<AnimationEditor>();
 			new FileAction.Open(cS, new UndoRedoFactory(), file.getPath()).actionPerformed(null);
-			if(cS.getValue() == null){
+			if (cS.getValue() == null) {
 				return;
 			}
 			String path = cS.getValue().getFilePath();
@@ -60,10 +69,10 @@ public final class OpenAnimationAction implements ActionListener {
 			} catch (DataObjectNotFoundException ex) {
 				Exceptions.printStackTrace(ex);
 			}
-			if(dob == null || !(AnimationDataObject.class).isInstance(dob)){
+			if (dob == null || !(AnimationDataObject.class).isInstance(dob)) {
 				return;
 			}
-			AnimationDataObject animDob = (AnimationDataObject)dob;
+			AnimationDataObject animDob = (AnimationDataObject) dob;
 			animDob.setController(cS.getValue());
 
 			AnimationTimelineEditor editor = new AnimationTimelineEditor(animDob);
@@ -74,9 +83,9 @@ public final class OpenAnimationAction implements ActionListener {
 			editor.init(sm);
 			editor.setController(cS.getValue());
 		}
-    }
+	}
 
-	private File[] fileChooser(){
+	private File[] fileChooser() {
 		JFileChooser chooser = new JFileChooser(FileAction.Settings.getLastDirectory());
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
 				"rkanim files", "rkanim");
