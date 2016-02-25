@@ -50,7 +50,7 @@ public class AnimationTimelineEditor extends TopComponent implements ComponentLi
 	private boolean myIsInitialized;
 	private AnimationDataObject animDob;
 	private AnimationChangeListener myAnimListener;
-	private MySavable save;
+	private AnimationSavable save;
 
 	/**
 	 * Creates new form AnimationTimelineEditor
@@ -171,9 +171,9 @@ public class AnimationTimelineEditor extends TopComponent implements ComponentLi
 		if (evt.getPropertyName().equals(AbstractEditor.PROP_NAME)) {
 			setAnimName(evt.getNewValue().toString());
 		}
-		if (getLookup().lookup(MySavable.class) == null) {
+		if (getLookup().lookup(AnimationSavable.class) == null) {
 			if (save == null || !save.isRegistered()) {
-				save = new MySavable(animDob, content);
+				save = new AnimationSavable(animDob, content);
 			}
 			content.add(save);
 		}
