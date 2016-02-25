@@ -28,7 +28,7 @@ import org.rwshop.swing.animation.actions.FileAction;
  *
  * @author krystal
  */
-public class MySavable extends AbstractSavable implements SaveAsCapable {
+public class AnimationSavable extends AbstractSavable implements SaveAsCapable {
 
 	private AnimationDataObject myAnimDObj;
 	private InstanceContent myContent;
@@ -39,7 +39,7 @@ public class MySavable extends AbstractSavable implements SaveAsCapable {
 	 * @param animDob
 	 * @param content
 	 */
-	public MySavable(AnimationDataObject animDob, InstanceContent content) {
+	public AnimationSavable(AnimationDataObject animDob, InstanceContent content) {
 		myAnimDObj = animDob;
 		myContent = content;
 		register();
@@ -77,9 +77,9 @@ public class MySavable extends AbstractSavable implements SaveAsCapable {
 
 	@Override
 	public boolean equals(Object obj) {
-		Class save = MySavable.class;
+		Class save = AnimationSavable.class;
 		if (save.isInstance(obj)) {
-			return ((MySavable) obj).myAnimDObj.equals(myAnimDObj);
+			return ((AnimationSavable) obj).myAnimDObj.equals(myAnimDObj);
 		}
 		return false;
 	}
