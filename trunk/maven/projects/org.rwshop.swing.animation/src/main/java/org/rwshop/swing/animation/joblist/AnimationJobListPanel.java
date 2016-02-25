@@ -19,7 +19,6 @@
  *
  * Created on Apr 28, 2011, 1:33:08 PM
  */
-
 package org.rwshop.swing.animation.joblist;
 
 import java.awt.Color;
@@ -33,108 +32,112 @@ import javax.swing.BoxLayout;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import org.jflux.api.common.rk.utils.TimeUtils;
+import org.mechio.api.animation.player.AnimationJob;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
-import org.mechio.api.animation.player.AnimationJob;
 
 /**
  *
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class AnimationJobListPanel extends javax.swing.JPanel {
-    private final static Border theBorder = new MatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY);
-    private List<AnimationJobPanel> myAnimationJobPanels;
-    private Map<AnimationJob,AnimationJobPanel> myAnimationJobMap;
-    private AnimationJobServiceListener myServiceListener;
-    /** Creates new form AnimationJobListPanel */
-    public AnimationJobListPanel() {
-        initComponents();
-        myAnimationJobPanels = new ArrayList();
-        myAnimationJobMap = new HashMap();
-        myAnimationJobsPanel.setLayout(new BoxLayout(myAnimationJobsPanel,BoxLayout.Y_AXIS));
-        startListening();
-    }
 
-    /**
-     *
-     * @param job
-     */
-    public void addAnimationJob(AnimationJob job){
-        addJob(job);
-        myAnimationJobsPanel.revalidate();
-    }
+	private final static Border theBorder = new MatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY);
+	private List<AnimationJobPanel> myAnimationJobPanels;
+	private Map<AnimationJob, AnimationJobPanel> myAnimationJobMap;
+	private AnimationJobServiceListener myServiceListener;
 
-    /**
-     *
-     * @param jobs
-     */
-    public void addAnimationJobs(List<AnimationJob> jobs){
-        for(AnimationJob job : jobs){
-            addJob(job);
-        }
-        myAnimationJobsPanel.revalidate();
-    }
+	/**
+	 * Creates new form AnimationJobListPanel
+	 */
+	public AnimationJobListPanel() {
+		initComponents();
+		myAnimationJobPanels = new ArrayList();
+		myAnimationJobMap = new HashMap();
+		myAnimationJobsPanel.setLayout(new BoxLayout(myAnimationJobsPanel, BoxLayout.Y_AXIS));
+		startListening();
+	}
 
-    /**
-     *
-     */
-    public void startListening(){
-        Bundle bundle = FrameworkUtil.getBundle(AnimationJob.class);
-        if(bundle == null){
-            return;
-        }
-        BundleContext context = bundle.getBundleContext();
-        startListening(context);
-    }
+	/**
+	 *
+	 * @param job
+	 */
+	public void addAnimationJob(AnimationJob job) {
+		addJob(job);
+		myAnimationJobsPanel.revalidate();
+	}
 
-    /**
-     *
-     * @param context
-     */
-    public void startListening(BundleContext context){
-        if(context == null || myServiceListener != null){
-            return;
-        }
-        myServiceListener = new AnimationJobServiceListener(context, this);
-    }
+	/**
+	 *
+	 * @param jobs
+	 */
+	public void addAnimationJobs(List<AnimationJob> jobs) {
+		for (AnimationJob job : jobs) {
+			addJob(job);
+		}
+		myAnimationJobsPanel.revalidate();
+	}
 
-    private void addJob(AnimationJob job){
-        if(job == null){
-            return;
-        }
-        if(myAnimationJobMap.containsKey(job)){
-           return;
-        }
-        AnimationJobPanel panel = new AnimationJobPanel();
-        panel.setBorder(theBorder);
-        panel.addCloseListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                closePanel(e);
-            }
-        });
-        panel.setAnimationJob(job);
-        myAnimationJobMap.put(job, panel);
-        myAnimationJobPanels.add(panel);
-        myAnimationJobsPanel.add(panel);
+	/**
+	 *
+	 */
+	public void startListening() {
+		Bundle bundle = FrameworkUtil.getBundle(AnimationJob.class);
+		if (bundle == null) {
+			return;
+		}
+		BundleContext context = bundle.getBundleContext();
+		startListening(context);
+	}
+
+	/**
+	 *
+	 * @param context
+	 */
+	public void startListening(BundleContext context) {
+		if (context == null || myServiceListener != null) {
+			return;
+		}
+		myServiceListener = new AnimationJobServiceListener(context, this);
+	}
+
+	private void addJob(AnimationJob job) {
+		if (job == null) {
+			return;
+		}
+		if (myAnimationJobMap.containsKey(job)) {
+			return;
+		}
+		AnimationJobPanel panel = new AnimationJobPanel();
+		panel.setBorder(theBorder);
+		panel.addCloseListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				closePanel(e);
+			}
+		});
+		panel.setAnimationJob(job);
+		myAnimationJobMap.put(job, panel);
+		myAnimationJobPanels.add(panel);
+		myAnimationJobsPanel.add(panel);
 		btnClear.setEnabled(true);
-    }
+	}
 
-    /**
-     *
-     * @param job
-     */
-    public void removeAnimationJob(AnimationJob job){
-        AnimationJobPanel panel = myAnimationJobMap.remove(job);
-        if(panel == null){
-            return;
-        }
-        myAnimationJobPanels.remove(panel);
-        myAnimationJobsPanel.remove(panel);
-        myAnimationJobsPanel.revalidate();
-        myAnimationJobsPanel.repaint();
-    }
+	/**
+	 *
+	 * @param job
+	 */
+	public void removeAnimationJob(AnimationJob job) {
+		AnimationJobPanel panel = myAnimationJobMap.remove(job);
+		if (panel == null) {
+			return;
+		}
+		myAnimationJobPanels.remove(panel);
+		myAnimationJobsPanel.remove(panel);
+		myAnimationJobsPanel.revalidate();
+		myAnimationJobsPanel.repaint();
+	}
 
 	public void removeAllAnimationJobs() {
 		if (myAnimationJobPanels.isEmpty()) {
@@ -148,32 +151,32 @@ public class AnimationJobListPanel extends javax.swing.JPanel {
 		btnClear.setEnabled(false);
 	}
 
-    private void closePanel(ActionEvent e){
-        Object obj = e.getSource();
-        if(obj == null || !(obj instanceof AnimationJobPanel)){
-            return;
-        }
-        AnimationJobPanel panel = (AnimationJobPanel)obj;
-        if(panel == null){
-            return;
-        }
-        AnimationJob job = panel.getAnimationJob();
-        if(job == null){
-            return;
-        }
-        job.stop(TimeUtils.now());
-        removeAnimationJob(job);
-        if(myServiceListener != null){
-            myServiceListener.unregisterService(job);
-        }
-    }
+	private void closePanel(ActionEvent e) {
+		Object obj = e.getSource();
+		if (obj == null || !(obj instanceof AnimationJobPanel)) {
+			return;
+		}
+		AnimationJobPanel panel = (AnimationJobPanel) obj;
+		if (panel == null) {
+			return;
+		}
+		AnimationJob job = panel.getAnimationJob();
+		if (job == null) {
+			return;
+		}
+		job.stop(TimeUtils.now());
+		removeAnimationJob(job);
+		if (myServiceListener != null) {
+			myServiceListener.unregisterService(job);
+		}
+	}
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+	/**
+	 * This method is called from within the constructor to initialize the form.
+	 * WARNING: Do NOT modify this code. The content of this method is always
+	 * regenerated by the Form Editor.
+	 */
+	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -214,9 +217,7 @@ public class AnimationJobListPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnClear)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(myAnimationJobsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+            .addComponent(myAnimationJobsScrollPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,12 +225,12 @@ public class AnimationJobListPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(btnClear)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(myAnimationJobsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(myAnimationJobsScrollPane))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        removeAllAnimationJobs();
+		removeAllAnimationJobs();
     }//GEN-LAST:event_btnClearActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
