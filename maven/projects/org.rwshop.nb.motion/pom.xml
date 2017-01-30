@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-	<parent>
+    <parent>
         <groupId>org.rwshop</groupId>
         <artifactId>org.rwshop.modules.motion</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-		<relativePath>../../org.rwshop.modules.motion/pom.xml</relativePath>
+        <relativePath>../../org.rwshop.modules.motion/pom.xml</relativePath>
     </parent>
     <artifactId>org.rwshop.nb.motion</artifactId>
     <name>${project.artifactId} NetBeans Module</name>
@@ -91,7 +91,7 @@
             <artifactId>org.jflux.api.messaging.rk</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.appdapter</groupId>
+            <groupId>org.appdapter</groupId>
             <artifactId>ext.bundle.apache_qpid_032</artifactId>
         </dependency>
         <dependency>
@@ -99,11 +99,11 @@
             <artifactId>org.jflux.impl.messaging.rk</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.mechio</groupId>
-			<artifactId>org.mechio.integration.motion_speech</artifactId>
+            <groupId>org.mechio</groupId>
+            <artifactId>org.mechio.integration.motion_speech</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.jflux</groupId>
+            <groupId>org.jflux</groupId>
             <artifactId>org.jflux.api.core</artifactId>
         </dependency>
         <dependency>
@@ -115,16 +115,21 @@
             <artifactId>org.jflux.impl.transport.qpid</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.jflux</groupId>
+            <groupId>org.jflux</groupId>
             <artifactId>org.jflux.impl.services.rk</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.jflux</groupId>
+            <groupId>org.jflux</groupId>
             <artifactId>org.jflux.demo.discovery</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.jflux</groupId>
+            <groupId>org.jflux</groupId>
             <artifactId>org.jflux.spec.discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
 
