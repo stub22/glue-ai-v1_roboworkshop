@@ -16,105 +16,105 @@
 
 package org.rwshop.nb.motion.nodes;
 
-import java.awt.Image;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.Action;
+import org.mechio.api.motion.servos.config.ServoConfig;
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
-import org.openide.nodes.Node.Property;
 import org.openide.nodes.PropertySupport;
 import org.openide.nodes.Sheet;
 import org.openide.util.Utilities;
 import org.openide.util.WeakListeners;
 import org.openide.util.lookup.Lookups;
-import org.mechio.api.motion.servos.config.ServoConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.*;
 
 /**
- * 
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
-public class JointConfigNode extends AbstractNode implements PropertyChangeListener{
-    private final static Logger theLogger =  Logger.getLogger(JointConfigNode.class.getName());
+public class JointConfigNode extends AbstractNode implements PropertyChangeListener {
+	private static final Logger theLogger = LoggerFactory.getLogger(JointConfigNode.class);
 
-    public JointConfigNode(ServoConfig config) {
-        super(Children.LEAF, Lookups.singleton(config));
-        if(config == null){
-            throw new NullPointerException("Cannot create JointConfigNode with null JointConfig.");
-        }
-        setName(ServoConfig.class.getName());
-        setDisplayName(config.getName() + " (config)");
-        config.addPropertyChangeListener(WeakListeners.propertyChange(this, config));
-    }
+	public JointConfigNode(ServoConfig config) {
+		super(Children.LEAF, Lookups.singleton(config));
+		if (config == null) {
+			throw new NullPointerException("Cannot create JointConfigNode with null JointConfig.");
+		}
+		setName(ServoConfig.class.getName());
+		setDisplayName(config.getName() + " (config)");
+		config.addPropertyChangeListener(WeakListeners.propertyChange(this, config));
+	}
 
-    @Override
-    public String getHtmlDisplayName() {
-        ServoConfig obj = getLookup().lookup(ServoConfig.class);
-        if (obj != null) {
-            return "<font color='!textText'>" + obj.getName() + 
-                    " </font><font color='!controlShadow'><i>(" +
-                    obj.getClass().getSimpleName() + ")</i></font>";
-        } else {
-            return null;
-        }
-    }
+	@Override
+	public String getHtmlDisplayName() {
+		ServoConfig obj = getLookup().lookup(ServoConfig.class);
+		if (obj != null) {
+			return "<font color='!textText'>" + obj.getName() +
+					" </font><font color='!controlShadow'><i>(" +
+					obj.getClass().getSimpleName() + ")</i></font>";
+		} else {
+			return null;
+		}
+	}
 
-    @Override
-    public Image getIcon(int type) {
-        return Utilities.loadImage("org/myorg/myeditor/icon.png");
-    }
+	@Override
+	public Image getIcon(int type) {
+		return Utilities.loadImage("org/myorg/myeditor/icon.png");
+	}
 
-    @Override
-    public Image getOpenedIcon(int i) {
-        return getIcon(i);
-    }
+	@Override
+	public Image getOpenedIcon(int i) {
+		return getIcon(i);
+	}
 
-    @Override
-    public Action[] getActions(boolean popup) {
-        return new Action[]{};
-    }
+	@Override
+	public Action[] getActions(boolean popup) {
+		return new Action[]{};
+	}
 
-    protected Property[] getProperties() throws NoSuchMethodException{
-        ServoConfig obj = getLookup().lookup(ServoConfig.class);
-        Property logIdProp = new PropertySupport.Reflection(obj, Integer.class, ServoConfig.PROP_ID);
-        logIdProp.setName("Servo Id");
-        Property nameProp = new PropertySupport.Reflection(obj, String.class, ServoConfig.PROP_NAME);
-        nameProp.setName("Name");
-        Property minPosProp = new PropertySupport.Reflection(obj, Integer.class, ServoConfig.PROP_MIN_POSITION);
-        minPosProp.setName("Minimum Position");
-        Property maxPosProp = new PropertySupport.Reflection(obj, Integer.class, ServoConfig.PROP_MAX_POSITION);
-        maxPosProp.setName("Maximum Position");
-        Property defPosProp = new PropertySupport.Reflection(obj, Integer.class, ServoConfig.PROP_DEF_POSITION);
-        defPosProp.setName("Default Position");
-        return new Property[]{logIdProp, nameProp, minPosProp, maxPosProp, defPosProp};
-    }
+	protected Property[] getProperties() throws NoSuchMethodException {
+		ServoConfig obj = getLookup().lookup(ServoConfig.class);
+		Property logIdProp = new PropertySupport.Reflection(obj, Integer.class, ServoConfig.PROP_ID);
+		logIdProp.setName("Servo Id");
+		Property nameProp = new PropertySupport.Reflection(obj, String.class, ServoConfig.PROP_NAME);
+		nameProp.setName("Name");
+		Property minPosProp = new PropertySupport.Reflection(obj, Integer.class, ServoConfig.PROP_MIN_POSITION);
+		minPosProp.setName("Minimum Position");
+		Property maxPosProp = new PropertySupport.Reflection(obj, Integer.class, ServoConfig.PROP_MAX_POSITION);
+		maxPosProp.setName("Maximum Position");
+		Property defPosProp = new PropertySupport.Reflection(obj, Integer.class, ServoConfig.PROP_DEF_POSITION);
+		defPosProp.setName("Default Position");
+		return new Property[]{logIdProp, nameProp, minPosProp, maxPosProp, defPosProp};
+	}
 
-    protected Sheet.Set[] getPropertySheetSets(){
-        Sheet.Set set = Sheet.createPropertiesSet();
-        try{
-            set.put(getProperties());
-        }catch(NoSuchMethodException ex){
-            theLogger.log(Level.SEVERE, "Error creating PropertySheets.", ex);
-        }
-        return new Sheet.Set[]{set};
-    }
+	protected Sheet.Set[] getPropertySheetSets() {
+		Sheet.Set set = Sheet.createPropertiesSet();
+		try {
+			set.put(getProperties());
+		} catch (NoSuchMethodException ex) {
+			theLogger.error("Error creating PropertySheets.", ex);
+		}
+		return new Sheet.Set[]{set};
+	}
 
-    @Override
-    protected Sheet createSheet() {
-        Sheet sheet = Sheet.createDefault();
-        Sheet.Set[] sets = getPropertySheetSets();
-        for(Sheet.Set set : sets){
-            sheet.put(set);
-        }
-        return sheet;
-    }
+	@Override
+	protected Sheet createSheet() {
+		Sheet sheet = Sheet.createDefault();
+		Sheet.Set[] sets = getPropertySheetSets();
+		for (Sheet.Set set : sets) {
+			sheet.put(set);
+		}
+		return sheet;
+	}
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (ServoConfig.PROP_NAME.equals(evt.getPropertyName())) {
-            this.fireDisplayNameChange(null, getDisplayName());
-        }
-    }
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (ServoConfig.PROP_NAME.equals(evt.getPropertyName())) {
+			this.fireDisplayNameChange(null, getDisplayName());
+		}
+	}
 }

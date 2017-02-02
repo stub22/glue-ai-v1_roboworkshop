@@ -15,43 +15,41 @@
  */
 package org.rwshop.nb.animation.cookies;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
 import org.jflux.impl.services.rk.osgi.OSGiUtils;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 import org.mechio.api.animation.editor.AnimationEditor;
 import org.mechio.api.animation.messaging.RemoteAnimationPlayerClient;
 import org.mechio.api.animation.player.AnimationPlayer;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 import org.rwshop.nb.common.cookies.StopCookie;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author Matthew Stevenson
  */
-public class StopAnimationCookie 
-        extends SourceImpl<AnimationEditor> implements StopCookie{
-    private final static Logger theLogger = Logger.getLogger(StopAnimationCookie.class.getName());
-    
-    public StopAnimationCookie(AnimationEditor controller){
-        super(controller);
-    }
-    
-    @Override
-    public void stop(){
-        BundleContext context = 
-                OSGiUtils.getBundleContext(AnimationPlayer.class);
-        if(context == null){
-            theLogger.log(Level.SEVERE, 
-                    "Unable to find BundleContext for AnimationPlayer");
-            return;
-        }
-        ServiceReference ref = context.getServiceReference(RemoteAnimationPlayerClient.class.getName());
-        RemoteAnimationPlayerClient client = OSGiUtils.getService(RemoteAnimationPlayerClient.class, context, ref);
-        if(client == null){
-            return;
-        }
-        client.stopAnimation(getValue().getEnabledAnimation());
-    }
+public class StopAnimationCookie
+		extends SourceImpl<AnimationEditor> implements StopCookie {
+	private static final Logger theLogger = LoggerFactory.getLogger(StopAnimationCookie.class);
+
+	public StopAnimationCookie(AnimationEditor controller) {
+		super(controller);
+	}
+
+	@Override
+	public void stop() {
+		BundleContext context =
+				OSGiUtils.getBundleContext(AnimationPlayer.class);
+		if (context == null) {
+			theLogger.error("Unable to find BundleContext for AnimationPlayer");
+			return;
+		}
+		ServiceReference ref = context.getServiceReference(RemoteAnimationPlayerClient.class.getName());
+		RemoteAnimationPlayerClient client = OSGiUtils.getService(RemoteAnimationPlayerClient.class, context, ref);
+		if (client == null) {
+			return;
+		}
+		client.stopAnimation(getValue().getEnabledAnimation());
+	}
 }

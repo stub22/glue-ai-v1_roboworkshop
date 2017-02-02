@@ -15,6 +15,24 @@
  */
 package org.rwshop.swing.animation.timeline.listener;
 
+import org.mechio.api.animation.editor.AbstractEditor;
+import org.mechio.api.animation.editor.AnimationEditor;
+import org.mechio.api.animation.editor.ChannelEditor;
+import org.mechio.api.animation.editor.ControlPointEditor;
+import org.mechio.api.animation.editor.EditState;
+import org.mechio.api.animation.editor.MotionPathEditor;
+import org.mechio.api.animation.editor.features.SynchronizedPointGroup;
+import org.rwshop.swing.animation.EditorElement;
+import org.rwshop.swing.animation.timeline.TimelineAnimation;
+import org.rwshop.swing.animation.timeline.TimelineChannel;
+import org.rwshop.swing.animation.timeline.TimelineControlPoint;
+import org.rwshop.swing.animation.timeline.TimelineMotionPath;
+import org.rwshop.swing.animation.timeline.position.PositionSource;
+import org.rwshop.swing.common.scaling.CoordinateScalar;
+import org.rwshop.swing.common.utils.SettingsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -27,32 +45,15 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
-import javax.swing.JPanel;
-import javax.swing.RepaintManager;
-import org.mechio.api.animation.editor.AbstractEditor;
-import org.mechio.api.animation.editor.EditState;
-import org.mechio.api.animation.editor.AnimationEditor;
-import org.mechio.api.animation.editor.ChannelEditor;
-import org.mechio.api.animation.editor.ControlPointEditor;
-import org.mechio.api.animation.editor.MotionPathEditor;
-import org.mechio.api.animation.editor.features.SynchronizedPointGroup;
-import org.rwshop.swing.animation.timeline.TimelineAnimation;
-import org.rwshop.swing.animation.timeline.TimelineChannel;
-import org.rwshop.swing.animation.timeline.TimelineMotionPath;
-import org.rwshop.swing.animation.timeline.TimelineControlPoint;
-import org.rwshop.swing.common.scaling.CoordinateScalar;
-import org.rwshop.swing.common.utils.SettingsRepository;
-import org.rwshop.swing.animation.EditorElement;
-import org.rwshop.swing.animation.timeline.position.PositionSource;
+
+import javax.swing.*;
 
 /**
- *
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class TimelineMouseListener implements MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
 
-	private final static Logger theLogger = Logger.getLogger(TimelineMouseListener.class.getName());
+	private static final Logger theLogger = LoggerFactory.getLogger(TimelineMouseListener.class);
 	private AnimationEditor myController;
 	private TimelineAnimation myTimeline;
 	private CoordinateScalar myScalar;
@@ -360,7 +361,7 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 		if (myTimeline == null || myController == null) {
 			return null;
 		}
-		Map<Integer, Double> positions = new HashMap<Integer, Double>();
+		Map<Integer, Double> positions = new HashMap<>();
 		for (int j = 0; j < myTimeline.getChannels().size(); j++) {
 			TimelineChannel timelineChannel = myTimeline.getChannels().get(j);
 			ChannelEditor chan = timelineChannel.getController();
@@ -467,85 +468,82 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 		}
 	}
 
-	private double gridY(double y){
-		if(y > .75){
-				if(y >= .97)
-					y = 1;
-				else if(y >= .91)
-					y = .94;
-				else if(y >= .84)
-					y = .88;
-				else
-					y = .81;
-			}
-			else if(y > .5){
-				if(y >= .72)
-					y = .75;
-				else if(y >= .66)
-					y = .69;
-				else if(y >= .59)
-					y = .63;
-				else
-					y = .56;
-			}
-			else if(y > .25){
-				if(y >= .47)
-					y = .5;
-				else if(y >= .41)
-					y = .44;
-				else if(y >= .34)
-					y = .38;
-				else
-					y = .31;
-			} else {
-				if(y > .22)
-					y = .25;
-				else if(y >= .16)
-					y = .19;
-				else if(y >= .09)
-					y = .13;
-				else if(y >= .03)
-					y = .06;
-				else
-					y = 0;
-			}
+	private double gridY(double y) {
+		if (y > .75) {
+			if (y >= .97)
+				y = 1;
+			else if (y >= .91)
+				y = .94;
+			else if (y >= .84)
+				y = .88;
+			else
+				y = .81;
+		} else if (y > .5) {
+			if (y >= .72)
+				y = .75;
+			else if (y >= .66)
+				y = .69;
+			else if (y >= .59)
+				y = .63;
+			else
+				y = .56;
+		} else if (y > .25) {
+			if (y >= .47)
+				y = .5;
+			else if (y >= .41)
+				y = .44;
+			else if (y >= .34)
+				y = .38;
+			else
+				y = .31;
+		} else {
+			if (y > .22)
+				y = .25;
+			else if (y >= .16)
+				y = .19;
+			else if (y >= .09)
+				y = .13;
+			else if (y >= .03)
+				y = .06;
+			else
+				y = 0;
+		}
 		return y;
 	}
 
-	private long gridX(long x){
+	private long gridX(long x) {
 		double lowX = -1;
 		double highX = -1;
 		double interval = myContextMenu.getPanel().getTimeInterval();
 		double max = myContextMenu.getPanel().getMax();
 
-		for(int i = 0; i < max; i+=interval){
-			if(x <= i){
+		for (int i = 0; i < max; i += interval) {
+			if (x <= i) {
 				highX = i;
-				if(i == 0){
+				if (i == 0) {
 					lowX = i;
-				}
-				else{
-					lowX = (i-interval);
+				} else {
+					lowX = (i - interval);
 				}
 				break;
 			}
 		}
 
-		double block = .25*interval;
+		double block = .25 * interval;
 
-		if(highX == lowX){
+		if (highX == lowX) {
 			return 0;
 		}
-		if(x >= lowX + 3.5*block)
-			x = (long)highX;
-		else if( x >= lowX + 2.5*block)
-			x = (long)(highX - block);
-		else if(x >= lowX + 1.5*block)
-			x = (long)(highX - 2*block);
-		else if(x >= lowX + .5*block)
-			x = (long)(lowX + block);
+		if (x >= lowX + 3.5 * block)
+			x = (long) highX;
+		else if (x >= lowX + 2.5 * block)
+			x = (long) (highX - block);
+		else if (x >= lowX + 1.5 * block)
+			x = (long) (highX - 2 * block);
+		else if (x >= lowX + .5 * block)
+			x = (long) (lowX + block);
 		else
-			x = (long)lowX;
+			x = (long) lowX;
 
 		return x;
 	}
@@ -582,11 +580,11 @@ public class TimelineMouseListener implements MouseListener, MouseMotionListener
 			boolean val = !myPositionSource.getEditEnabled();
 			myPositionSource.setEditEnabled(val);
 			repaint();
-		} else if(e.getKeyCode() == KeyEvent.VK_C){
+		} else if (e.getKeyCode() == KeyEvent.VK_C) {
 			isCDown = true;
-		} else if(e.getKeyCode() == KeyEvent.VK_V){
+		} else if (e.getKeyCode() == KeyEvent.VK_V) {
 			isVDown = true;
-		} else if(e.getKeyCode() == KeyEvent.VK_B){
+		} else if (e.getKeyCode() == KeyEvent.VK_B) {
 			isBDown = true;
 		}
 	}

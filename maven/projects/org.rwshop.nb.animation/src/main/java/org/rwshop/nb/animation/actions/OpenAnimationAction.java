@@ -15,14 +15,6 @@
  */
 package org.rwshop.nb.animation.actions;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.lang.invoke.MethodHandles;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
 import org.mechio.api.animation.editor.AnimationEditor;
 import org.openide.filesystems.FileObject;
@@ -37,25 +29,33 @@ import org.rwshop.swing.animation.actions.FileAction;
 import org.rwshop.swing.common.scaling.CoordinateScalar;
 import org.rwshop.swing.common.scaling.DefaultCoordinateScalar;
 import org.rwshop.swing.common.scaling.ScalingManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public final class OpenAnimationAction implements ActionListener {
 
-	private final static Logger theLogger = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+	private static final Logger theLogger = LoggerFactory.getLogger(OpenAnimationAction.class);
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		File[] files = fileChooser();
 		if (files == null) {
-			theLogger.log(Level.INFO, "OpenAnimationAction cancelled. No file(s) were selected.");
+			theLogger.info("OpenAnimationAction cancelled. No file(s) were selected.");
 			return;
 		}
 
 		for (File file : files) {
-			SourceImpl<AnimationEditor> cS = new SourceImpl<AnimationEditor>();
+			SourceImpl<AnimationEditor> cS = new SourceImpl<>();
 			new FileAction.Open(cS, new UndoRedoFactory(), file.getPath()).actionPerformed(null);
 			if (cS.getValue() == null) {
 				return;

@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-	<parent>
+    <parent>
         <artifactId>org.rwshop.modules.vision</artifactId>
         <groupId>org.rwshop</groupId>
         <version>1.0.0-SNAPSHOT</version>
-		<relativePath>../../org.rwshop.modules.vision/pom.xml</relativePath>
+        <relativePath>../../org.rwshop.modules.vision/pom.xml</relativePath>
     </parent>
     <artifactId>org.rwshop.nb.vision</artifactId>
     <name>${project.artifactId} NetBeans Module</name>
@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
+            <artifactId>org.osgi.compendium</artifactId>
         </dependency>
         <dependency>
             <groupId>${mechio.groupId}</groupId>
@@ -72,7 +72,7 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-			<groupId>org.jflux</groupId>
+            <groupId>org.jflux</groupId>
             <artifactId>org.jflux.api.core</artifactId>
         </dependency>
         <dependency>
@@ -82,6 +82,11 @@
         <dependency>
             <groupId>org.jflux</groupId>
             <artifactId>org.jflux.impl.transport.qpid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
 

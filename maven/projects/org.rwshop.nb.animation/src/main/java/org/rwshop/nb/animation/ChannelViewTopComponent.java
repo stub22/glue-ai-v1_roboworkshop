@@ -16,176 +16,217 @@
 
 package org.rwshop.nb.animation;
 
-import java.awt.Container;
-import java.util.Collection;
-import java.util.logging.Logger;
-import org.rwshop.nb.animation.history.UndoRedoHistoryStack;
 import org.mechio.api.animation.editor.AnimationEditor;
-import org.rwshop.swing.animation.table.channel.ChannelTable;
-import org.openide.util.NbBundle;
-import org.openide.windows.TopComponent;
-import org.openide.windows.WindowManager;
-//import org.openide.util.ImageUtilities;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.UndoRedo;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
+import org.openide.util.NbBundle;
 import org.openide.util.Utilities;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
+import org.openide.windows.TopComponent;
+import org.openide.windows.WindowManager;
+import org.rwshop.nb.animation.history.UndoRedoHistoryStack;
+import org.rwshop.swing.animation.table.channel.ChannelTable;
+import org.slf4j.LoggerFactory;
+
+import java.awt.*;
+import java.util.Collection;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
+
+//import org.openide.util.ImageUtilities;
 
 /**
  * Top component which displays something.
+ *
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
 @ConvertAsProperties(dtd = "-//org.rwshop.nb.animation//ChannelView//EN",
-autostore = false)
+		autostore = false)
 public final class ChannelViewTopComponent extends TopComponent implements LookupListener {
-    private Lookup.Result result = null;
-    private ChannelTable myTable;
-    private static ChannelViewTopComponent instance;
-    private AnimationDataObject myAnimDataObj;
-    private AnimationEditor myController;
-    private InstanceContent myContent;
-    /** path to the icon used by the component and its open action */
+	private Lookup.Result result = null;
+	private ChannelTable myTable;
+	private static ChannelViewTopComponent instance;
+	private AnimationDataObject myAnimDataObj;
+	private AnimationEditor myController;
+	private InstanceContent myContent;
+	/**
+	 * path to the icon used by the component and its open action
+	 */
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
-    private static final String PREFERRED_ID = "ChannelViewTopComponent";
+	private static final String PREFERRED_ID = "ChannelViewTopComponent";
 
-    public ChannelViewTopComponent() {
-        initComponents();
-        myContent = new InstanceContent();
-        associateLookup(new AbstractLookup(myContent));
-        myTable = new ChannelTable();
-        myTable.hideHeader();
-        setComponent(myTable);
-        setName(NbBundle.getMessage(ChannelViewTopComponent.class, "CTL_ChannelViewTopComponent"));
-        setToolTipText(NbBundle.getMessage(ChannelViewTopComponent.class, "HINT_ChannelViewTopComponent"));
+	public ChannelViewTopComponent() {
+		initComponents();
+		myContent = new InstanceContent();
+		associateLookup(new AbstractLookup(myContent));
+		myTable = new ChannelTable();
+		myTable.hideHeader();
+		setComponent(myTable);
+		setName(NbBundle.getMessage(ChannelViewTopComponent.class, "CTL_ChannelViewTopComponent"));
+		setToolTipText(NbBundle.getMessage(ChannelViewTopComponent.class, "HINT_ChannelViewTopComponent"));
 //        setIcon(ImageUtilities.loadImage(ICON_PATH, true));
 
-    }
+	}
 
-    private void setComponent(Container component){
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(component, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(component, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-    }
+	private void setComponent(Container component) {
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(component, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		);
+		layout.setVerticalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(component, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		);
+	}
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
-     */
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+	/**
+	 * This method is called from within the constructor to
+	 * initialize the form.
+	 * WARNING: Do NOT modify this code. The content of this method is
+	 * always regenerated by the Form Editor.
+	 */
+	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+	private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-    }// </editor-fold>//GEN-END:initComponents
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGap(0, 400, Short.MAX_VALUE)
+		);
+		layout.setVerticalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGap(0, 300, Short.MAX_VALUE)
+		);
+	}// </editor-fold>//GEN-END:initComponents
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
-    /**
-     * Gets default instance. Do not use directly: reserved for *.settings files only,
-     * i.e. deserialization routines; otherwise you could get a non-deserialized instance.
-     * To obtain the singleton instance, use {@link #findInstance}.
-     */
-    public static synchronized ChannelViewTopComponent getDefault() {
-        if (instance == null) {
-            instance = new ChannelViewTopComponent();
-        }
-        return instance;
-    }
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	// End of variables declaration//GEN-END:variables
 
-    /**
-     * Obtain the ChannelViewTopComponent instance. Never call {@link #getDefault} directly!
-     */
-    public static synchronized ChannelViewTopComponent findInstance() {
-        TopComponent win = WindowManager.getDefault().findTopComponent(PREFERRED_ID);
-        if (win == null) {
-            Logger.getLogger(ChannelViewTopComponent.class.getName()).warning(
-                    "Cannot find " + PREFERRED_ID + " component. It will not be located properly in the window system.");
-            return getDefault();
-        }
-        if (win instanceof ChannelViewTopComponent) {
-            return (ChannelViewTopComponent) win;
-        }
-        Logger.getLogger(ChannelViewTopComponent.class.getName()).warning(
-                "There seem to be multiple components with the '" + PREFERRED_ID
-                + "' ID. That is a potential source of errors and unexpected behavior.");
-        return getDefault();
-    }
+	/**
+	 * Gets default instance. Do not use directly: reserved for *.settings files only,
+	 * i.e. deserialization routines; otherwise you could get a non-deserialized instance.
+	 * To obtain the singleton instance, use {@link #findInstance}.
+	 */
+	public static synchronized ChannelViewTopComponent getDefault() {
+		if (instance == null) {
+			instance = new ChannelViewTopComponent();
+		}
+		return instance;
+	}
 
-    @Override
-    public int getPersistenceType() {
-        return TopComponent.PERSISTENCE_ALWAYS;
-    }
+	/**
+	 * Obtain the ChannelViewTopComponent instance. Never call {@link #getDefault} directly!
+	 */
+	public static synchronized ChannelViewTopComponent findInstance() {
+		TopComponent win = WindowManager.getDefault().findTopComponent(PREFERRED_ID);
+		if (win == null) {
+			LoggerFactory.getLogger(ChannelViewTopComponent.class.getName()).warn(
+					"Cannot find " + PREFERRED_ID + " component. It will not be located properly in the window system.");
+			return getDefault();
+		}
+		if (win instanceof ChannelViewTopComponent) {
+			return (ChannelViewTopComponent) win;
+		}
+		LoggerFactory.getLogger(ChannelViewTopComponent.class.getName()).warn(
+				"There seem to be multiple components with the '" + PREFERRED_ID
+						+ "' ID. That is a potential source of errors and unexpected behavior.");
+		return getDefault();
+	}
 
-    @Override
-    public void componentClosed() {
-        result.removeLookupListener (this);
-        result = null;
-    }
+	@Override
+	public int getPersistenceType() {
+		return TopComponent.PERSISTENCE_ALWAYS;
+	}
 
-    void writeProperties(java.util.Properties p) {
-        // better to version settings since initial version as advocated at
-        // http://wiki.apidesign.org/wiki/PropertyFiles
-        p.setProperty("version", "1.0");
-    }
+	@Override
+	public void componentClosed() {
+		result.removeLookupListener(this);
+		result = null;
+	}
 
-    Object readProperties(java.util.Properties p) {
-        if (instance == null) {
-            instance = this;
-        }
-        instance.readPropertiesImpl(p);
-        return instance;
-    }
+	void writeProperties(java.util.Properties p) {
+		// better to version settings since initial version as advocated at
+		// http://wiki.apidesign.org/wiki/PropertyFiles
+		p.setProperty("version", "1.0");
+	}
 
-    private void readPropertiesImpl(java.util.Properties p) {
-        String version = p.getProperty("version");
-    }
+	Object readProperties(java.util.Properties p) {
+		if (instance == null) {
+			instance = this;
+		}
+		instance.readPropertiesImpl(p);
+		return instance;
+	}
 
-    @Override
-    public void componentOpened() {
-        result = Utilities.actionsGlobalContext().lookupResult(AnimationDataObject.class);
-        result.allItems();
-        result.addLookupListener (this);
-    }
+	private void readPropertiesImpl(java.util.Properties p) {
+		String version = p.getProperty("version");
+	}
 
-    @Override
-    public void resultChanged(LookupEvent lookupEvent) {
-        Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
-        Collection c = r.allInstances();
-        if (!c.isEmpty()) {
-			myAnimDataObj = (AnimationDataObject)c.iterator().next();
+	@Override
+	public void componentOpened() {
+		result = Utilities.actionsGlobalContext().lookupResult(AnimationDataObject.class);
+		result.allItems();
+		result.addLookupListener(this);
+	}
+
+	@Override
+	public void resultChanged(LookupEvent lookupEvent) {
+		Lookup.Result r = (Lookup.Result) lookupEvent.getSource();
+		Collection c = r.allInstances();
+		if (!c.isEmpty()) {
+			myAnimDataObj = (AnimationDataObject) c.iterator().next();
 			myController = myAnimDataObj.getController();
 			myTable.setAnimationController(myController);
 			myAnimDataObj.registerCookies(myContent, getLookup());
-        } else {
-            //myTable.setController(null);
-        }
-    }
+		} else {
+			//myTable.setController(null);
+		}
+	}
 
-    @Override
-    public UndoRedo getUndoRedo() {
-        if(myController == null){
-            return super.getUndoRedo();
-        }
-        return (UndoRedoHistoryStack)myController.getSharedHistory();
-    }
+	@Override
+	public UndoRedo getUndoRedo() {
+		if (myController == null) {
+			return super.getUndoRedo();
+		}
+		return (UndoRedoHistoryStack) myController.getSharedHistory();
+	}
 }
