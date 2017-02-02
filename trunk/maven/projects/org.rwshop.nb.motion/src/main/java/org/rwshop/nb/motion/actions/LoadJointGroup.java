@@ -16,59 +16,60 @@
 
 package org.rwshop.nb.motion.actions;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import org.jflux.api.common.rk.osgi.lifecycle.ConfiguredServiceLifecycle;
 import org.jflux.api.common.rk.osgi.lifecycle.ConfiguredServiceParams;
 import org.jflux.impl.services.rk.osgi.OSGiUtils;
 import org.jflux.impl.services.rk.osgi.lifecycle.OSGiComponent;
-import org.osgi.framework.BundleContext;
 import org.mechio.api.motion.jointgroup.JointGroup;
-import org.mechio.impl.motion.jointgroup.RobotJointGroupConfigXMLReader;
 import org.mechio.api.motion.jointgroup.RobotJointGroup;
+import org.mechio.impl.motion.jointgroup.RobotJointGroupConfigXMLReader;
+import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.*;
 
 /**
- * 
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public final class LoadJointGroup implements ActionListener {
-    private final static Logger theLogger = Logger.getLogger(LoadJointGroup.class.getName());
+	private static final Logger theLogger = LoggerFactory.getLogger(LoadJointGroup.class);
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        File file = getFile();
-        if(file == null){
-            return;
-        }
-        BundleContext context = OSGiUtils.getBundleContext(JointGroup.class);
-        if(context == null){
-            return;
-        }
-        launchService(context, file);
-    }
-    
-    private void launchService(BundleContext context, File file){
-        ConfiguredServiceParams params = 
-                new ConfiguredServiceParams(JointGroup.class, null, File.class, 
-                        null, file, null, 
-                        RobotJointGroup.VERSION, 
-                        RobotJointGroupConfigXMLReader.VERSION);
-        OSGiComponent jointGroupComp = new OSGiComponent(context, 
-                new ConfiguredServiceLifecycle(params));
-        jointGroupComp.start();
-        theLogger.log(Level.INFO, "JointGroup Service Registered.");
-    }
-    
-    private File getFile(){
-        JFileChooser chooser = new JFileChooser();
-        int ret = chooser.showOpenDialog(null);
-        if(ret == JFileChooser.CANCEL_OPTION){
-            return null;
-        }
-        return chooser.getSelectedFile();
-    }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		File file = getFile();
+		if (file == null) {
+			return;
+		}
+		BundleContext context = OSGiUtils.getBundleContext(JointGroup.class);
+		if (context == null) {
+			return;
+		}
+		launchService(context, file);
+	}
+
+	private void launchService(BundleContext context, File file) {
+		ConfiguredServiceParams params =
+				new ConfiguredServiceParams(JointGroup.class, null, File.class,
+						null, file, null,
+						RobotJointGroup.VERSION,
+						RobotJointGroupConfigXMLReader.VERSION);
+		OSGiComponent jointGroupComp = new OSGiComponent(context,
+				new ConfiguredServiceLifecycle(params));
+		jointGroupComp.start();
+		theLogger.info("JointGroup Service Registered.");
+	}
+
+	private File getFile() {
+		JFileChooser chooser = new JFileChooser();
+		int ret = chooser.showOpenDialog(null);
+		if (ret == JFileChooser.CANCEL_OPTION) {
+			return null;
+		}
+		return chooser.getSelectedFile();
+	}
 }

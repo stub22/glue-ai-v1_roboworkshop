@@ -16,38 +16,36 @@
 
 package org.rwshop.nb.animation.cookies;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jflux.api.common.rk.utils.RKSource.SourceImpl;
 import org.jflux.impl.services.rk.osgi.OSGiUtils;
-import org.osgi.framework.BundleContext;
 import org.mechio.api.animation.editor.AnimationEditor;
 import org.mechio.api.animation.player.AnimationPlayer;
 import org.mechio.api.animation.utils.AnimationUtils;
+import org.osgi.framework.BundleContext;
 import org.rwshop.nb.common.cookies.PlayCookie;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
-public class PlayAnimationCookie 
-        extends SourceImpl<AnimationEditor> implements PlayCookie{
-    private final static Logger theLogger = Logger.getLogger(PlayAnimationCookie.class.getName());
-    
-    public PlayAnimationCookie(AnimationEditor controller){
-        super(controller);
-    }
-    
-    @Override
-    public void play(){
-        BundleContext context = 
-                OSGiUtils.getBundleContext(AnimationPlayer.class);
-        if(context == null){
-            theLogger.log(Level.SEVERE, 
-                    "Unable to find BundleContext for AnimationPlayer");
-            return;
-        }
-        AnimationUtils.playAnimation(
-                context, null, getValue().getEnabledAnimation());
-    }
+public class PlayAnimationCookie
+		extends SourceImpl<AnimationEditor> implements PlayCookie {
+	private static final Logger theLogger = LoggerFactory.getLogger(PlayAnimationCookie.class);
+
+	public PlayAnimationCookie(AnimationEditor controller) {
+		super(controller);
+	}
+
+	@Override
+	public void play() {
+		BundleContext context =
+				OSGiUtils.getBundleContext(AnimationPlayer.class);
+		if (context == null) {
+			theLogger.error("Unable to find BundleContext for AnimationPlayer");
+			return;
+		}
+		AnimationUtils.playAnimation(
+				context, null, getValue().getEnabledAnimation());
+	}
 }

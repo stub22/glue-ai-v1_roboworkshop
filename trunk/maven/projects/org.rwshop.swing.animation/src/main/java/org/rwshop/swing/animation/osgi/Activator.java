@@ -16,24 +16,23 @@
 
 package org.rwshop.swing.animation.osgi;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.rwshop.swing.common.utils.SettingsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author Matthew Stevenson <www.roboworkshop.org>
  */
 public class Activator implements BundleActivator {
-    private final static Logger theLogger = Logger.getLogger(Activator.class.getName());
+	private static final Logger theLogger = LoggerFactory.getLogger(Activator.class);
 
-    @Override
-    public void start(BundleContext context) throws Exception {
-        theLogger.log(Level.INFO, "AnimationEditor Activation Begin.");
+	@Override
+	public void start(BundleContext context) throws Exception {
+		theLogger.info("AnimationEditor Activation Begin.");
 /*
-        try{
+		try{
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }catch(Throwable t){
             t.printStackTrace();
@@ -43,7 +42,7 @@ public class Activator implements BundleActivator {
                 new InterpolationFrame().setVisible(true);
             }
         });*/
-        //SettingsRepository.initSettings();
+		//SettingsRepository.initSettings();
         /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try{
@@ -54,11 +53,12 @@ public class Activator implements BundleActivator {
                 new AnimationFrame().setVisible(true);
             }
         });*/
-        SettingsRepository.setContext(context);
-        theLogger.log(Level.INFO, "AnimationEditor Activation Complete.");
-    }
+		SettingsRepository.setContext(context);
+		theLogger.info("AnimationEditor Activation Complete.");
+	}
 
-    @Override
-    public void stop(BundleContext context) throws Exception {}
+	@Override
+	public void stop(BundleContext context) throws Exception {
+	}
 
 }

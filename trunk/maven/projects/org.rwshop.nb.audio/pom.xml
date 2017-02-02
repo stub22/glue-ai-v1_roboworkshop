@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-	<parent>
+    <parent>
         <groupId>org.rwshop</groupId>
         <artifactId>org.rwshop.modules.audio</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-		<relativePath>../../org.rwshop.modules.audio/pom.xml</relativePath>
+        <relativePath>../../org.rwshop.modules.audio/pom.xml</relativePath>
     </parent>
     <artifactId>org.rwshop.nb.audio</artifactId>
     <name>${project.artifactId} OSGi Bundle</name>
@@ -50,11 +50,11 @@
             <artifactId>org-openide-explorer</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.apache.felix</groupId>
+            <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.compendium</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.apache.felix</groupId>
+            <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.core</artifactId>
         </dependency>
         <dependency>
@@ -110,7 +110,7 @@
             <artifactId>org.mechio.impl.audio</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.jflux</groupId>
+            <groupId>org.jflux</groupId>
             <artifactId>org.jflux.api.core</artifactId>
         </dependency>
         <dependency>
@@ -122,6 +122,11 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>org.rwshop.nb.animation</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,7 +1,5 @@
 package org.rwshop.headless.animation;
 
-import java.util.logging.Logger;
-import javax.jms.Connection;
 import org.jflux.impl.messaging.rk.lifecycle.JMSAvroAsyncReceiverLifecycle;
 import org.jflux.impl.messaging.rk.lifecycle.JMSAvroMessageSenderLifecycle;
 import org.jflux.impl.messaging.rk.utils.ConnectionManager;
@@ -21,11 +19,14 @@ import org.mechio.impl.animation.messaging.PortableAnimationSignal;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.jms.Connection;
 
 public class Activator implements BundleActivator {
 
-	private final static Logger theLogger
-			= Logger.getLogger(Activator.class.getName());
+	private static final Logger theLogger = LoggerFactory.getLogger(Activator.class);
 	public final static String PLAYER_ID = "myRobot";
 	public final static String ANIM_RECEIVER_ID = "animationReceiver";
 	public final static String CONNECTION_ID = "animationConnection";
@@ -64,9 +65,9 @@ public class Activator implements BundleActivator {
 									String playerId, String receiverId, String senderId, String conId, String destId) {
 		JMSAvroMessageSenderLifecycle signalLife
 				= new JMSAvroMessageSenderLifecycle(
-						new PortableAnimationSignal.MessageRecordAdapter(),
-						AnimationSignal.class, AnimationSignallingRecord.class,
-						senderId, CONNECTION_ID, SIGNAL_DEST_ID);
+				new PortableAnimationSignal.MessageRecordAdapter(),
+				AnimationSignal.class, AnimationSignallingRecord.class,
+				senderId, CONNECTION_ID, SIGNAL_DEST_ID);
 		ManagedService myAnimationSenderService
 				= new OSGiComponent(context, signalLife);
 		myAnimationSenderService.start();
@@ -78,10 +79,10 @@ public class Activator implements BundleActivator {
 
 		JMSAvroAsyncReceiverLifecycle reqRecLifecycle
 				= new JMSAvroAsyncReceiverLifecycle(
-						new PortableAnimationEvent.RecordMessageAdapter(),
-						AnimationEvent.class, AnimationEventRecord.class,
-						AnimationEventRecord.SCHEMA$, ANIM_RECEIVER_ID,
-						conId, destId);
+				new PortableAnimationEvent.RecordMessageAdapter(),
+				AnimationEvent.class, AnimationEventRecord.class,
+				AnimationEventRecord.SCHEMA$, ANIM_RECEIVER_ID,
+				conId, destId);
 		OSGiComponent reqRec = new OSGiComponent(context, reqRecLifecycle);
 		reqRec.start();
 		theLogger.info("Dynamic RemoteAnimationPlayerHost Service Launched.");

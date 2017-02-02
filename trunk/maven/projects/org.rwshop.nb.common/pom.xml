@@ -1,34 +1,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-	<parent>
+    <parent>
         <artifactId>org.rwshop.modules.common</artifactId>
         <groupId>org.rwshop</groupId>
         <version>1.0.0-SNAPSHOT</version>
-		<relativePath>../../org.rwshop.modules.common/pom.xml</relativePath>
+        <relativePath>../../org.rwshop.modules.common/pom.xml</relativePath>
     </parent>
     <artifactId>org.rwshop.nb.common</artifactId>
     <name>${project.artifactId} NetBeans Module</name>
     <packaging>nbm</packaging>
 
     <dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<scope>runtime</scope>
-		    <exclusions>
-				<!-- This embedded Log4J version is not OSGi friendly -->
-		        <exclusion>
-		            <artifactId>log4j</artifactId>
-		            <groupId>log4j</groupId>
-		        </exclusion>
-		    </exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.log4j</groupId>
-			<artifactId>com.springsource.org.apache.log4j</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>runtime</scope>
+            <exclusions>
+                <!-- This embedded Log4J version is not OSGi friendly -->
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.log4j</groupId>
+            <artifactId>com.springsource.org.apache.log4j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-api-annotations-common</artifactId>
@@ -42,11 +47,11 @@
             <artifactId>org.jflux.api.common.rk</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.apache.felix</groupId>
+            <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.core</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.apache.felix</groupId>
+            <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.compendium</artifactId>
         </dependency>
         <dependency>
@@ -78,11 +83,11 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-			<groupId>org.jflux</groupId>
+            <groupId>org.jflux</groupId>
             <artifactId>org.jflux.api.core</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.jflux</groupId>
+            <groupId>org.jflux</groupId>
             <artifactId>org.jflux.impl.services.rk</artifactId>
         </dependency>
         <dependency>
